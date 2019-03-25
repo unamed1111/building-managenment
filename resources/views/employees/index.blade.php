@@ -25,7 +25,7 @@
 		                <tbody>
 		                	@foreach($employees as $employee)
 			                    <tr>
-			                        <td>{{'R00'.$employee->id}}</td>
+			                        <td>{{'E00'.$employee->id}}</td>
 			                        <td>{{$employee->name}}</td>
 			                        <td>{{$employee->dob}}</td>
 			                        <td>{{POSITION[$employee->position]}}</td>

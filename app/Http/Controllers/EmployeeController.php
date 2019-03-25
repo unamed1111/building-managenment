@@ -44,8 +44,8 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        $this->service->store($request->all());
-        return back();
+         $this->service->store($request->except('_token'));
+        return back()->with(['success' => 'Lưu thành công']);
     }
 
     /**
@@ -90,8 +90,9 @@ class EmployeeController extends Controller
      * @param  \App\Models\Employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Employee $employee)
+    public function destroy($id)
     {
-        //
+        $this->service->delete($id);
+        return back()->with('success','Xóa thành công');
     }
 }

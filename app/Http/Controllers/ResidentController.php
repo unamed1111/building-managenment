@@ -42,8 +42,8 @@ class ResidentController extends Controller
      */
     public function store(Request $request)
     {
-        $this->service->store($request->all());
-        return back();
+        $this->service->store($request->except('_token'));
+        return back()->with(['success' => 'Lưu thành công']);
     }
 
     /**
@@ -88,8 +88,9 @@ class ResidentController extends Controller
      * @param  \App\Models\Resident  $resident
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Resident $resident)
+    public function destroy($id)
     {
-        //
+        $this->service->delete($id);
+        return back()->with('success','Xóa thành công');
     }
 }

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Services\ApartmentService;
 use App\Services\BuildingService;
 use App\Services\SVService;
+use App\Http\Requests\ApartmentRequest;
 
 class ApartmentController extends Controller
 {
@@ -48,13 +49,10 @@ class ApartmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ApartmentRequest $request)
     {
-        $result = $this->service->store($request->all());
-        if($result){
-            return back()->with('success','done');
-        }
-        return back()->with('success','fails');
+        $this->service->store($request->except('_token'));
+        return back()->with(['success' => 'Lưu thành công']);
     }
 
     /**
@@ -100,11 +98,13 @@ class ApartmentController extends Controller
      * @param  \App\Models\Apartment  $apartment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Apartment $apartment)
+    public function destroy($id)
     {
-        //
+        $this->service->delete($id);
+        return back()->with('success','Xóa thành công');
     }
 
+    // add services to apartment
     public function addServices(Request $request, $id)
     {
         $this->service->addServices($request->only('services'),$id);

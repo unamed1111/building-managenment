@@ -149,6 +149,63 @@
                 </ul>
               </div>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" href="#devices" aria-expanded="false" aria-controls="devices">
+                <i class="menu-icon mdi mdi-notification-clear-all"></i>
+                <span class="menu-title">Tài sản</span>
+                <i class="menu-arrow"></i>
+              </a>
+              <div class="collapse" id="devices">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{route('devices.index')}}">Danh sách thiết bị</a>
+                  </li>
+                </ul>
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{route('devices.create')}}">Thêm mới</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" href="#maintenances" aria-expanded="false" aria-controls="maintenances">
+                <i class="menu-icon mdi mdi-notification-clear-all"></i>
+                <span class="menu-title">Nghiệp vụ</span>
+                <i class="menu-arrow"></i>
+              </a>
+              <div class="collapse" id="maintenances">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{route('maintenances.index')}}">Danh sách nghiệp vụ</a>
+                  </li>
+                </ul>
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{route('maintenances.create')}}">Thêm mới</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-toggle="collapse" href="#reports" aria-expanded="false" aria-controls="reports">
+                <i class="menu-icon mdi mdi-notification-clear-all"></i>
+                <span class="menu-title">Báo cáo</span>
+                <i class="menu-arrow"></i>
+              </a>
+              <div class="collapse" id="reports">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{route('reports.index')}}">Danh sách báo cáo</a>
+                  </li>
+                </ul>
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{route('reports.create')}}">Thêm mới</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
 
           </ul>
         </nav>

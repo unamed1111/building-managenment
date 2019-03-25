@@ -14,7 +14,7 @@
 		            <table class="table table-hover">
 		                <thead>
 		                    <tr>
-		                        <th>Mã căn hộ</th>
+		                        <th>Mã Dịch Vụ</th>
 		                        <th>Tên dịch vụ</th>
 		                        <th>Giá</th>
 		                        <th>Đơn vị tính</th>
@@ -25,7 +25,7 @@
 		                <tbody>
 		                	@foreach($services as $service)
 			                    <tr>
-			                        <td><a href="{{ route('services.show',$service->id) }}">{{'A00'.$service->id}}</a></td>
+			                        <td><a href="{{ route('services.show',$service->id) }}">{{'S00'.$service->id}}</a></td>
 			                        <td>{{$service->name}}</td>
 			                        <td>{{$service->cost}}</td>
 			                        <td>{{$service->unit}}</td>

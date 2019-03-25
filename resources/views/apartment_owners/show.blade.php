@@ -29,7 +29,7 @@
 		                <tbody>
 		                	@foreach($owner->apartments as $apartment)
 			                    <tr>
-			                        <td>{{'A00'.$apartment->id}}</td>
+			                        <td><a href="{{ route('apartments.show',$apartment->id) }}">{{'A00'.$apartment->id}}</a></td>
 			                        <td>{{$apartment->name}}</td>
 			                        <td>{{$apartment->floor}}</td>
 			                        <td>{{$apartment->acreage}}</td>

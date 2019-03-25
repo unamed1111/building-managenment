@@ -10,6 +10,6 @@ class Service extends Model
 
     public function apartments()
     {
-    	return $this->belongsToMany('App\Models\Apartment','apartment_services');
+    	return $this->belongsToMany('App\Models\Apartment','apartment_services')->withPivot('registration_time', 'comment');
     }
 }

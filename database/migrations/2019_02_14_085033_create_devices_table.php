@@ -19,8 +19,8 @@ class CreateDevicesTable extends Migration
             $table->string('supplier');
             $table->date('purchase_date');
             $table->smallInteger('floor');
-            $table->smallInteger('status');
-            $table->unsignedInteger('time_maintenance_period');
+            $table->smallInteger('status')->default(1);
+            $table->unsignedInteger('time_maintenance_period')->nullable();
             $table->timestamps();
         });
     }

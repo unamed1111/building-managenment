@@ -3,9 +3,9 @@
 namespace App\Services;
 
 use App\Models\Apartment;
-use App\Models\ApartmentOwner;
 use Illuminate\Http\Request;
 use App\Services\BaseService;
+use Carbon\Carbon;
 
 class ApartmentService extends BaseService
 {
@@ -16,21 +16,13 @@ class ApartmentService extends BaseService
         parent::__construct($apartment);
     }
 
-    public function store($data)
-    {
-        $owner = ApartmentOwner::find($data['apartment_owner_id']);
-        if($owner != null ){
-            return $this->model->create($data);
-        }
-        return false;
-    }
-
     public function addServices($data,$id)
     {
         $apartment = $this->get($id);
+        $date = Carbon::now()->toDateTimeString();
         foreach($data['services'] as $service)
         {
-           $apartment->services()->attach($service,['registration_time' => '1996-02-02', 'comment' => '1']);
+           $apartment->services()->attach($service,['registration_time' => $date, 'comment' => '1']);
         }
         return;
     }
