@@ -11,7 +11,7 @@
                         @method('PUT')
                          <div class="form-group {{ $errors->has('name') ? 'has-danger' : ''}}">
                             <label for="name" class="col-form-label">Tên cư dân:</label>
-                            <input type="text" class="form-control" placeholder="Tên tòa nhà" name="name" id="name" value="{{old('name',$resident->name)}}"> 
+                            <input type="text" class="form-control" placeholder="Tên cư dân" name="name" id="name" value="{{old('name',$resident->name)}}"> 
                             @if ($errors->has('name'))
                                 <small class="text-danger">{{ $errors->first('name') }}</small>
                             @endif

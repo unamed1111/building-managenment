@@ -44,7 +44,7 @@ class BuildingController extends Controller
     public function store(BuildingRequest $request)
     {
         $this->service->store($request->except('_token'));
-        return back();
+        return back()->with(['success' => 'Lưu thành công']);
     }
 
     /**

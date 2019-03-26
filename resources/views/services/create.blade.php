@@ -10,14 +10,14 @@
 		            	@csrf
                     <div class="form-group {{ $errors->has('name') ? 'has-danger' : ''}}">
                         <label for="name" class="col-form-label">Tên dịch vụ:</label>
-                        <input type="text" class="form-control" placeholder="Tên căn hộ" name="name" id="name" value="{{old('name')}}"> 
+                        <input type="text" class="form-control" placeholder="Tên dịch vụ" name="name" id="name" value="{{old('name')}}"> 
                         @if ($errors->has('name'))
                             <small class="text-danger">{{ $errors->first('name') }}</small>
                         @endif
                     </div>
                     <div class="form-group {{ $errors->has('cost') ? 'has-danger' : ''}}">
                         <label for="cost" class="col-form-label">Giá:</label>
-                        <input type="number" class="form-control" name="cost" placeholder="tầng" id="cost" value="{{old('cost')}}"> 
+                        <input type="number" class="form-control" name="cost" placeholder="Giá" id="cost" value="{{old('cost')}}"> 
                         @if ($errors->has('cost'))
                             <small class="text-danger">{{ $errors->first('cost') }}</small>
                         @endif

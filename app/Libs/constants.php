@@ -17,3 +17,8 @@ define('SERVICE_UNIT',[
 	'0' => 'Tháng',
 	'1' => 'Năm'
 ]);
+
+define('DEVICE_STATUS',[
+	0 => 'Đang bảo trì',
+	1 => 'Đang hoạt động',
+]);

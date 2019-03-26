@@ -54,9 +54,10 @@ class ServiceController extends Controller
      * @param  \App\Models\Service  $service
      * @return \Illuminate\Http\Response
      */
-    public function show(Service $service)
+    public function show($id)
     {
-        //
+        $service = $this->service->get($id,'apartments');
+        return view('services.show',compact('service'));
     }
 
     /**
@@ -93,6 +94,6 @@ class ServiceController extends Controller
     public function destroy($id)
     {
         $this->service->delete($id);
-        return back();
+        return back()->with('success','Xóa thành công');
     }
 }

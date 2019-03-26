@@ -21,4 +21,7 @@ Route::resource('residents','ResidentController');
 Route::resource('employees','EmployeeController');
 Route::resource('services','ServiceController');
 Route::resource('apartment_owners','ApartmentOwnerController');
+Route::resource('devices','DeviceController');
+Route::resource('maintenances','MaintenanceController');
+Route::resource('reports','ReportController');
 Route::post('addServicesToApartment/{id}','ApartmentController@addServices')->name('add_services');

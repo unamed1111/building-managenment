@@ -4,9 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Maintenance;
 use Illuminate\Http\Request;
+use App\Services\MaintenanceService;
 
 class MaintenanceController extends Controller
 {
+    private $service;
+
+    public function __construct(MaintenanceService $service)
+    {
+        $this->service = $service;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +22,8 @@ class MaintenanceController extends Controller
      */
     public function index()
     {
-        //
+        $maintenances = $this->service->getAll();
+        return view('maintenances.index',compact('maintenances'));
     }
 
     /**
@@ -24,7 +33,7 @@ class MaintenanceController extends Controller
      */
     public function create()
     {
-        //
+        return view('maintenances.create');
     }
 
     /**
@@ -35,7 +44,8 @@ class MaintenanceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->service->store($request->all());
+        return back()->with(['success' => 'Lưu thành công']);
     }
 
     /**
@@ -44,9 +54,10 @@ class MaintenanceController extends Controller
      * @param  \App\Models\Maintenance  $maintenance
      * @return \Illuminate\Http\Response
      */
-    public function show(Maintenance $maintenance)
+    public function show($id)
     {
-        //
+        $maintenance = $this->service->get($id,'apartments');
+        return view('maintenances.show',compact('maintenance'));
     }
 
     /**
@@ -55,9 +66,10 @@ class MaintenanceController extends Controller
      * @param  \App\Models\Maintenance  $maintenance
      * @return \Illuminate\Http\Response
      */
-    public function edit(Maintenance $maintenance)
+    public function edit($id)
     {
-        //
+        $maintenance = $this->service->get($id);
+        return view('maintenances.edit',compact('maintenance'));
     }
 
     /**
@@ -67,9 +79,10 @@ class MaintenanceController extends Controller
      * @param  \App\Models\Maintenance  $maintenance
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Maintenance $maintenance)
+    public function update(Request $request,$id)
     {
-        //
+        $this->service->update($request->all(),$id);
+        return back()->with(['success' => 'Sửa thành công']);
     }
 
     /**
@@ -78,8 +91,9 @@ class MaintenanceController extends Controller
      * @param  \App\Models\Maintenance  $maintenance
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Maintenance $maintenance)
+    public function destroy($id)
     {
-        //
+        $this->service->delete($id);
+        return back()->with('success','Xóa thành công');
     }
 }

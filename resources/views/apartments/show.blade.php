@@ -22,9 +22,8 @@
                     </div>
                     <hr>
                     <div class="row">
-                        <h3>Các dịch vụ đang sử dụng</h3>
+                        <h3>Thông tin cư dân của căn hộ</h3>
                         <table class="table table-hover">
-                            <caption>Thông tin cư dân của căn hộ </caption>
                             <thead>
                                 <tr>
                                     <th>Mã cư dân</th>
@@ -67,7 +66,7 @@
                                 <tr>
                                     <td><a href="{{ route('services.show',$service->id) }}">{{'A00'.$service->id}}</a></td>
                                     <td>{{$service->name}}</td>
-                                    <td>{{$service->registration_time}}</td>
+                                    <td>{{$service->pivot->registration_time}}</td>
                                 </tr>
                             @endforeach
                         </tbody>

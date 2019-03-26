@@ -4,9 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\Report;
 use Illuminate\Http\Request;
+use App\Services\ReportService;
 
 class ReportController extends Controller
 {
+    private $service;
+
+    public function __construct(ReportService $service)
+    {
+        $this->service = $service;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +22,8 @@ class ReportController extends Controller
      */
     public function index()
     {
-        //
+        $reports = $this->service->getAll();
+        return view('reports.index',compact('reports'));
     }
 
     /**
@@ -24,7 +33,7 @@ class ReportController extends Controller
      */
     public function create()
     {
-        //
+        return view('reports.create');
     }
 
     /**
@@ -35,7 +44,8 @@ class ReportController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->service->store($request->all());
+        return back()->with(['success' => 'Lưu thành công']);
     }
 
     /**
@@ -44,9 +54,10 @@ class ReportController extends Controller
      * @param  \App\Models\Report  $report
      * @return \Illuminate\Http\Response
      */
-    public function show(Report $report)
+    public function show($id)
     {
-        //
+        $report = $this->service->get($id,'apartments');
+        return view('reports.show',compact('report'));
     }
 
     /**
@@ -55,9 +66,10 @@ class ReportController extends Controller
      * @param  \App\Models\Report  $report
      * @return \Illuminate\Http\Response
      */
-    public function edit(Report $report)
+    public function edit($id)
     {
-        //
+        $report = $this->service->get($id);
+        return view('reports.edit',compact('report'));
     }
 
     /**
@@ -67,9 +79,10 @@ class ReportController extends Controller
      * @param  \App\Models\Report  $report
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Report $report)
+    public function update(Request $request,$id)
     {
-        //
+        $this->service->update($request->all(),$id);
+        return back()->with(['success' => 'Sửa thành công']);
     }
 
     /**
@@ -78,8 +91,9 @@ class ReportController extends Controller
      * @param  \App\Models\Report  $report
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Report $report)
+    public function destroy($id)
     {
-        //
+        $this->service->delete($id);
+        return back()->with('success','Xóa thành công');
     }
 }
