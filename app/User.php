@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+         'email', 'password','type','role','software_user_id','user_type'
     ];
 
     /**
@@ -25,7 +25,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password','remember_token'
     ];
 
     /**
@@ -36,4 +36,17 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+     /**
+     * Get all of the owning commentable models.
+     */
+    public function userable()
+    {
+        return $this->morphTo();
+    }
+
+    // public function getName()
+    // {
+    //     return $this->userable() ? $this->userable()->name : "không có tài khoản";
+    // }
 }

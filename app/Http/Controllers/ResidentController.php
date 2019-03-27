@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Resident;
 use App\Services\ResidentService;
+use Illuminate\Support\Facades\Hash;
+use App\User;
 use Illuminate\Http\Request;
 
 class ResidentController extends Controller
@@ -20,7 +22,7 @@ class ResidentController extends Controller
      */
     public function index()
     {
-        $residents = $this->service->getAll();
+        $residents = $this->service->getAll(['user']);
         return view('residents.index',compact('residents'));
     }
 
@@ -92,5 +94,22 @@ class ResidentController extends Controller
     {
         $this->service->delete($id);
         return back()->with('success','Xóa thành công');
+    }
+
+    public function createAccount($id)
+    {
+        $resident = $this->service->get($id);
+        if(!$resident->email){
+            return back()->with('success','Cư dân chưa có email, Cập nhật email trước khi cấp tài khoản');
+        }
+        User::create([
+                'email' => $resident->email,
+                'password' => Hash::make('123456'), // default when create
+                'software_user_id' => $resident->id ,
+                'role' => 1 , // chưa chọn role
+                'type' => 3, // Account type of cư dân
+                'user_type' => 'App\Models\Resident'
+            ]);
+        return back()->with('success','Thêm tài khoản cho nhân viên: ' . $resident->name.' thành công');
     }
 }

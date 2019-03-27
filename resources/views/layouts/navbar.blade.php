@@ -106,7 +106,7 @@
           <span class="profile-text">Richard V.Welsh !</span>
           <img class="img-xs rounded-circle" src="../../../assets/images/faces/face8.jpg" alt="Profile image"> </a>
         <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
-          <a class="dropdown-item p-0">
+          {{-- <a class="dropdown-item p-0">
             <div class="d-flex border-bottom">
               <div class="py-3 px-4 d-flex align-items-center justify-content-center">
                 <i class="mdi mdi-bookmark-plus-outline mr-0 text-gray"></i>
@@ -118,11 +118,16 @@
                 <i class="mdi mdi-alarm-check mr-0 text-gray"></i>
               </div>
             </div>
-          </a>
-          <a class="dropdown-item mt-2"> Manage Accounts </a>
-          <a class="dropdown-item"> Change Password </a>
-          <a class="dropdown-item"> Check Inbox </a>
-          <a class="dropdown-item"> Sign Out </a>
+          </a> --}}
+          <a class="dropdown-item mt-2"> Thông tin cá nhân</a>
+          <a class="dropdown-item" href="{{route('getChangePassword')}}"> Thay đổi mật khẩu </a>
+          {{-- <a class="dropdown-item"> Check Inbox </a> --}}
+          <a class="dropdown-item"  href="{{ route('logout') }}"
+               onclick="event.preventDefault();
+                             document.getElementById('logout-form').submit();"> Đăng xuất </a>
+          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+              @csrf
+          </form>
         </div>
       </li>
     </ul>

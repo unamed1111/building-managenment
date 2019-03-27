@@ -6,7 +6,7 @@
                   <div class="profile-image">
                     <img src="../../../assets/images/faces/face8.jpg" alt="profile image"> </div>
                   <div class="text-wrapper">
-                    <p class="profile-name">Richard V.Welsh</p>
+                    <p class="profile-name">{{'name'}}</p>
                     <div>
                       <small class="designation text-muted">Manager</small>
                       <span class="status-indicator online"></span>

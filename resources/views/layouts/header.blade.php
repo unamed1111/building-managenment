@@ -3,7 +3,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Star Admin Premium Bootstrap Admin Dashboard Template</title>
+    <title>Building Care Application</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="{{asset('assets/vendors/iconfonts/mdi/css/materialdesignicons.min.css')}}">
     <link rel="stylesheet" href="{{asset('assets/vendors/iconfonts/puse-icons-feather/feather.css')}}">
@@ -18,4 +18,7 @@
     <!-- Layout styles -->
     <link rel="stylesheet" href="{{asset('assets/css/demo_1/style.css')}}">
     <!-- End Layout styles -->
-<link rel="shortcut icon" href="{{asset('assets/images/favicon.png')}}/> </head>
+<link rel="shortcut icon" href="{{asset('assets/images/favicon.png')}}"/> 
+
+
+</head>

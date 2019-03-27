@@ -22,3 +22,10 @@ define('DEVICE_STATUS',[
 	0 => 'Đang bảo trì',
 	1 => 'Đang hoạt động',
 ]);
+
+define('ACCOUNT_TYPE',[
+	0 => 'Amin',
+	1 => 'Ban quản lý',
+	2 => 'Nhân viên',
+	3 => 'Cư dân'
+]);

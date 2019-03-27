@@ -29,6 +29,27 @@
                                 <option value="1">Nữ</option>
                             </select>
                         </div>
+                        <div class="form-group {{ $errors->has('phone') ? 'has-danger' : ''}}">
+                            <label for="phone" class="col-form-label">Số điện thoại:</label>
+                            <input type="text" class="form-control" placeholder="số điện thoại" name="phone" id="phone" value="{{old('phone')}}"> 
+                            @if ($errors->has('phone'))
+                                <small class="text-danger">{{ $errors->first('phone') }}</small>
+                            @endif
+                        </div>
+                        <div class="form-group {{ $errors->has('email') ? 'has-danger' : ''}}">
+                            <label for="email" class="col-form-label">Email:</label>
+                            <input type="email" class="form-control" placeholder="Email" name="email" id="email" value="{{old('email')}}"> 
+                            @if ($errors->has('email'))
+                                <small class="text-danger">{{ $errors->first('email') }}</small>
+                            @endif
+                        </div>
+                        <div class="form-group {{ $errors->has('address') ? 'has-danger' : ''}}">
+                            <label for="address" class="col-form-label">Địa chỉ:</label>
+                            <input type="text" class="form-control" placeholder="Email" name="address" id="address" value="{{old('address')}}"> 
+                            @if ($errors->has('address'))
+                                <small class="text-danger">{{ $errors->first('address') }}</small>
+                            @endif
+                        </div>
                         <div class="form-group {{ $errors->has('position') ? 'has-danger' : ''}}">
                             <label for="position" class="col-form-label">vị trí:</label>
                             <select name="position" class="form-control border-primary">
@@ -36,6 +57,12 @@
                                     <option value="{{$key}}">{{$value}}</option>
                                 @endforeach
                             </select>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-check">
+                              <label class="form-check-label">
+                                <input type="checkbox" name="add_account" value="1" checked class="form-check-input"> Tạo tài khoản sử dụng hệ thống cho nhân viên này? <i class="input-helper"></i></label>
+                            </div>
                         </div>
                     <button type="submit" class="btn btn-primary">Thêm</button>
                     <a href="{{route('employees.index')}}" class="btn btn-danger" >Quay lại</a>
@@ -45,4 +72,14 @@
 		</div>
 	</div>
 @endsection
+
+{{-- @push('js')
+    <script>
+        $('#add_account').click(function(event) {
+            /* Act on the event */
+            $('input[name="add_account"]').value('1');
+        });
+
+    </script>
+@endpush --}}
 

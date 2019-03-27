@@ -5,7 +5,7 @@
 		<div class="col-lg-12 grid-margin stretch-card">
 		    <div class="card">
 		        <div class="card-body">
-		            <h4 class="card-title"> Cư dân
+		            <h4 class="card-title"> Quản lý nhân viên
 		            	<a href="{{route('employees.create')}}" class="btn btn-primary btn-sm btn-rounded">Thêm</a>
 		            </h4>
 		            @include('partials.alert')
@@ -19,23 +19,35 @@
 		                        <th>Ngày sinh</th>
 		                        <th>Vị trí</th>
 		                        <th>Giới tính</th>
+		                        <th>Số điện thoại</th>
 		                        <th>Hành động</th>
 		                    </tr>
 		                </thead>
 		                <tbody>
 		                	@foreach($employees as $employee)
+		                		{{-- @if() --}}
 			                    <tr>
-			                        <td>{{'E00'.$employee->id}}</td>
+			                        <td>{{'E00'.$employee->id}} 
+			                        	@if(!$employee->user)
+			                        	<label class="badge badge-danger">Chưa cấp tk</label>
+			                        	@endif
+			                        </td>
 			                        <td>{{$employee->name}}</td>
 			                        <td>{{$employee->dob}}</td>
 			                        <td>{{POSITION[$employee->position]}}</td>
 			                        <td>{{GENDER[$employee->gender]}}</td>
+			                        <td>{{$employee->phone ? $employee->phone : ''}}</td>
 			                        <td>
 			                            <a href="{{ route('employees.edit',$employee->id)}}" class="btn btn-info btn-sm btn-rounded btn-fw">
 	                            			<i class="mdi mdi-cloud-download"></i>Sửa
 	                        			</a>
 	                        			&nbsp;<button type="button" class="btn btn-primary btn-sm btn-rounded" data-toggle="modal" data-target="{{"#add".$employee->id}}" data-whatever="@mdo">Xóa</button>
 	                        			@include('partials.modal',['id'=> $employee->id, 'route' => route('employees.destroy', $employee->id)])
+	                        			@if(!$employee->user)
+			                        		<a href="{{ route('employees.createAccount',$employee->id)}}" class="btn btn-secondary btn-sm btn-rounded btn-fw">
+	                            			Cấp ngay
+	                        			</a>
+			                        	@endif
 			                        </td>
 			                    </tr>
 		                    @endforeach

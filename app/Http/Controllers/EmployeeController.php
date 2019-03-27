@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Employee;
 use App\Services\EmployeeService;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
+use App\Http\Requests\EmployeeRequest;
+use App\User;
 
 class EmployeeController extends Controller
 {
@@ -22,7 +25,7 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employees = $this->service->getAll();
+        $employees = $this->service->getAll(['user']);
         return view('employees.index',compact('employees'));
     }
 
@@ -42,9 +45,21 @@ class EmployeeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(EmployeeRequest $request)
     {
-         $this->service->store($request->except('_token'));
+        
+        $employee = $this->service->store($request->except('_token','add_account'));
+        // tạo tài khoản cho nhân viên khi tạo dữ liệu nhân viên
+        if($request->has('add_account')){
+            User::create([
+                'email' => $request->input('email'),
+                'password' => Hash::make('123456'), // default when create
+                'software_user_id' => $employee->id ,
+                'role' => 1 , // chưa chọn role
+                'type' => $request->input('position') == 4 ? 1 : 2, // nếu position là ban quản lý thì type = bql ngược lại là nhân viên
+                'user_type' => 'App\Models\Employee'
+            ]);
+        }
         return back()->with(['success' => 'Lưu thành công']);
     }
 
@@ -78,7 +93,7 @@ class EmployeeController extends Controller
      * @param  \App\Models\Employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id)
+    public function update(EmployeeRequest $request,$id)
     {
         $this->service->update($request->all(),$id);
         return back();
@@ -94,5 +109,19 @@ class EmployeeController extends Controller
     {
         $this->service->delete($id);
         return back()->with('success','Xóa thành công');
+    }
+
+    public function createAccount($id)
+    {
+        $employee = $this->service->get($id);
+        User::create([
+                'email' => $employee->email,
+                'password' => Hash::make('123456'), // default when create
+                'software_user_id' => $employee->id ,
+                'role' => 1 , // chưa chọn role
+                'type' => 2, // account type của nhân viên
+                'user_type' => 'App\Models\Employee'
+            ]);
+        return back()->with('success','Thêm tài khoản cho nhân viên: ' . $employee->name.' thành công');
     }
 }
