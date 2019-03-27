@@ -15,6 +15,6 @@ class Resident extends Model
 
     public function user()
     {
-    	 return $this->morphOne('App\User', 'userable','user_type', 'software_user_id');
+    	return $this->morphOne('App\User', 'userable','user_type', 'software_user_id');
     }
 }

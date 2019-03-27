@@ -37,8 +37,8 @@
 			                            <a href="{{ route('reports.edit',$report->id)}}" class="btn btn-info btn-sm btn-rounded btn-fw">
 	                            			<i class="mdi mdi-cloud-download"></i>Sửa
 	                        			</a>
-	                        			&nbsp;<button type="button" class="btn btn-primary btn-sm btn-rounded" data-toggle="modal" data-target="{{"#add".$report->id}}" data-whatever="@mdo">Xóa</button>
-	                        			@include('partials.modal',['id'=> $report->id, 'route' => route('reports.destroy', $report->id)])
+	                        			&nbsp;<button type="button" class="btn btn-primary btn-sm btn-rounded" data-toggle="modal" data-target="{{"#delete".$report->id}}" data-whatever="@mdo">Xóa</button>
+	                        			@include('partials.modal',['id'=> $report->id, 'route' => route('reports.destroy', $report->id), 'action' => 'delete', 'method' => 'delete'])
 			                        </td>
 			                    </tr>
 		                    @endforeach

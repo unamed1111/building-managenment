@@ -41,8 +41,8 @@
 			                            <a href="{{ route('employees.edit',$employee->id)}}" class="btn btn-info btn-sm btn-rounded btn-fw">
 	                            			<i class="mdi mdi-cloud-download"></i>Sửa
 	                        			</a>
-	                        			&nbsp;<button type="button" class="btn btn-primary btn-sm btn-rounded" data-toggle="modal" data-target="{{"#add".$employee->id}}" data-whatever="@mdo">Xóa</button>
-	                        			@include('partials.modal',['id'=> $employee->id, 'route' => route('employees.destroy', $employee->id)])
+	                        			&nbsp;<button type="button" class="btn btn-primary btn-sm btn-rounded" data-toggle="modal" data-target="{{"#delete".$employee->id}}" data-whatever="@mdo">Xóa</button>
+	                        			@include('partials.modal',['id'=> $employee->id, 'route' => route('employees.destroy', $employee->id), 'action' => 'delete', 'method' => 'delete' ])
 	                        			@if(!$employee->user)
 			                        		<a href="{{ route('employees.createAccount',$employee->id)}}" class="btn btn-secondary btn-sm btn-rounded btn-fw">
 	                            			Cấp ngay

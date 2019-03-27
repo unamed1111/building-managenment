@@ -32,8 +32,8 @@
 			                            <a href="{{ route('apartment_owners.edit',$owner->id)}}" class="btn btn-info btn-sm btn-rounded btn-fw">
 	                            			<i class="mdi mdi-cloud-download"></i>Sửa
 	                        			</a>
-	                        			&nbsp;<button type="button" class="btn btn-primary btn-sm btn-rounded" data-toggle="modal" data-target="{{"#add".$owner->id}}" data-whatever="@mdo">Xóa</button>
-	                        			@include('partials.modal',['id'=> $owner->id,'route' => route('apartment_owners.destroy', $owner->id)])
+	                        			&nbsp;<button type="button" class="btn btn-primary btn-sm btn-rounded" data-toggle="modal" data-target="{{"#delete".$owner->id}}" data-whatever="@mdo">Xóa</button>
+	                        			@include('partials.modal',['id'=> $owner->id,'route' => route('apartment_owners.destroy', $owner->id), 'action' => 'delete', 'method' => 'delete'])
 			                        </td>
 			                    </tr>
 		                    @endforeach
