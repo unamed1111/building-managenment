@@ -29,15 +29,8 @@
                             <small class="text-danger">{{ $errors->first('time_start') }}</small>
                         @endif
                     </div>
-                    <div class="form-group {{ $errors->has('time_end') ? 'has-danger' : ''}}">
-                        <label for="time_end" class="col-form-label">Ngày kết thúc:</label>
-                        <input type="date" class="form-control" name="time_end" placeholder="Tầng" id="time_end" value="{{old('time_end',$maintenance->time_end)}}"> 
-                        @if ($errors->has('time_end'))
-                            <small class="text-danger">{{ $errors->first('time_end') }}</small>
-                        @endif
-                    </div>
                     <div class="form-group {{ $errors->has('cost') ? 'has-danger' : ''}}">
-                        <label for="cost" class="col-form-label">Chi Phí:</label>
+                        <label for="cost" class="col-form-label">Chi Phí(VND):</label>
                         <input type="number" class="form-control" name="cost" placeholder="Tầng" id="cost" value="{{old('cost',$maintenance->cost)}}"> 
                         @if ($errors->has('cost'))
                             <small class="text-danger">{{ $errors->first('cost') }}</small>

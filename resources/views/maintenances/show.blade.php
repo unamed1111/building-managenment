@@ -8,27 +8,33 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-8">
-                            <h4>Thống tin dịch vụ <strong>{{$service->name}}</strong></h4>
-                            <p>Giá : {{ $service->cost}}</p>
-                            <p>Đơn vị :{{SERVICE_UNIT[$service->unit]}}</p>
-                            <p>Mô tả : {{$service->description ? $service->description : ''}}</p>
+                            <h4>Thống tin nghiệp vụ <strong>{{$maintenance->id}}</strong></h4>
+                            <p>Mô tả nghiệp vụ : {{ $maintenance->description}}</p>
+                            <p>Thiết bị:{{$maintenance->device_id}}</p>
+                            <p>Ngày bắt đầu: {{$maintenance->time_start}}</p>
+                            <p>Ngày kết thúc: {{$maintenance->time_end ? $maintenance->time_end: ''}}</p>
+                            <p>Chi phí(VND): {{$maintenance->cost}}</p>
+                        </div>
+                        <div class="col-md-4">
+                            @include('maintenances.modal_add_services')
+                            <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#services-4" data-whatever="@mdo">Thêm nhân viên</button>
                         </div>
                     </div>
                     <hr>
                     <div class="row">
-                        <h3> Các căn hộ đang sử dụng</h3> 
+                        <h3> Các Nhân Viên Thực Thi</h3> 
                         <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>Mã căn hộ</th>
-                                <th>Thời gian đăng kí</th>
+                                <th>Mã nhân viên</th>
+                                <th>Tên nhân viên</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($service->apartments as $apartment)
+                            @foreach($maintenance->employees as $employee)
                                 <tr>
-                                    <td><a href="{{ route('apartments.show',$apartment->id) }}">{{'A00'.$apartment->id}}</a></td>
-                                    <td>{{$apartment->pivot->registration_time}}</td>
+                                    <td><a href="{{ route('employees.show',$employee->id) }}">{{'A00'.$employee->id}}</a></td>
+                                    <td>{{$employee->name}}</td>
                                 </tr>
                             @endforeach
                         </tbody>

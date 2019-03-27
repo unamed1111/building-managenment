@@ -5,14 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\Maintenance;
 use Illuminate\Http\Request;
 use App\Services\MaintenanceService;
+use App\Services\EmployeeService;
 
 class MaintenanceController extends Controller
 {
     private $service;
+    private $employeeService;
 
-    public function __construct(MaintenanceService $service)
+    public function __construct(MaintenanceService $service,EmployeeService $employeeService)
     {
         $this->service = $service;
+        $this->employeeService = $employeeService;
     }
 
     /**
@@ -56,8 +59,9 @@ class MaintenanceController extends Controller
      */
     public function show($id)
     {
-        $maintenance = $this->service->get($id,'apartments');
-        return view('maintenances.show',compact('maintenance'));
+        $employees = $this->employeeService->getAll();
+        $maintenance = $this->service->get($id,'employees');
+        return view('maintenances.show',compact('maintenance','employees'));
     }
 
     /**
@@ -96,4 +100,18 @@ class MaintenanceController extends Controller
         $this->service->delete($id);
         return back()->with('success','Xóa thành công');
     }
+
+    //End maintenance, add time_end to table by current day.
+    public function endMaintenance($id)
+    {
+        $this->service->endMaintenance($id);
+        return back();
+    }
+
+    // add employees to maintenance
+    public function addEmployees(Request $request, $id)
+    {
+        $this->service->addEmployees($request->only('employees'),$id);
+        return back();
+    } 
 }
