@@ -19,7 +19,7 @@
 		                        <th>Thiết bị</th>
 		                        <th>Ngày bắt đầu</th>
 		                        <th>Ngày kết thúc</th>
-		                        <th>Chi phí</th>
+		                        <th>Chi phí(VND)</th>
 		                    </tr>
 		                </thead>
 		                <tbody>
@@ -31,12 +31,16 @@
 			                        <td>{{$maintenance->time_start}}</td>
 			                        <td>{{$maintenance->time_end}}</td>
 			                        <td>{{$maintenance->cost}}</td>
-			                        <td>
-			                            <a href="{{ route('maintenances.edit',$maintenance->id)}}" class="btn btn-info btn-sm btn-rounded btn-fw">
-	                            			<i class="mdi mdi-cloud-download"></i>Sửa
-	                        			</a>
-	                        			&nbsp;<button type="button" class="btn btn-primary btn-sm btn-rounded" data-toggle="modal" data-target="{{"#add".$maintenance->id}}" data-whatever="@mdo">Xóa</button>
-	                        			@include('partials.modal',['id'=> $maintenance->id, 'route' => route('maintenances.destroy', $maintenance->id)])
+			                        <td>			         
+	                        			@if(!isset($maintenance->time_end))
+		                        			<a href="{{ route('maintenances.edit',$maintenance->id)}}" class="btn btn-info btn-sm btn-rounded btn-fw">
+		                            			<i class="mdi mdi-cloud-download"></i>Sửa
+		                        			</a>
+	                        				&nbsp;<button type="button" class="btn btn-primary btn-sm btn-rounded" data-toggle="modal" data-target="{{"#endMaintenance".$maintenance->id}}" data-whatever="@mdo">Kết Thúc</button>
+	                        			@include('partials.modal',['id'=> $maintenance->id, 'route' => route('maintenances.endMaintenance', $maintenance->id), 'action' => 'endMaintenance', 'method' => 'post'])
+	                        			@endif
+	                        			&nbsp;<button type="button" class="btn btn-primary btn-sm btn-rounded" data-toggle="modal" data-target="{{"#delete".$maintenance->id}}" data-whatever="@mdo">Xóa</button>
+	                        			@include('partials.modal',['id'=> $maintenance->id, 'route' => route('maintenances.destroy', $maintenance->id), 'action' => 'delete', 'method' => 'delete' ])
 			                        </td>
 			                    </tr>
 		                    @endforeach

@@ -19,7 +19,7 @@ class CreateMaintenancesTable extends Migration
             $table->unsignedInteger('device_id');
             $table->datetime('time_start');
             $table->datetime('time_end')->nullable();
-            $table->float('cost');
+            $table->float('cost')->nullable();
             $table->foreign('device_id')
                     ->references('id')->on('devices')
                     ->onDelete('cascade');

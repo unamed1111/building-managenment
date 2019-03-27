@@ -25,3 +25,5 @@ Route::resource('devices','DeviceController');
 Route::resource('maintenances','MaintenanceController');
 Route::resource('reports','ReportController');
 Route::post('addServicesToApartment/{id}','ApartmentController@addServices')->name('add_services');
+Route::post('endMaintenance/{id}','MaintenanceController@endMaintenance')->name('maintenances.endMaintenance');
+Route::post('addEmployeeMaintenance/{id}','MaintenanceController@addEmployees')->name('add_employees');

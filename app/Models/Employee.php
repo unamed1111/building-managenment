@@ -12,4 +12,14 @@ class Employee extends Model
     	'type' => 1,
     	'building_id' => 1
     ];
+
+    public function maintenances()
+    {
+        return $this->belongsToMany('App\Models\maintenances','employee_maintenances');
+    }
+
+    public function building()
+    {
+    	return $this->belongsTo('App\Models\Building');
+    }
 }

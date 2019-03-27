@@ -38,7 +38,7 @@
 	                            			<i class="mdi mdi-cloud-download"></i>Sửa
 	                        			</a>
 	                        			&nbsp;<button type="button" class="btn btn-primary btn-sm btn-rounded" data-toggle="modal" data-target="{{"#add".$device->id}}" data-whatever="@mdo">Xóa</button>
-	                        			@include('partials.modal',['id'=> $device->id, 'route' => route('devices.destroy', $device->id)])
+	                        			@include('partials.modal',['id'=> $device->id, 'route' => route('devices.destroy', $device->id), 'action' => 'delete', 'method' => 'delete'])
 			                        </td>
 			                    </tr>
 		                    @endforeach
