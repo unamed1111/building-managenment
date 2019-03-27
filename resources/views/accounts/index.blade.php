@@ -24,7 +24,7 @@
 		                <tbody>
 		                	@foreach($accounts as $account)
 			                    <tr>
-			                        <td><a href="{{ route('accounts.show',$account->id) }}">{{'TK00'.$account->id}}</a></td>
+			                        <td><a href="{{ route('accounts.show',$account->id) }}">{{'TK00'.$account->userable()->name}}</a></td>
 			                        <td>{{$account->email}}</td>
 			                        <td>{{ACCOUNT_TYPE[$account->type]}}</td>
 			                        <td>{{$account->role. " :Chưa phân role cho các tài khoản "}}</td>
@@ -32,8 +32,8 @@
 			                           {{--  <a href="{{ route('accounts.edit',$account->id)}}" class="btn btn-info btn-sm btn-rounded btn-fw">
 	                            			<i class="mdi mdi-cloud-download"></i>Sửa
 	                        			</a> --}}
-	                        			&nbsp;<button type="button" class="btn btn-primary btn-sm btn-rounded" data-toggle="modal" data-target="{{"#add".$account->id}}" data-whatever="@mdo">Xóa</button>
-	                        			@include('partials.modal',['id'=> $account->id, 'route' => route('accounts.destroy', $account->id)])
+	                        			&nbsp;<button type="button" class="btn btn-primary btn-sm btn-rounded" data-toggle="modal" data-target="{{"#delete".$account->id}}" data-whatever="@mdo">Xóa</button>
+	                        			@include('partials.modal',['id'=> $account->id, 'route' => route('accounts.destroy', $account->id), 'action' => 'delete', 'method' => 'delete' ])
 			                        </td>
 			                    </tr>
 		                    @endforeach

@@ -40,8 +40,8 @@
 			                            <a href="{{ route('residents.edit',$resident->id)}}" class="btn btn-info btn-sm btn-rounded btn-fw">
 	                            			<i class="mdi mdi-cloud-download"></i>Sửa
 	                        			</a>
-	                        			&nbsp;<button type="button" class="btn btn-primary btn-sm btn-rounded" data-toggle="modal" data-target="{{"#add".$resident->id}}" data-whatever="@mdo">Xóa</button>
-	                        			@include('partials.modal',['id'=> $resident->id, 'route' => route('residents.destroy', $resident->id)])
+	                        			<button type="button" class="btn btn-primary btn-sm btn-rounded" data-toggle="modal" data-target="{{"#delete".$resident->id}}" data-whatever="@mdo">Xóa</button>
+	                        			@include('partials.modal',['id'=> $resident->id, 'route' => route('residents.destroy', $resident->id), 'action' => 'delete', 'method' => 'delete' ])
 	                        			@if(!$resident->user)
 			                        		<a href="{{ route('residents.createAccount',$resident->id)}}" class="btn btn-secondary btn-sm btn-rounded btn-fw">
 	                            			Cấp tài khoản
