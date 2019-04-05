@@ -9,6 +9,8 @@ use App\Services\ReportService;
 class ReportController extends Controller
 {
     private $service;
+    private $status = 1;
+    private $doneStatus = 2;
 
     public function __construct(ReportService $service)
     {
@@ -56,7 +58,9 @@ class ReportController extends Controller
      */
     public function show($id)
     {
-        $report = $this->service->get($id,'apartments');
+
+        $this->service->changeStatus($id,$this->status);
+        $report = $this->service->get($id,'user');
         return view('reports.show',compact('report'));
     }
 
@@ -95,5 +99,11 @@ class ReportController extends Controller
     {
         $this->service->delete($id);
         return back()->with('success','Xóa thành công');
+    }
+
+    public function doneReport(Request $request,$id)
+    {
+        $this->service->doneReport($id,$this->doneStatus,$request->result);
+        return back()->with('success','Thành công');
     }
 }

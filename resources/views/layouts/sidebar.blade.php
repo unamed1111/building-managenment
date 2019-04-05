@@ -6,7 +6,13 @@
                   <div class="profile-image">
                     <img src="../../../assets/images/faces/face8.jpg" alt="profile image"> </div>
                   <div class="text-wrapper">
-                    <p class="profile-name">{{auth()->user()->userable->name}}</p>
+                    <p class="profile-name">
+                      @if(isset(auth()->user()->userable->name))
+                        {{auth()->user()->userable->name}}
+                      @else
+                        {{'Admin'}}
+                      @endif
+                    </p>
                     <div>
                       <small class="designation text-muted">{{ACCOUNT_TYPE[auth()->user()->type]}}</small>
                       <span class="status-indicator online"></span>

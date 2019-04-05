@@ -8,33 +8,15 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-8">
-                            <h4>Thống tin dịch vụ <strong>{{$service->name}}</strong></h4>
-                            <p>Giá : {{ $service->cost}}</p>
-                            <p>Đơn vị :{{SERVICE_UNIT[$service->unit]}}</p>
-                            <p>Mô tả : {{$service->description ? $service->description : ''}}</p>
+                            <h4>Tiêu đề :<strong>{{$report->title}}</strong></h4>
+                            <p>Nội dung : {{ $report->content}}</p>
+                            <p>Trạng thái :{{REPORT_STATUS[$report->status]}}</p>
+                            <p>Thời gian : {{$report->time}}</p>
+                            <p>Người gửi : {{$report->user->userable->name}}</p>
+                            <p>Kết quả : {{$report->result}}</p>
                         </div>
                     </div>
-                    <hr>
-                    <div class="row">
-                        <h3> Các căn hộ đang sử dụng</h3> 
-                        <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>Mã căn hộ</th>
-                                <th>Thời gian đăng kí</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($service->apartments as $apartment)
-                                <tr>
-                                    <td><a href="{{ route('apartments.show',$apartment->id) }}">{{'A00'.$apartment->id}}</a></td>
-                                    <td>{{$apartment->pivot->registration_time}}</td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                    </div>
-                    
+                </div>
             </div>
         </div>
     </div>

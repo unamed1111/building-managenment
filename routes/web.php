@@ -35,4 +35,5 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::get('/changePassword','HomeController@getChangePassword')->name('getChangePassword')->middleware('auth');
 Route::post('/changePassword','HomeController@postChangePassword')->name('postChangePassword')->middleware('auth');
 Route::post('endMaintenance/{id}','MaintenanceController@endMaintenance')->name('maintenances.endMaintenance');
+Route::post('doneReport/{id}','ReportController@doneReport')->name('report.doneReport');
 Route::post('addEmployeeMaintenance/{id}','MaintenanceController@addEmployees')->name('add_employees');

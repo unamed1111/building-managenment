@@ -29,3 +29,9 @@ define('ACCOUNT_TYPE',[
 	2 => 'Nhân viên',
 	3 => 'Cư dân'
 ]);
+
+define('REPORT_STATUS',[
+	0 => 'Chưa đọc',
+	1 => 'Đã đọc',
+	2 => 'Đã xử lý',
+]);
