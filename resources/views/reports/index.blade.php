@@ -20,7 +20,6 @@
 		                        <th>Thời gian</th>
 		                        <th>Trạng thái</th>
 		                        <th>Người gửi</th>
-		                        <th>Kết quả</th>
 		                    </tr>
 		                </thead>
 		                <tbody>
@@ -30,13 +29,13 @@
 			                        <td>{{$report->title}}</td>
 			                        <td>{{$report->content}}</td>
 			                        <td>{{$report->time}}</td>
-			                        <td>{{$report->status}}</td>
+			                        <td>{{REPORT_STATUS[$report->status]}}</td>
 			                        <td>{{$report->user_id}}</td>
-			                        <td>{{$report->result}}</td>
 			                        <td>
-			                            <a href="{{ route('reports.edit',$report->id)}}" class="btn btn-info btn-sm btn-rounded btn-fw">
-	                            			<i class="mdi mdi-cloud-download"></i>Sửa
-	                        			</a>
+			                        	@if($report->status !== 2)
+			                        		@include('reports.modal_done_report')
+			                            &nbsp;<button type="button" class="btn btn-primary btn-sm btn-rounded" data-toggle="modal" data-target="#services-{{$report->id}}" data-whatever="@mdo">Hoàn thành</button>
+			                            @endif
 	                        			&nbsp;<button type="button" class="btn btn-primary btn-sm btn-rounded" data-toggle="modal" data-target="{{"#delete".$report->id}}" data-whatever="@mdo">Xóa</button>
 	                        			@include('partials.modal',['id'=> $report->id, 'route' => route('reports.destroy', $report->id), 'action' => 'delete', 'method' => 'delete'])
 			                        </td>

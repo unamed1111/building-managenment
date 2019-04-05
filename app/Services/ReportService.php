@@ -23,4 +23,22 @@ class ReportService extends BaseService
     	$data['time'] = Carbon::now()->toDateTimeString();
     	return $this->model->create($data);
     }
+
+
+    // 1 mean was read
+    // 2 mean done
+    public function changeStatus($id,$status)
+    {
+        $model = $this->get($id);
+        $model->status = $status;
+        return $model->save();
+    }
+
+    public function doneReport($id,$status,$result)
+    {
+        $model = $this->get($id);
+        $model->status = $status;
+        $model->result = $result;
+        return $model->save();
+    }
 }
