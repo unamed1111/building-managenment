@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class Resident extends Model
 {
+	use Searchable;
     protected $guarded = [];
 
     public function apartment()

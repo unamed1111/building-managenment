@@ -26,9 +26,10 @@ class ApartmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $apartments = $this->service->getAll(['building','owner']);
+        if(isset($request->search)) $apartments = $this->service->search($request,['building','owner']);
+        else $apartments = $this->service->getAll(['building','owner']);
         return view('apartments.index',compact('apartments'));
     }
 

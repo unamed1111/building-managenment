@@ -23,9 +23,10 @@ class MaintenanceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $maintenances = $this->service->getAll();
+        if(isset($request->search)) $maintenances = $this->service->search($request);
+        else $maintenances = $this->service->getAll();
         return view('maintenances.index',compact('maintenances'));
     }
 
@@ -47,7 +48,8 @@ class MaintenanceController extends Controller
      */
     public function store(Request $request)
     {
-        $this->service->store($request->all());
+        $maintenance = $this->service->store($request->all());
+        $this->service->changeDeviceStatus($maintenance->id,1);
         return back()->with(['success' => 'Lưu thành công']);
     }
 
@@ -97,6 +99,7 @@ class MaintenanceController extends Controller
      */
     public function destroy($id)
     {
+        $this->service->changeDeviceStatus($id,-1);
         $this->service->delete($id);
         return back()->with('success','Xóa thành công');
     }
@@ -105,6 +108,7 @@ class MaintenanceController extends Controller
     public function endMaintenance($id)
     {
         $this->service->endMaintenance($id);
+        $this->service->changeDeviceStatus($id,-1);
         return back();
     }
 

@@ -7,6 +7,7 @@
 		        <div class="card-body">
 		            <h4 class="card-title"> Cư dân
 		            	<a href="{{route('residents.create')}}" class="btn btn-primary btn-sm btn-rounded">Thêm</a>
+		            	@include('partials.search',['route' => route('residents.index')])
 		            </h4>
 		            @include('partials.alert')
 		            <p class="card-description"> Danh sách cư dân tòa nhà</p>

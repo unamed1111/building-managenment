@@ -7,6 +7,7 @@
 		        <div class="card-body">
 		            <h4 class="card-title"> Quản lý nhân viên
 		            	<a href="{{route('employees.create')}}" class="btn btn-primary btn-sm btn-rounded">Thêm</a>
+		            	@include('partials.search',['route' => route('employees.index')])
 		            </h4>
 		            @include('partials.alert')
 		            <p class="card-description"> Danh sách nhân viên</p>

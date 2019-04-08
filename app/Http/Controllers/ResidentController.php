@@ -20,9 +20,10 @@ class ResidentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $residents = $this->service->getAll(['user']);
+        if(isset($request->search)) $residents = $this->service->search($request,['user']);
+        else $residents = $this->service->getAll(['user']);
         return view('residents.index',compact('residents'));
     }
 

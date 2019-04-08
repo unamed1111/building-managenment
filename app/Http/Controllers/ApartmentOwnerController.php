@@ -19,9 +19,10 @@ class ApartmentOwnerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $owners = $this->service->getAll();
+        if(isset($request->search)) $owners = $this->service->search($request);
+        else $owners = $this->service->getAll();
         return view('apartment_owners.index',compact('owners'));
     }
 
