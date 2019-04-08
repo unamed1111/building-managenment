@@ -23,9 +23,10 @@ class EmployeeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $employees = $this->service->getAll(['user']);
+        if(isset($request->search)) $employees = $this->service->search($request,['user']);
+        else $employees = $this->service->getAll(['user']);
         return view('employees.index',compact('employees'));
     }
 

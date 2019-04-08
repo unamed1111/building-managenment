@@ -22,9 +22,6 @@ class CreateApartmentServicesTable extends Migration
             $table->foreign('apartment_id')
                     ->references('id')->on('apartments')
                     ->onDelete('cascade');
-            $table->foreign('service_id')
-                    ->references('id')->on('servives')
-                    ->onDelete('cascade');
             $table->timestamps();
         });
     }

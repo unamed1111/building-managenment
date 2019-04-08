@@ -7,6 +7,7 @@
 		        <div class="card-body">
 		            <h4 class="card-title"> Dịch vụ
 		            	<a href="{{route('services.create')}}" class="btn btn-primary btn-sm btn-rounded">Thêm</a>
+		            	@include('partials.search',['route' => route('services.index')])
 		            </h4>
 		            @include('partials.alert')
 		            <p class="card-description"> Tổng hợp các dịch vụ của tòa nhà </p>

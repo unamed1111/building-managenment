@@ -35,4 +35,12 @@ class MaintenanceService extends BaseService
         }
         return;
     }
+
+    public function changeDeviceStatus($id,$value)
+    {
+        $model = $this->get($id,['device']);
+        $model->device->status += $value;
+        $model->device->save();
+        return;
+    }
 }

@@ -7,6 +7,7 @@
 		        <div class="card-body">
 		            <h4 class="card-title"> Quản lý tài khoản
 		            	<a href="{{route('accounts.create')}}" class="btn btn-primary btn-sm btn-rounded">Thêm</a>
+		            	@include('partials.search',['route' => route('accounts.index')])
 		            </h4>
 		            @include('partials.alert')
 		            <p class="card-description"> Thông tin các tòa nhà trong khu vực quản lý </p>

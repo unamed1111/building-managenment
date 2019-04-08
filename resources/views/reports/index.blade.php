@@ -7,6 +7,7 @@
 		        <div class="card-body">
 		            <h4 class="card-title"> Báo Cáo
 		            	<a href="{{route('reports.create')}}" class="btn btn-primary btn-sm btn-rounded">Thêm</a>
+		            	@include('partials.search',['route' => route('reports.index')])
 		            </h4>
 		            @include('partials.alert')
 		            <p class="card-description"> Tổng hợp các báo cáo của tòa nhà </p>

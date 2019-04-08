@@ -7,6 +7,7 @@
 		        <div class="card-body">
 		            <h4 class="card-title">Chủ sở hữu 
 		            	<a href="{{route('apartment_owners.create')}}" class="btn btn-primary btn-sm btn-rounded">Thêm</a>
+		            	@include('partials.search',['route' => route('apartment_owners.index')])
 		            </h4>
 		            @include('partials.alert')
 		            <p class="card-description"> Thông tin chủ sở hữu căn hộ </p>

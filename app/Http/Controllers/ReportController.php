@@ -22,9 +22,10 @@ class ReportController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $reports = $this->service->getAll();
+    public function index(Request $request)
+    {   
+        if(isset($request->search)) $reports = $this->service->search($request);
+        else $reports = $this->service->getAll();
         return view('reports.index',compact('reports'));
     }
 

@@ -36,4 +36,9 @@ class BaseService
     {
         return $this->model->destroy($id);
     }
+
+    public function search($data,$relations = [])
+    {
+        return $this->model::search($data->search)->get()->load($relations);
+    }
 }

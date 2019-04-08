@@ -20,9 +20,10 @@ class ServiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $services = $this->service->getAll();
+        if(isset($request->search)) $services = $this->service->search($request);
+        else $services = $this->service->getAll();
         return view('services.index',compact('services'));
     }
 

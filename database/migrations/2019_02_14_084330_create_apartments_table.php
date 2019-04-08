@@ -24,9 +24,6 @@ class CreateApartmentsTable extends Migration
             $table->foreign('building_id')
                     ->references('id')->on('buildings')
                     ->onDelete('cascade');
-            $table->foreign('apartment_owner_id')
-                    ->references('id')->on('apartment_owners')
-                    ->onDelete('cascade');
             $table->timestamps();
         });
     }

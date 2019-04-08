@@ -19,9 +19,10 @@ class BuildingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $buildings = $this->service->getAll();
+        if(isset($request->search)) $buildings = $this->service->search($request);
+        else $buildings = $this->service->getAll();
         return view('buildings.index',compact('buildings'));
     }
 

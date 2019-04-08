@@ -7,9 +7,10 @@ use Illuminate\Support\Facades\Hash;
 use App\User;
 class AccountController extends Controller
 {
-	public function index()
+	public function index(Request $request)
 	{
-		$accounts = User::all();
+		if(isset($request->search)) $accounts = $this->service->search($request);
+        else $accounts = $this->service->getAll();
 		return view('accounts.index',compact('accounts'));
 	}
 
