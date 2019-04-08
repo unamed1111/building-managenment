@@ -17,10 +17,13 @@ class CreateApartmentServicesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('apartment_id');
             $table->unsignedInteger('service_id');
-            $table->date('registration_time');
+            $table->date('registration_time')->nullable();
             $table->string('comment')->nullable();
             $table->foreign('apartment_id')
                     ->references('id')->on('apartments')
+                    ->onDelete('cascade');
+            $table->foreign('service_id')
+                    ->references('id')->on('services')
                     ->onDelete('cascade');
             $table->timestamps();
         });

@@ -15,16 +15,17 @@ class CreateCostServiceApartmentsTable extends Migration
     {
         Schema::create('cost_service_apartments', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('service_apartment_id');
+            $table->unsignedInteger('apartment_id');
+            $table->text('service_apartment_ids');
+            $table->foreign('apartment_id')
+                    ->references('id')->on('apartments')
+                    ->onDelete('cascade');
             $table->string('month');
             $table->date('payment_date');
             $table->float('amount');
             $table->float('paid_amount');
             $table->float('debt_amount');
             $table->boolean('status');
-            $table->foreign('service_apartment_id')
-                    ->references('id')->on('apartment_services')
-                    ->onDelete('cascade');
             $table->timestamps();
         });
     }
