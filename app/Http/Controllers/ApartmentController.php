@@ -8,6 +8,7 @@ use App\Services\ApartmentService;
 use App\Services\BuildingService;
 use App\Services\SVService;
 use App\Http\Requests\ApartmentRequest;
+use Carbon\Carbon;
 
 class ApartmentController extends Controller
 {
@@ -108,7 +109,15 @@ class ApartmentController extends Controller
     // add services to apartment
     public function addServices(Request $request, $id)
     {
-        $this->service->addServices($request->only('services'),$id);
+        $this->service->addServices($request->only('services','quantity'),$id);
         return back();
-    } 
+    }
+
+    public function billCompute($id)
+    {
+        $date = Carbon::now()->format('m Y');
+        $date = explode(' ',$date);
+        dd(Apartment::with('costs','customerServices')->find($id));
+
+    }
 }

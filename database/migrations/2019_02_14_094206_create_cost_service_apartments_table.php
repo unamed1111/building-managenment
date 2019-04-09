@@ -16,7 +16,7 @@ class CreateCostServiceApartmentsTable extends Migration
         Schema::create('cost_service_apartments', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('apartment_id');
-            $table->text('service_apartment_ids');
+            $table->text('service_apartment_ids'); 
             $table->foreign('apartment_id')
                     ->references('id')->on('apartments')
                     ->onDelete('cascade');

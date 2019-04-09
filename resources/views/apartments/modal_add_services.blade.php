@@ -17,6 +17,7 @@
                                 <div class="form-check">
                                     <label class="form-check-label">
                                     <input type="checkbox" class="form-check-input" name="services[]" value="{{$service->id}}"> {{$service->name}} </label>
+                                    <input type="number" name="quantity[]" class='form-number-input'>
                                 </div>
                                 @endforeach
                             </div>

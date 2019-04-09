@@ -18,6 +18,7 @@
                         <div class="col-md-4">
                             @include('apartments.modal_add_services')
                             <button type="button" class="btn btn-outline-dark" data-toggle="modal" data-target="#services-4" data-whatever="@mdo">Thêm dịch vụ</button>
+                            <a href="{{route('bills.compute',$apartment->id)}}">Tính tiền</a>
                         </div>
                     </div>
                     <hr>
@@ -50,7 +51,6 @@
                             </tbody>
                         </table>
                     </div>
-
                     <div class="row">
                         <h3> Các dịch vụ đang sử dụng</h3> 
                         <table class="table table-hover">
@@ -59,6 +59,7 @@
                                 <th>Mã căn hộ</th>
                                 <th>Tên dịch vụ</th>
                                 <th>Thời gian đăng kí</th>
+                                <th>Số lượng</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -67,12 +68,35 @@
                                     <td><a href="{{ route('services.show',$service->id) }}">{{'A00'.$service->id}}</a></td>
                                     <td>{{$service->name}}</td>
                                     <td>{{$service->pivot->registration_time}}</td>
+                                    <td>{{$service->pivot->quantity}}</td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
                     </div>
-                    
+                    <div class="row">
+                        <h3> Chi phí sử dụng</h3> 
+                        <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Mã bill</th>
+                                <th>Tên dịch vụ</th>
+                                <th>Thời gian đăng kí</th>
+                                <th>Số lượng</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($apartment->services as $service)
+                                <tr>
+                                    <td><a href="{{ route('services.show',$service->id) }}">{{'A00'.$service->id}}</a></td>
+                                    <td>{{$service->name}}</td>
+                                    <td>{{$service->pivot->registration_time}}</td>
+                                    <td>{{$service->pivot->quantity}}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                    </div>    
 		    </div>
 		</div>
 	</div>

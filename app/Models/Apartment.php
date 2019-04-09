@@ -27,6 +27,17 @@ class Apartment extends Model
 
     public function services()
     {
-        return $this->belongsToMany('App\Models\Service','apartment_services')->withPivot('registration_time', 'comment');
+        return $this->belongsToMany('App\Models\Service','apartment_services')->withPivot('registration_time', 'comment','quantity');
+    }
+
+    public function costs()
+    {
+        return $this->hasMany('App\Models\CostServiceApartment','apartment_id');
+    }
+
+    public function customerServices()
+    {
+        return $this->hasMany('App\Models\ApartmentService','apartment_id');
     }
 }
+

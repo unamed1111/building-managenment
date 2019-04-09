@@ -17,6 +17,7 @@ class CreateApartmentServicesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('apartment_id');
             $table->unsignedInteger('service_id');
+            $table->smallInteger('quantity');
             $table->date('registration_time')->nullable();
             $table->string('comment')->nullable();
             $table->foreign('apartment_id')

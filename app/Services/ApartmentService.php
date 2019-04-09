@@ -20,9 +20,9 @@ class ApartmentService extends BaseService
     {
         $apartment = $this->get($id);
         $date = Carbon::now()->toDateTimeString();
-        foreach($data['services'] as $service)
+        foreach($data['services'] as $key => $service)
         {
-           $apartment->services()->attach($service,['registration_time' => $date, 'comment' => '1']);
+           $apartment->services()->attach($service,['registration_time' => $date, 'comment' => '1', 'quantity' => $data['quantity'][$key]]);
         }
         return;
     }

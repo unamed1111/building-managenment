@@ -37,3 +37,5 @@ Route::post('/changePassword','HomeController@postChangePassword')->name('postCh
 Route::post('endMaintenance/{id}','MaintenanceController@endMaintenance')->name('maintenances.endMaintenance');
 Route::post('doneReport/{id}','ReportController@doneReport')->name('report.doneReport');
 Route::post('addEmployeeMaintenance/{id}','MaintenanceController@addEmployees')->name('add_employees');
+Route::get('apartments/{id}/bill','ApartmentController@billIndex')->name('bills');
+Route::get('apartments/{id}/bill/compute','ApartmentController@billCompute')->name('bills.compute');
