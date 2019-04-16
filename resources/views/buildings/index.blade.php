@@ -6,10 +6,9 @@
 		    <div class="card">
 		        <div class="card-body">
 		            <h4 class="card-title">Các tòa nhà 
-		            	@role('Admin|Manager')
 		            	<a href="{{route('buildings.create')}}" class="btn btn-primary btn-sm btn-rounded">Thêm</a>
 		            	@include('partials.search',['route' => route('buildings.index')])
-		            	@endrole
+
 		            </h4>
 		            @include('partials.alert')
 		            <p class="card-description"> Thông tin các tòa nhà trong khu vực quản lý </p>

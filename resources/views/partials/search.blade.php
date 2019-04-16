@@ -11,7 +11,7 @@
 			    <form id="search_data_form" action="{{$route}}" method="GET">
 			      	<div class="form-group">
 			        	<label for="search_data" class="col-form-label">Nội dung:</label>
-			        	<input type="text" class="form-control" id="search_data" name="search"> 
+			        	<input type="text" class="form-control" id="search_data" name="search">
 			    	</div>
 			    </form>
 			  </div>

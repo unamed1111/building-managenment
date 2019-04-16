@@ -16,7 +16,7 @@
 // });
 
 // Route::prefix('admin')->group(function(){
-	Route::resource('buildings','BuildingController')->middleware('auth');
+	Route::resource('buildings','BuildingController');
 	Route::resource('apartments','ApartmentController')->middleware('auth');
 	Route::resource('residents','ResidentController')->middleware('auth');
 	Route::get('residents-create-account/{id}','ResidentController@createAccount')->name('residents.createAccount')->middleware('auth');

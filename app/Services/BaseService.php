@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Services;
+use Schema;
 
 class BaseService
 {
@@ -39,6 +40,12 @@ class BaseService
 
     public function search($data,$relations = [])
     {
-        return $this->model::search($data->search)->get()->load($relations);
+        // return $this->model::search($data->search)->get()->load($relations);
+        $fields = Schema::getColumnListing($this->model->getTable());
+        $results = $this->model->with($relations);
+        foreach ($fields as $value) {
+            $results = $results->where($value,'LIKE','%'.$data->search.'%','or');
+        }
+        return $results->get();
     }
 }
