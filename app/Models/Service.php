@@ -7,7 +7,7 @@ use Laravel\Scout\Searchable;
 
 class Service extends Model
 {
-	use Searchable;
+	// use Searchable;
     protected $guarded = [];
 
     public function apartments()

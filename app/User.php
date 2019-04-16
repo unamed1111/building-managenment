@@ -6,10 +6,12 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Scout\Searchable;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
     use Notifiable;
+    use HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -45,9 +47,9 @@ class User extends Authenticatable
     {
         return $this->morphTo('user','user_type','software_user_id','id');
     }
-
     // public function getName()
     // {
     //     return $this->userable() ? $this->userable()->name : "không có tài khoản";
     // }
+    
 }

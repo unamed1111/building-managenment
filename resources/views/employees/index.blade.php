@@ -6,7 +6,9 @@
 		    <div class="card">
 		        <div class="card-body">
 		            <h4 class="card-title"> Quản lý nhân viên
+		            	@role('Admin|Manager')
 		            	<a href="{{route('employees.create')}}" class="btn btn-primary btn-sm btn-rounded">Thêm</a>
+		            	@endrole
 		            	@include('partials.search',['route' => route('employees.index')])
 		            </h4>
 		            @include('partials.alert')
@@ -21,12 +23,13 @@
 		                        <th>Vị trí</th>
 		                        <th>Giới tính</th>
 		                        <th>Số điện thoại</th>
+		                        @role('Admin|Manager')
 		                        <th>Hành động</th>
+		                        @endrole
 		                    </tr>
 		                </thead>
 		                <tbody>
 		                	@foreach($employees as $employee)
-		                		{{-- @if() --}}
 			                    <tr>
 			                        <td>{{'E00'.$employee->id}} 
 			                        	@if(!$employee->user)
@@ -38,6 +41,7 @@
 			                        <td>{{POSITION[$employee->position]}}</td>
 			                        <td>{{GENDER[$employee->gender]}}</td>
 			                        <td>{{$employee->phone ? $employee->phone : ''}}</td>
+			                        @role('Admin|Manager')
 			                        <td>
 			                            <a href="{{ route('employees.edit',$employee->id)}}" class="btn btn-info btn-sm btn-rounded btn-fw">
 	                            			<i class="mdi mdi-cloud-download"></i>Sửa
@@ -50,6 +54,7 @@
 	                        			</a>
 			                        	@endif
 			                        </td>
+			                        @endrole
 			                    </tr>
 		                    @endforeach
 		                </tbody>

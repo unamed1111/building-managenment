@@ -12,11 +12,18 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="form-group">
+                            <div class="form-group row">
                                 @foreach($services as $service)
-                                <div class="form-check">
+                                <div class="form-check col-md-5">
                                     <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" name="services[]" value="{{$service->id}}"> {{$service->name}} </label>
+                                        <input type="checkbox" class="form-check-input" name="services[]" value="{{$service->id}}"> {{$service->name}} 
+                                    </label>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Số lượng</label>
+                                    <div class="col-sm-9">
+                                        <input type="number" class="form-control form-control-sm" name="qty[]" placeholder="Số lượng" aria-label="qty"> 
+                                    </div>
                                 </div>
                                 @endforeach
                             </div>

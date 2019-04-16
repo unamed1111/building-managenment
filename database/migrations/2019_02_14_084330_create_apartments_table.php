@@ -20,7 +20,9 @@ class CreateApartmentsTable extends Migration
             $table->boolean('status');
             $table->float('acreage')->comment('diện tích');
             $table->unsignedInteger('building_id');
-            $table->unsignedInteger('apartment_owner_id');
+            $table->string('owner_name')->nullable();
+            $table->string('phone')->nullable();
+            // $table->unsignedInteger('apartment_owner_id');
             $table->foreign('building_id')
                     ->references('id')->on('buildings')
                     ->onDelete('cascade');

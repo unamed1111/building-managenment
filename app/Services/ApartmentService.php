@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Apartment;
+use App\Models\CostServiceApartment;
 use Illuminate\Http\Request;
 use App\Services\BaseService;
 use Carbon\Carbon;
@@ -20,10 +21,57 @@ class ApartmentService extends BaseService
     {
         $apartment = $this->get($id);
         $date = Carbon::now()->toDateTimeString();
-        foreach($data['services'] as $service)
+        foreach($data['services'] as $key => $service)
         {
-           $apartment->services()->attach($service,['registration_time' => $date, 'comment' => '1']);
+           $apartment->services()->attach($service,['qty'=> $data['qty'][$key],'registration_time' => $date, 'comment' => '1']);
         }
         return;
     }
+
+    public function createCostService($id, $month)
+    {
+
+        $apartment = $this->get($id);
+        $service_cost = $apartment->apartment_services_cost()->where('month',$month)->first();
+        if($service_cost != null){
+            return false;
+        }
+        $amount = 0;
+        foreach ($apartment->services as $key => $service) {
+            $amount += $service->cost * $service->pivot->qty;
+        }
+        $service_apartment_id = $apartment->apartment_services()->pluck('id')->toArray();
+        // dd(json_encode($service_apartment_id));
+        $apartment->apartment_services_cost()->create([
+            'service_apartment_id' => json_encode($service_apartment_id),
+            'month' => $month,
+            'status'=> 0,
+            'amount' => round($amount)
+        ]);        
+        return true;
+    }
+
+    public function getCostService($id, $month)
+    {
+        $apartment = $this->get($id);
+        $cost = $apartment->apartment_services_cost()->with('apartment','apartment.building','apartment.services')->where('month',$month)->first();
+        return $cost;
+    }
+
+    public function hoan_tat_thanh_toan($id)
+    {
+        CostServiceApartment::find($id)->update([
+            'payment_date' => date('y-m-d'),
+            'status'=> 1, // 0 chua tra, 1 nhan vien thu, 2 tra bang paypal
+            'employee_id' => auth()->user()->id
+        ]);        
+        $cost = CostServiceApartment::find($id)->with('apartment','apartment.building','apartment.services');
+        return $cost;
+    }
+
+    public function ajaxGetApartment($data)
+    {
+        return $this->model->where('building_id',$data['building_id'])->where('floor',$data['floor'])->pluck('name','id')->toArray();
+    }
+
 }

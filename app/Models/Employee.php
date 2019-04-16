@@ -8,7 +8,7 @@ use Laravel\Scout\Searchable;
 
 class Employee extends Model
 {
-    use Searchable;
+    // use Searchable;
     protected $guarded = [];
 
     protected $attributes = [

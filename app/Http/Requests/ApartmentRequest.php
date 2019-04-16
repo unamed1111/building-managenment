@@ -26,11 +26,6 @@ class ApartmentRequest extends FormRequest
     public function rules()
     {
         return [
-            'apartment_owner_id' => [
-                'required',
-                new CheckApartmentOwnerId,
-            ],
-
             'floor' => 'numeric|required',
 
         ];
@@ -39,7 +34,6 @@ class ApartmentRequest extends FormRequest
     public function messages()
     {
         return [
-            'apartment_owner_id.required' => 'Mã chủ sở hữu không được bỏ trống',
             'floor.numeric' => 'Tầng phải là số',
         ];
     }

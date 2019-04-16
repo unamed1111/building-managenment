@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Http\Requests\EmployeeRequest;
 use App\User;
+use App\Role;
 
 class EmployeeController extends Controller
 {
@@ -52,7 +53,7 @@ class EmployeeController extends Controller
         $employee = $this->service->store($request->except('_token','add_account'));
         // tạo tài khoản cho nhân viên khi tạo dữ liệu nhân viên
         if($request->has('add_account')){
-            User::create([
+            $user = User::create([
                 'email' => $request->input('email'),
                 'password' => Hash::make('123456'), // default when create
                 'software_user_id' => $employee->id ,
@@ -60,6 +61,7 @@ class EmployeeController extends Controller
                 'type' => $request->input('position') == 4 ? 1 : 2, // nếu position là ban quản lý thì type = bql ngược lại là nhân viên
                 'user_type' => 'App\Models\Employee'
             ]);
+            $this->syncPermissions($user);
         }
         return back()->with(['success' => 'Lưu thành công']);
     }
@@ -115,7 +117,7 @@ class EmployeeController extends Controller
     public function createAccount($id)
     {
         $employee = $this->service->get($id);
-        User::create([
+        $user = User::create([
                 'email' => $employee->email,
                 'password' => Hash::make('123456'), // default when create
                 'software_user_id' => $employee->id ,
@@ -123,6 +125,30 @@ class EmployeeController extends Controller
                 'type' => 2, // account type của nhân viên
                 'user_type' => 'App\Models\Employee'
             ]);
+        $this->syncPermissions($user);
         return back()->with('success','Thêm tài khoản cho nhân viên: ' . $employee->name.' thành công');
+
+    }
+
+    private function syncPermissions($user)
+    {
+        // Get the submitted roles
+        $roles = [ROLE_EMPLOYEE];
+        $permissions = [];
+
+        // Get the roles
+        $roles = Role::find($roles);
+
+        // check for current role changes
+        if( ! $user->hasAllRoles( $roles ) ) {
+            // reset all direct permissions for user
+            $user->permissions()->sync([]);
+        } else {
+            // handle permissions
+            $user->syncPermissions($permissions);
+        }
+        $user->syncRoles($roles);
+
+        return $user;
     }
 }

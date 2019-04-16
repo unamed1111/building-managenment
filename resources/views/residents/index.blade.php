@@ -18,7 +18,6 @@
 		                        <th>Mã cư dân</th>
 		                        <th>Tên cư dân</th>
 		                        <th>Ngày sinh</th>
-		                        <th>Chứng minh thư/ hộ chiếu</th>
 		                        <th>Số điện thoại</th>
 		                        <th>Email</th>
 		                        <th>Giới tính</th>
@@ -32,7 +31,6 @@
 			                        <td>{{'R00'.$resident->id}}</td>
 			                        <td>{{$resident->name}}</td>
 			                        <td>{{$resident->dob}}</td>
-			                        <td>{{$resident->passport}}</td>
 			                        <td>{{$resident->phone}}</td>
 			                        <td>{{$resident->email}}</td>
 			                        <td>{{GENDER[$resident->gender]}}</td>

@@ -32,15 +32,17 @@
 			                        <td>{{$apartment->name}}</td>
 			                        <td>{{$apartment->floor}}</td>
 			                        <td>{{$apartment->acreage}}</td>
-			                        <td>{{$apartment->owner ? $apartment->owner->name : ''}}</td>
+			                        <td>{{$apartment->owner_name == null ? 'Chưa cập nhật thông tin ' : $apartment->owner_name}}</td>
 			                        <td>{{$apartment->building->name}}</td>
 			                        <td>{{APARTMENT_STATUS[$apartment->status]}}</td>
 			                        <td>
 			                            <a href="{{ route('apartments.edit',$apartment->id)}}" class="btn btn-info btn-sm btn-rounded btn-fw">
 	                            			<i class="mdi mdi-cloud-download"></i>Sửa
 	                        			</a>
+	                        			@role('Admin|Manager')
 	                        			&nbsp;<button type="button" class="btn btn-primary btn-sm btn-rounded" data-toggle="modal" data-target="{{"#delete".$apartment->id}}" data-whatever="@mdo">Xóa</button>
 	                        			@include('partials.modal',['id'=> $apartment->id, 'route' => route('apartments.destroy', $apartment->id), 'action' => 'delete', 'method' => 'delete'])
+	                        			@endrole
 			                        </td>
 			                    </tr>
 		                    @endforeach

@@ -11,7 +11,7 @@
                             <h4>Thống tin căn hộ <strong>{{$apartment->name}}</strong></h4>
                             <p>Tầng : {{ $apartment->floor}}</p>
                             <p>Diện tích(m2):{{$apartment->acreage}}</p>
-                            <p>Chử sở hữu: {{$apartment->owner ? $apartment->owner->name : ''}}</p>
+                            <p>Chử sở hữu: {{$apartment->owner_name}}</p>
                             <p>Tòa nhà : {{$apartment->building->name}}</p>
                             <p>Trạng thái: {{APARTMENT_STATUS[$apartment->status]}}</p>
                         </div>
@@ -52,7 +52,16 @@
                     </div>
 
                     <div class="row">
-                        <h3> Các dịch vụ đang sử dụng</h3> 
+                        <div class="row title"></div>
+                        <div class="col-md-6">
+                            <h3> Các dịch vụ đang sử dụng</h3>
+                        </div>
+                        <div class="col-md-2">
+                             <a  class="btn btn-outline-dark" href="{{ route('create_cost_service',['id'=> $apartment->id, 'month' => \Carbon\Carbon::createFromDate()->format('m-y')]) }}">Tạo hóa đơn</a>
+                        </div>
+                        <div class="col-md-2">
+                            <a  class="btn btn-outline-dark" href="{{ route('show_cost_service',['id'=> $apartment->id, 'month' => \Carbon\Carbon::createFromDate()->format('m-y')]) }}">Thông tin Phí dịch vụ</a>
+                        </div>  
                         <table class="table table-hover">
                         <thead>
                             <tr>

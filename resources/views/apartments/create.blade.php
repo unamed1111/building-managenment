@@ -29,11 +29,18 @@
                             <small class="text-danger">{{ $errors->first('acreage') }}</small>
                         @endif
                     </div>
-                    <div class="form-group {{ $errors->has('apartment_owner_id') ? 'has-danger' : ''}}">
-                        <label for="apartment_owner_id" class="col-form-label">Mã chủ sở hữu:</label>
-                        <input type="number" class="form-control" name="apartment_owner_id" placeholder="Mã chứ sở hữu" id="apartment_owner_id" value="{{old('apartment_owner_id')}}"> 
-                        @if ($errors->has('apartment_owner_id'))
-                            <small class="text-danger">{{ $errors->first('apartment_owner_id') }}</small>
+                    <div class="form-group {{ $errors->has('owner_name') ? 'has-danger' : ''}}">
+                        <label for="owner_name" class="col-form-label">Chủ sở hữu:</label>
+                        <input type="text" class="form-control" name="owner_name" placeholder="Chứ sở hữu" id="owner_name" value="{{old('owner_name')}}"> 
+                        @if ($errors->has('owner_name'))
+                            <small class="text-danger">{{ $errors->first('owner_name') }}</small>
+                        @endif
+                    </div>
+                    <div class="form-group {{ $errors->has('phone') ? 'has-danger' : ''}}">
+                        <label for="phone" class="col-form-label">số Điện thoại liên hệ:</label>
+                        <input type="text" class="form-control" name="phone" placeholder="Chứ sở hữu" id="phone" value="{{old('phone')}}"> 
+                        @if ($errors->has('phone'))
+                            <small class="text-danger">{{ $errors->first('phone') }}</small>
                         @endif
                     </div>
                     <div class="form-group {{ $errors->has('building_id') ? 'has-danger' : ''}}">

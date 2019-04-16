@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Report extends Model
 {
-	use Searchable;
+	// use Searchable;
     protected $guarded = [];	
     protected $attributes = [
     	'status' => 0

@@ -7,5 +7,7 @@ use Laravel\Scout\Searchable;
 
 class ApartmentService extends Model
 {
-    use Searchable;
+	protected $guarded = [];
+    // use Searchable;
+    protected $attributed = ['qty' => 1];
 }

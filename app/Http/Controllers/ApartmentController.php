@@ -28,8 +28,8 @@ class ApartmentController extends Controller
      */
     public function index(Request $request)
     {
-        if(isset($request->search)) $apartments = $this->service->search($request,['building','owner']);
-        else $apartments = $this->service->getAll(['building','owner']);
+        // if(isset($request->search)) $apartments = $this->service->search($request,['building']);
+        $apartments = $this->service->getAll(['building']);
         return view('apartments.index',compact('apartments'));
     }
 
@@ -50,7 +50,7 @@ class ApartmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(ApartmentRequest $request)
+    public function store(Request $request)
     {
         $this->service->store($request->except('_token'));
         return back()->with(['success' => 'Lưu thành công']);
@@ -65,7 +65,7 @@ class ApartmentController extends Controller
     public function show($id)
     {
         $services = $this->sVService->getAll();
-        $apartment = $this->service->get($id,['residents','services']);
+        $apartment = $this->service->get($id,['residents','services','apartment_services_cost']);
         return view('apartments.show',compact('apartment','services'));
     }
 
@@ -75,10 +75,11 @@ class ApartmentController extends Controller
      * @param  \App\Models\Apartment  $apartment
      * @return \Illuminate\Http\Response
      */
-    public function edit(Apartment $apartment)
+    public function edit($id)
     {
-         $apartment = $this->service->get($id);
-        return view('apartments.edit',compact('apartment'));
+        $buildings = $this->buildingService->getAll();
+        $apartment = $this->service->get($id);
+        return view('apartments.edit',compact('apartment','buildings'));
     }
 
     /**
@@ -88,9 +89,10 @@ class ApartmentController extends Controller
      * @param  \App\Models\Apartment  $apartment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Apartment $apartment)
+    public function update(Request $request, $id)
     {
-        //
+        $this->service->update($request->except('_token'),$id);
+        return redirect()->route('apartments.index');
     }
 
     /**
@@ -108,7 +110,33 @@ class ApartmentController extends Controller
     // add services to apartment
     public function addServices(Request $request, $id)
     {
-        $this->service->addServices($request->only('services'),$id);
+        $this->service->addServices($request->only('services', 'qty'),$id);
         return back();
     } 
+
+    public function getCostService($id, $month)
+    {
+        $detail_cost = $this->service->getCostService($id, $month);
+        return view('apartments.detail_service',compact('detail_cost'));
+    }
+
+    public function createCostService($id, $month)
+    {
+        $this->service->createCostService($id, $month);
+        return back();
+    }
+    public function hoan_tat_thanh_toan($id)
+    {
+        $this->service->hoan_tat_thanh_toan($id);
+        return back();
+    }
+
+    public function ajaxGetApartment(Request $request)
+    {
+        $data = $this->service->ajaxGetApartment($request->all());
+        return response()->json([
+            'status' => 200,
+            'data' => $data
+        ]);
+    }
 }

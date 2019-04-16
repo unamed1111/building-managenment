@@ -44,12 +44,45 @@
                                 <small class="text-danger">{{ $errors->first('email') }}</small>
                             @endif
                         </div>
-                        <div class="form-group {{ $errors->has('apartment_id') ? 'has-danger' : ''}}">
-                            <label for="apartment_id" class="col-form-label">Căn hộ đang ở:</label>
-                            <input type="text" class="form-control" placeholder="Căn hộ" name="apartment_id" id="apartment_id" value="{{old('apartment_id',$resident->apartment_id)}}"> 
-                            @if ($errors->has('apartment_id'))
-                                <small class="text-danger">{{ $errors->first('apartment_id') }}</small>
-                            @endif
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Tòa nhà</label>
+                                    <div class="col-sm-9">
+                                        <select id="building_id" name="building_id"class="form-control">
+                                                <option selected value="0">Chọn tòa nhà</option>
+                                            @foreach($buildings as $building)
+                                                <option {{$resident->aparment->building_id == $building->id ? 'selected' : '' }} value="{{$building->id}}">Tòa {{$building->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Tầng</label>
+                                    <div class="col-sm-9">
+                                        <select name="floor" class="form-control">
+                                            <option selected value="0">Chọn Tâng</option>
+                                            @for($i = 1; $i<16 ; $i++)
+                                                <option {{$resident->aparment->floor == $i ? 'selected' : '' }} value={{$i}}>Tầng {{$i}}</option>
+                                            @endfor
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">Căn hộ</label>
+                                    <div class="col-sm-9">
+                                        <select name="apartment_id" class="form-control">
+                                            <option selected value=''>Chọn Căn hộ</option>
+                                            <option selected value='{{$resident->apartment_id}}'>{{$resident->apartment->name}}</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        
                         </div>
                         <div class="form-group {{ $errors->has('gender') ? 'has-danger' : ''}}">
                             <label for="gender" class="col-form-label">Giới tính:</label>
@@ -67,3 +100,74 @@
 	</div>
 @endsection
 
+
+@push('js') 
+    <script>
+        $(document).ready(function() {
+            $('#building_id').change(function(event) {
+                floor = $('select[name="floor"]').val();
+                building_id = $('#building_id').val()
+                if(building_id != 0 && floor != 0){
+                    $.ajax({
+                        url: '/ajaxGetApartment',
+                        type: 'GET',
+                        dataType: 'json',
+                        data: {'building_id': building_id,'floor' : floor},
+                    })
+                    .done(function(response) {
+                        obj = response.data
+                        if(response.status == 200){
+                            $('select[name="apartment_id"]').empty();
+                            html = "<option selected value=''>Chọn Căn hộ</option>"
+                            Object.keys(obj).forEach(function(key) {
+                                html += "<option value='"+key+"'>"+ obj[key]+"</option>"
+                            });
+                            
+                            $('select[name="apartment_id"]').append(html)
+                        }
+                    })
+                    .fail(function() {
+                        console.log("error");
+                    })
+                    .always(function() {
+                        console.log("complete");
+                    });
+                    
+                }
+            });
+
+            $('select[name="floor"]').change(function(event) {
+                floor = $('select[name="floor"]').val();
+                building_id = $('#building_id').val()
+                if(building_id != 0 && floor != 0){
+                    $.ajax({
+                        url: '/ajaxGetApartment',
+                        type: 'GET',
+                        dataType: 'json',
+                        data: {'building_id': building_id,'floor' : floor},
+                    })
+                    .done(function(response) {
+                        obj = response.data
+                        if(response.status == 200){
+                            $('select[name="apartment_id"]').empty();
+                            html = "<option selected value='0'>Chọn Căn hộ</option>"
+                            Object.keys(obj).forEach(function(key) {
+                                html += "<option value='"+key+"'>"+ obj[key]+"</option>"
+                            });
+                            
+                            $('select[name="apartment_id"]').append(html)
+                        }
+                    })
+                    .fail(function() {
+                        console.log("error");
+                    })
+                    .always(function() {
+                        console.log("complete");
+                    });
+                    
+                }
+            });
+        });
+        
+    </script>
+@endpush

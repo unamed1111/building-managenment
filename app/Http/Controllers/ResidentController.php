@@ -7,13 +7,16 @@ use App\Services\ResidentService;
 use Illuminate\Support\Facades\Hash;
 use App\User;
 use Illuminate\Http\Request;
+use App\Services\BuildingService;
 
 class ResidentController extends Controller
 {
+    private $buildingService;
     private $service;
-    public function __construct(ResidentService $service)
+    public function __construct(ResidentService $service,BuildingService $buildingService)
     {
         $this->service = $service;
+        $this->buildingService = $buildingService;
     }
     /**
      * Display a listing of the resource.
@@ -22,8 +25,8 @@ class ResidentController extends Controller
      */
     public function index(Request $request)
     {
-        if(isset($request->search)) $residents = $this->service->search($request,['user']);
-        else $residents = $this->service->getAll(['user']);
+        // if(isset($request->search)) $residents = $this->service->search($request,['user']);
+        $residents = $this->service->getAll(['user']);
         return view('residents.index',compact('residents'));
     }
 
@@ -34,7 +37,8 @@ class ResidentController extends Controller
      */
     public function create()
     {
-        return view('residents.create');
+        $buildings = $this->buildingService->getAll();
+        return view('residents.create',compact('buildings'));
     }
 
     /**
@@ -45,7 +49,7 @@ class ResidentController extends Controller
      */
     public function store(Request $request)
     {
-        $this->service->store($request->except('_token'));
+        $this->service->store($request->except('_token','building_id','floor'));
         return back()->with(['success' => 'Lưu thành công']);
     }
 
@@ -68,8 +72,9 @@ class ResidentController extends Controller
      */
     public function edit($id)
     {
+        $buildings = $this->buildingService->getAll();
         $resident = $this->service->get($id);
-        return view('residents.edit',compact('resident'));
+        return view('residents.edit',compact('resident','buildings'));
     }
 
     /**
@@ -81,7 +86,7 @@ class ResidentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->service->update($request->except('_token','_method'),$id);
+        $this->service->update($request->except('_token','_method','building_id','floor'),$id);
         return back()->with('success','Sửa thông tin thành công');
     }
 
@@ -111,6 +116,7 @@ class ResidentController extends Controller
                 'type' => 3, // Account type of cư dân
                 'user_type' => 'App\Models\Resident'
             ]);
-        return back()->with('success','Thêm tài khoản cho nhân viên: ' . $resident->name.' thành công');
+        
+        return back()->with('success','Thêm tài khoản cho cư dân: ' . $resident->name.' thành công');
     }
 }
