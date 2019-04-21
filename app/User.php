@@ -7,6 +7,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Scout\Searchable;
 use Spatie\Permission\Traits\HasRoles;
+use App\Models\Report;
 
 class User extends Authenticatable
 {
@@ -51,5 +52,8 @@ class User extends Authenticatable
     // {
     //     return $this->userable() ? $this->userable()->name : "không có tài khoản";
     // }
-    
+    public function reports()
+    {
+        return $this->hasMany(Report::class,'user_id');
+    }   
 }

@@ -51,6 +51,7 @@
 		                    @endforeach
 		                </tbody>
 		            </table>
+		            {{$residents->links()}}
 		        </div>
 		    </div>
 		</div>

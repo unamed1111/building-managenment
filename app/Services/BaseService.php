@@ -13,7 +13,7 @@ class BaseService
 
     public function getAll($relations = [])
     {
-        return $this->model->with($relations)->get();
+        return $this->model->with($relations)->paginate(10);
     }
 
     public function store($data)

@@ -41,4 +41,10 @@ class ReportService extends BaseService
         $model->result = $result;
         return $model->save();
     }
+
+    public function getAllReportOfResident()
+    {
+        $reports = auth()->user()->reports()->orderBy('time','desc')->paginate(10);
+        return $reports;
+    }
 }

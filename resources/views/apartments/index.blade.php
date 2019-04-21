@@ -48,6 +48,7 @@
 		                    @endforeach
 		                </tbody>
 		            </table>
+		            {{$apartments->links()}}
 		        </div>
 		    </div>
 		</div>

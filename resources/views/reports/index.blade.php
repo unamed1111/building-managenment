@@ -37,7 +37,7 @@
 			                        		@include('reports.modal_done_report')
 			                            &nbsp;<button type="button" class="btn btn-primary btn-sm btn-rounded" data-toggle="modal" data-target="#services-{{$report->id}}" data-whatever="@mdo">Hoàn thành</button>
 			                            @endif
-	                        			&nbsp;<button type="button" class="btn btn-primary btn-sm btn-rounded" data-toggle="modal" data-target="{{"#delete".$report->id}}" data-whatever="@mdo">Xóa</button>
+	                        			&nbsp;<button type="button" class="btn btn-primary btn-sm btn-rounded" datac-t*oggle="modal" data-target="{{"#delete".$report->id}}" data-whatever="@mdo">Xóa</button>
 	                        			@include('partials.modal',['id'=> $report->id, 'route' => route('reports.destroy', $report->id), 'action' => 'delete', 'method' => 'delete'])
 			                        </td>
 			                    </tr>

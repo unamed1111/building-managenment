@@ -11,15 +11,14 @@
 		            </h4>
 		            @include('partials.alert')
 		            <p class="card-description"> Tổng hợp các dịch vụ của tòa nhà </p>
-		            
+		            <a href="{{ route('createAllCostService',\Carbon\Carbon::createFromDate()->format('m-y')) }}" class="btn btn-outline-danger">Tạo hóa đơn tháng này</a>
 		            <table class="table table-hover">
 		                <thead>
 		                    <tr>
 		                        <th>Mã Dịch Vụ</th>
 		                        <th>Tên dịch vụ</th>
-		                        <th>Giá</th>
+		                        <th>Giá (vnđ)</th>
 		                        <th>Đơn vị tính</th>
-		                        <th>Mô tả</th>
 		                        <th>Hành động</th>
 		                    </tr>
 		                </thead>
@@ -28,9 +27,8 @@
 			                    <tr>
 			                        <td><a href="{{ route('services.show',$service->id) }}">{{'S00'.$service->id}}</a></td>
 			                        <td>{{$service->name}}</td>
-			                        <td>{{$service->cost}}</td>
-			                        <td>{{$service->unit}}</td>
-			                        <td>{{$service->description}}</td>
+			                        <td>{{number_format($service->cost)}}</td>
+			                        <td>Tháng</td>
 			                        <td>
 			                            <a href="{{ route('services.edit',$service->id)}}" class="btn btn-info btn-sm btn-rounded btn-fw">
 	                            			<i class="mdi mdi-cloud-download"></i>Sửa
@@ -42,6 +40,7 @@
 		                    @endforeach
 		                </tbody>
 		            </table>
+		            {{$services->links()}}
 		        </div>
 		    </div>
 		</div>

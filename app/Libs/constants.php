@@ -30,15 +30,20 @@ define('REPORT_STATUS',[
 	1 => 'Đã đọc',
 	2 => 'Đã xử lý',
 ]);
+define('PAY_STATUS',[
+	0 => 'Chưa trả',
+	1 => 'Đã đóng tại quầy thu ngân',
+	2 => 'Đã thanh toán online',
+]);
 
 define('ROLE_ADMIN',1);
 define('ROLE_MANAGER',2);
 define('ROLE_EMPLOYEE',3);
-define('ROLE_RESIDENNT',4);
+define('ROLE_RESIDENT',4);
 
 define('ROlE',[
 	ROLE_ADMIN => 'Amin',
 	ROLE_MANAGER => 'Ban quản lý',
 	ROLE_EMPLOYEE => 'Nhân viên',
-	ROLE_RESIDENNT => 'Cư dân'
+	ROLE_RESIDENT => 'Cư dân'
 ]);

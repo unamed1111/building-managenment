@@ -51,6 +51,35 @@ class ApartmentService extends BaseService
         return true;
     }
 
+    public function createAllCostService($month)
+    {
+        // if($month > '04-20')
+
+        $a = Carbon::parse($month);
+        dd($a);
+        $apartments = Apartment::all();
+        foreach ($apartments as $key => $apartment) {
+            $service_cost = $apartment->apartment_services_cost()->where('month',$month)->first();
+            if($service_cost != null){
+                continue;
+            }
+            $amount = 0;
+            foreach ($apartment->services as $key => $service) {
+                if(Carbon::parse($service->pivot->registration_time)->format('m-y') < $month)
+                $amount += $service->cost * $service->pivot->qty;
+            }
+            $service_apartment_id = $apartment->apartment_services()->where('registration_time' < $month)->pluck('id')->toArray();
+            // dd(json_encode($service_apartment_id));
+            $apartment->apartment_services_cost()->create([
+                'service_apartment_id' => json_encode($service_apartment_id),
+                'month' => $month,
+                'status'=> 0,
+                'amount' => round($amount)
+            ]);        
+        }
+        return ;
+    }
+
     public function getCostService($id, $month)
     {
         $apartment = $this->get($id);
@@ -74,4 +103,16 @@ class ApartmentService extends BaseService
         return $this->model->where('building_id',$data['building_id'])->where('floor',$data['floor'])->pluck('name','id')->toArray();
     }
 
+    public function getCostServceOfResident()
+    {
+        $cost_services = auth()->user()->userable->apartment->apartment_services_cost()->paginate(1);
+        return $cost_services;
+    }
+
+    public function costServiceShow($month)
+    {
+        $apartment = auth()->user()->userable->apartment;
+        $cost = $apartment->apartment_services_cost()->with('apartment','apartment.building','apartment.services')->where('month',$month)->first();
+        return $cost;
+    }
 }

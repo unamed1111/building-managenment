@@ -15,7 +15,7 @@
 //     return view('layouts.master');
 // });
 
-// Route::prefix('admin')->group(function(){
+Route::prefix('admin')->group(function(){
 	Route::resource('buildings','BuildingController')->middleware('auth');
 	Route::resource('apartments','ApartmentController')->middleware('auth');
 	Route::resource('residents','ResidentController')->middleware('auth');
@@ -38,12 +38,24 @@
 	Route::post('doneReport/{id}','ReportController@doneReport')->name('report.doneReport');
 	Route::post('addEmployeeMaintenance/{id}','MaintenanceController@addEmployees')->name('add_employees');
 	Route::get('apartments/{id}/create_cost_service/{month}','ApartmentController@createCostService')->name('create_cost_service');
+	Route::get('createAllCostService/{month}','ApartmentController@createAllCostService')->name('createAllCostService');
 	Route::get('apartments/{id}/show_cost_service/{month}','ApartmentController@getCostService')->name('show_cost_service');
 	Route::get('hoan_tat_thanh_toan/{id}','ApartmentController@hoan_tat_thanh_toan')->name('hoan_tat_thanh_toan');
 	Route::get('/', 'HomeController@index')->name('home');
 	Route::get('ajaxGetApartment','ApartmentController@ajaxGetApartment');
 
-// });
+});
 
+Route::prefix('/')->group(function(){
+	Route::get('/','ResidentController@getInformation')->name('residents.infomation')->middleware('auth');
+	Route::get('report','ReportController@reportIndex')->name('residents.report-index')->middleware('auth');
+	Route::post('report','ReportController@reportStore')->name('residents.report-store')->middleware('auth');
+	Route::get('service','ServiceController@serviceIndex')->name('residents.service-index')->middleware('auth');
+	Route::post('service','ServiceController@serviceStore')->name('residents.service-store')->middleware('auth');
+	Route::post('delete-service/{id}','ServiceController@serviceDelete')->name('residents.service-delete')->middleware('auth');
+	Route::get('cost-service','ApartmentController@costServiceIndex')->name('residents.cost-service-index')->middleware('auth');
+	Route::get('cost-service/{month}','ApartmentController@costServiceShow')->name('residents.cost-service-show')->middleware('auth');
+	// Route::post('cost-service/{id}','ServiceController@serviceDelete')->name('residents.service-delete')->middleware('auth');
+});	
 Auth::routes();
 

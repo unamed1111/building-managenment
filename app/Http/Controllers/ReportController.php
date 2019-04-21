@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Report;
+use App\Http\Requests\ReportRequest;
 use Illuminate\Http\Request;
 use App\Services\ReportService;
 
@@ -45,7 +46,7 @@ class ReportController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ReportRequest $request)
     {
         $this->service->store($request->all());
         return back()->with(['success' => 'Lưu thành công']);
@@ -84,7 +85,7 @@ class ReportController extends Controller
      * @param  \App\Models\Report  $report
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id)
+    public function update(ReportRequest $request,$id)
     {
         $this->service->update($request->all(),$id);
         return back()->with(['success' => 'Sửa thành công']);
@@ -106,5 +107,18 @@ class ReportController extends Controller
     {
         $this->service->doneReport($id,$this->doneStatus,$request->result);
         return back()->with('success','Thành công');
+    }
+
+
+    public function reportIndex()
+    {
+        $reports = $this->service->getAllReportOfResident();
+        return view('resident_layout.reports.index',compact('reports'));
+    }
+
+    public function reportStore(ReportRequest $request)
+    {
+        $this->service->store($request->all()); // use admin
+        return back()->with(['success' => 'Lưu thành công']);
     }
 }

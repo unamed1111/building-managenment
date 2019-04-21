@@ -97,4 +97,23 @@ class ServiceController extends Controller
         $this->service->delete($id);
         return back()->with('success','Xóa thành công');
     }
+
+    public function serviceIndex()
+    {
+        $services = $this->service->getAll();
+        $user_services = $this->service->getAllServiceOfReisident();
+        $user_services_id = $this->service->getAllServiceIDOfReisident();
+        return view('resident_layout.services.index',compact('services','user_services','user_services_id'));
+    }
+
+    public function serviceStore(Request $request)
+    {
+        $this->service->addService($request->all());
+        return redirect()->back();
+    }
+    public function serviceDelete($id)
+    {
+        $this->service->deleteService($id);
+        return redirect()->back();
+    }
 }

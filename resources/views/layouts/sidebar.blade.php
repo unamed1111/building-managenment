@@ -1,4 +1,5 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
+    @hasanyrole('Admin|Manager|Employee')
     <ul class="nav">
         <li class="nav-item nav-profile">
             <div class="nav-link">
@@ -52,25 +53,6 @@
                 </ul>
             </div>
         </li>
-        {{-- <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#apartment_owners" aria-expanded="false" aria-controls="apartment_owners">
-            <i class="menu-icon mdi mdi-account-check"></i>
-            <span class="menu-title">Chủ căn hộ</span>
-            <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="apartment_owners">
-                <ul class="nav flex-column sub-menu">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('apartment_owners.index')}}">Danh sách chủ nhà</a>
-                    </li>
-                </ul>
-                <ul class="nav flex-column sub-menu">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('apartment_owners.create')}}">Thêm mới</a>
-                    </li>
-                </ul>
-            </div>
-        </li> --}}
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#residents" aria-expanded="false" aria-controls="residents">
             <i class="menu-icon mdi mdi-account-multiple-outline"></i>
@@ -191,7 +173,7 @@
             <span class="menu-title">Quản lý Tài khoản</span>
             </a>
         </li>
-        @endrole
+        @endhasanyrole
         @role('Admin')
         <li class="nav-item">
             <a class="nav-link"href="{{ route('roles.index') }}">
@@ -200,4 +182,37 @@
         </li>
         @endrole
     </ul>
+    @else
+    <ul class="nav">
+        <li class="nav-item nav-profile">
+            <div class="nav-link">
+            </div>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('residents.infomation') }}">
+            <i class="menu-icon mdi mdi-television"></i>
+            <span class="menu-title">Trang cá nhân</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('residents.report-index') }}">
+            <i class="menu-icon mdi mdi-television"></i>
+            <span class="menu-title">Báo cáo với ban quản lý</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{route('residents.service-index')}}">
+            <i class="menu-icon mdi mdi-television"></i>
+            <span class="menu-title">Các dịch vụ của tòa nhà</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{route('residents.cost-service-index')}}">
+            <i class="menu-icon mdi mdi-television"></i>
+            <span class="menu-title">Chi tiết hóa đơn theo tháng</span>
+            </a>
+        </li>
+    </ul>
+    @endhasanyrole
+
 </nav>

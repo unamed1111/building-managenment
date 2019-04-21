@@ -139,4 +139,22 @@ class ApartmentController extends Controller
             'data' => $data
         ]);
     }
+
+    public function costServiceIndex()
+    {
+        $cost_services = $this->service->getCostServceOfResident();
+        // dd($cost_services);
+        return view('resident_layout.cost_services.index',compact('cost_services'));
+    }
+
+    public function costServiceShow($month)
+    {
+        $detail_cost = $this->service->costServiceShow($month);
+        return view('resident_layout.cost_services.detail',compact('detail_cost'));
+    }
+
+    public function createAllCostService($month){
+        $this->service->createAllCostService($month);
+        return back();
+    }
 }

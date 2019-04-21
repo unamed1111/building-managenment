@@ -45,6 +45,7 @@
 		                    @endforeach
 		                </tbody>
 		            </table>
+		            {{$devices->links()}}
 		        </div>
 		    </div>
 		</div>

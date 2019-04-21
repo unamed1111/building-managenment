@@ -43,6 +43,7 @@
 		                    @endforeach
 		                </tbody>
 		            </table>
+		            {{$buildings->links()}}
 		        </div>
 		    </div>
 		</div>
