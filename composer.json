@@ -17,6 +17,7 @@
         "laravel/scout": "^7.1",
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "^5.4.0",
+        "paypal/rest-api-sdk-php": "*",
         "spatie/laravel-permission": "^2.37"
     },
     "require-dev": {

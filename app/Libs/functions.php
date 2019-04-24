@@ -10,3 +10,8 @@ function deviceStatus($status)
 	if($status === 0) echo "Đang hoạt động";
 	else echo "Đang bảo trì";
 }
+
+function tranferVndToUsd($vnd)
+{
+	return $vnd * 0.00004 ;	
+}

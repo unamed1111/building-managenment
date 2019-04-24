@@ -47,4 +47,15 @@ class ReportService extends BaseService
         $reports = auth()->user()->reports()->orderBy('time','desc')->paginate(10);
         return $reports;
     }
+
+    public function search($search)
+    {
+        $search = '%'.$search.'%';
+        $result = $this->model->where('title', 'like', $search)
+                                ->orWhere('content', 'like', $search)
+                                ->orWhere('time', 'like', $search)
+                                ->orWhere('status', 'like', $search)
+                                ->orWhere('result', 'like', $search);
+        return $result->paginate(10);
+    }
 }

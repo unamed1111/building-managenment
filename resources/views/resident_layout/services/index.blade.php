@@ -11,7 +11,6 @@
 					    <div class="card">
 					        <div class="card-body">
 			                    <h4 class="card-title">Các dịch vụ đang sử dụng</h4>
-			                    {{-- <p class="card-description">Add class <code>.list-ticked</code> to <code>&lt;ul&gt;</code> </p> --}}
 			                    <ul class="list-ticked">
 						           @foreach($user_services as $user_service)
 				                      <li> {{$user_service->name}} => <button type="button" class="badge badge-info" data-toggle="modal" data-target="#services-user-{{$user_service->id}}">Chi tiết</button> </li>

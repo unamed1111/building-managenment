@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\User;
+use App\Models\Resident;
+use App\Models\Report;
+use App\Models\CostServiceApartment;
+use App\Models\Maintaince;
+use App\Models\Apartment;
 
 class HomeController extends Controller
 {
@@ -26,7 +31,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('dashboard');
+        $resident_count = Resident::all()->count();
+        $report_count = Report::where('status',0)->count();
+        $reports = Report::with('user')->orderBy('id','DESC')->take(4)->get();
+        $user_count = User::all()->count();
+
+        return view('dashboard',compact('resident_count','report_count','user_count','reports'));
     }
 
     public function getChangePassword(){

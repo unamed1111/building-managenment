@@ -9,12 +9,12 @@
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
         <span class="mdi mdi-menu"></span>
         </button>
-        <ul class="navbar-nav navbar-nav-left header-links d-none d-md-flex">
+{{--         <ul class="navbar-nav navbar-nav-left header-links d-none d-md-flex">
             <li class="nav-item active">
                 <a href="#" class="nav-link">
                 <i class="mdi mdi-elevation-rise"></i>Báo cáo</a>
             </li>
-        </ul>
+        </ul> --}}
         <ul class="navbar-nav navbar-nav-right">
             {{-- <li class="nav-item dropdown ml-4">
                 <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-toggle="dropdown">
@@ -48,7 +48,7 @@
             </li> --}}
             <li class="nav-item dropdown d-none d-xl-inline-block">
                 <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
-                <span class="profile-text">Richard V.Welsh !</span>
+                {{-- <span class="profile-text">Richard V.Welsh !</span> --}}
                 <img class="img-xs rounded-circle" src="../../../assets/images/faces/face8.jpg" alt="Profile image"> </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
                     {{-- 

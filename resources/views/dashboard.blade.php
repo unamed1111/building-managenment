@@ -12,7 +12,7 @@
                                 <div class="wrapper text-center text-sm-left">
                                     <p class="card-text mb-0">Thống kê cư dân</p>
                                     <div class="fluid-container">
-                                        <h3 class="mb-0 font-weight-medium">{{isset($resident_count) ? : 2405}}</h3>
+                                        <h3 class="mb-0 font-weight-medium">{{isset($resident_count) ? $resident_count : 2405}}</h3>
                                     </div>
                                 </div>
                             </div>
@@ -25,7 +25,7 @@
                                 <div class="wrapper text-center text-sm-left">
                                     <p class="card-text mb-0">Phản hồi chưa duyệt</p>
                                     <div class="fluid-container">
-                                        <h3 class="mb-0 font-weight-medium">{{isset($report_count) ? : '20'}}</h3>
+                                        <h3 class="mb-0 font-weight-medium">{{isset($report_count) ? $report_count : '20'}}</h3>
                                     </div>
                                 </div>
                             </div>
@@ -38,7 +38,7 @@
                                 <div class="wrapper text-center text-sm-left">
                                     <p class="card-text mb-0">Tài khoản hệ thống</p>
                                     <div class="fluid-container">
-                                        <h3 class="mb-0 font-weight-medium">{{isset($user_count) ? : '1220'}}</h3>
+                                        <h3 class="mb-0 font-weight-medium">{{isset($user_count) ? $user_count : '1220'}}</h3>
                                     </div>
                                 </div>
                             </div>
@@ -418,75 +418,29 @@
                                     <th>Người gửi</th>
                                     <th>Tiêu đề</th>
                                     <th>Thời gian</th>
-                                    <th>Impact</th>
+                                    <th>Kết quả</th>
                                     <th>Trạng thái</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>
-                                        <div class="form-check form-check-flat">
-                                            <label class="form-check-label">
-                                            <input type="checkbox" class="form-check-input">
-                                            <img class="mr-2" src="../../../assets/images/faces/face14.jpg" alt="profile image"> Benjamin Bowman </label>
-                                        </div>
-                                    </td>
-                                    <td>How To Write Better Advertising Copy</td>
-                                    <td>10-12-2018</td>
-                                    <td>$15,000</td>
-                                    <td>
-                                        <div class="badge badge-success"></div>
-                                        Active 
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="form-check form-check-flat">
-                                            <label class="form-check-label">
-                                            <input type="checkbox" class="form-check-input" checked>
-                                            <img class="mr-2" src="../../../assets/images/faces/face4.jpg" alt="profile image"> Mark Pope </label>
-                                        </div>
-                                    </td>
-                                    <td>Influencing The Influencer</td>
-                                    <td>10-12-2018</td>
-                                    <td>$210,000</td>
-                                    <td>
-                                        <div class="badge badge-danger"></div>
-                                        Closed 
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="form-check form-check-flat">
-                                            <label class="form-check-label">
-                                            <input type="checkbox" class="form-check-input">
-                                            <img class="mr-2" src="../../../assets/images/faces/face7.jpg" alt="profile image"> Ian Brown </label>
-                                        </div>
-                                    </td>
-                                    <td>The Universe Through A Child S Eyes</td>
-                                    <td>10-12-2018</td>
-                                    <td>$543,000</td>
-                                    <td>
-                                        <div class="badge badge-warning"></div>
-                                        Pending 
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="form-check form-check-flat">
-                                            <label class="form-check-label">
-                                            <input type="checkbox" class="form-check-input">
-                                            <img class="mr-2" src="../../../assets/images/faces/face9.jpg" alt="profile image"> Chase Mullins </label>
-                                        </div>
-                                    </td>
-                                    <td>Trade Show Promotions</td>
-                                    <td>10-12-2018</td>
-                                    <td>$925,000</td>
-                                    <td>
-                                        <div class="badge badge-success"></div>
-                                        Active 
-                                    </td>
-                                </tr>
+                                @foreach($reports as $report)
+                                    <tr>
+                                        <td>
+                                            <div class="form-check form-check-flat">
+                                                <label class="form-check-label">
+                                                <input type="checkbox" class="form-check-input">
+                                                <img class="mr-2" src="../../../assets/images/faces/face14.jpg" alt="profile image">{{$report->user->userable->name}}</label>
+                                            </div>
+                                        </td>
+                                        <td>{{$report->title}}</td>
+                                        <td>{{\Carbon\Carbon::parse($report->time)->format('Y-m-d')}}</td>
+                                        <td>{{$report->result != null ? $report->result : " Chưa có kết quả" }}</td>
+                                        <td>
+                                            <div class="badge badge-{{$report->status == 2 ? 'success' : ($report->status == 1 ? 'warning' : 'danger')}}"></div>
+                                            {{REPORT_STATUS[$report->status]}}
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

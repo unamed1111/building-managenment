@@ -43,6 +43,9 @@ Route::prefix('admin')->group(function(){
 	Route::get('hoan_tat_thanh_toan/{id}','ApartmentController@hoan_tat_thanh_toan')->name('hoan_tat_thanh_toan');
 	Route::get('/', 'HomeController@index')->name('home');
 	Route::get('ajaxGetApartment','ApartmentController@ajaxGetApartment');
+	Route::post('getCostMonth/{id}','ApartmentController@getCostMonth')->name('getCostMonth');
+	Route::get('data-statistics','DataStatisticController@index')->name('data-statistics.index');
+	Route::get('data-statistics/details','DataStatisticController@details')->name('data-statistics.details');
 
 });
 
@@ -55,7 +58,14 @@ Route::prefix('/')->group(function(){
 	Route::post('delete-service/{id}','ServiceController@serviceDelete')->name('residents.service-delete')->middleware('auth');
 	Route::get('cost-service','ApartmentController@costServiceIndex')->name('residents.cost-service-index')->middleware('auth');
 	Route::get('cost-service/{month}','ApartmentController@costServiceShow')->name('residents.cost-service-show')->middleware('auth');
+	Route::post('getCostMonthResident','ApartmentController@getCostMonthResident')->name('getCostMonthResident');
 	// Route::post('cost-service/{id}','ServiceController@serviceDelete')->name('residents.service-delete')->middleware('auth');
+
+	    
+    Route::get('/execute-payment', 'PaymentController@execute');
+    Route::post('/create-payment', 'PaymentController@create')->name('create-payment');
+
 });	
+
 Auth::routes();
 

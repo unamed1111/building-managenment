@@ -25,8 +25,12 @@ class ReportController extends Controller
      */
     public function index(Request $request)
     {   
-        if(isset($request->search)) $reports = $this->service->search($request);
-        else $reports = $this->service->getAll();
+        if(isset($request->search)) 
+        {
+            $reports = $this->service->search($request->search); 
+        } else {
+            $reports = $this->service->getAll();
+        }
         return view('reports.index',compact('reports'));
     }
 

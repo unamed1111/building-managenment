@@ -22,8 +22,12 @@ class ServiceController extends Controller
      */
     public function index(Request $request)
     {
-        if(isset($request->search)) $services = $this->service->search($request);
-        else $services = $this->service->getAll();
+        if(isset($request->search)) 
+        {
+            $services = $this->service->search($request->search); 
+        } else {
+            $services = $this->service->getAll();
+        }
         return view('services.index',compact('services'));
     }
 

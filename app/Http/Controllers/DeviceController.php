@@ -21,8 +21,12 @@ class DeviceController extends Controller
      */
     public function index(Request $request)
     {
-        if(isset($request->search)) $devices = $this->service->search($request);
-        else $devices = $this->service->getAll();
+        if(isset($request->search)) 
+        {
+            $devices = $this->service->search($request->search); 
+        } else {
+            $devices = $this->service->getAll();
+        }
         return view('devices.index',compact('devices'));
     }
 

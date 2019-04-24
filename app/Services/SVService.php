@@ -40,4 +40,13 @@ class SVService extends BaseService
         $apartment->services()->detach($id);
         return;
     }
+
+    public function search($search)
+    {
+        $search = '%'.$search.'%';
+        $result = $this->model->where('name', 'like', $search)
+                                ->orWhere('cost', 'like', $search)
+                                ->orWhere('description', 'like', $search);
+        return $result->paginate(10);
+    }
 }

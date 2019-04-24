@@ -13,7 +13,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <textarea class='form-controll' name="result"></textarea>
+                                <textarea class='form-control' name="result"></textarea>
                             </div>
                         </div>
                     </div>

@@ -14,4 +14,14 @@ class BuildingService extends BaseService
     {
         parent::__construct($building);
     }
+
+    public function search($search)
+    {
+        $search = '%'.$search.'%';
+        $result = $this->model->where('name', 'like', $search)
+                                ->orWhere('description', 'like', $search)
+                                ->orWhere('phone', 'like', $search);
+        return $result->paginate(10);
+    }
+
 }

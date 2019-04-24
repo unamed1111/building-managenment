@@ -21,8 +21,12 @@ class BuildingController extends Controller
      */
     public function index(Request $request)
     {
-        if(isset($request->search)) $buildings = $this->service->search($request);
-        else $buildings = $this->service->getAll();
+        if(isset($request->search)) 
+        {
+            $buildings = $this->service->search($request->search); 
+        } else {
+            $buildings = $this->service->getAll();
+        }
         return view('buildings.index',compact('buildings'));
     }
 

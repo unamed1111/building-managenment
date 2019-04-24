@@ -40,4 +40,17 @@ return [
         ],
     ],
 
+    'paypal' => [
+        'id' => env('PAYPAL_CLIENT_ID'),
+        'secret' => env('PAYPAL_CLIENT_SECRET'),
+        'url' => [
+            'redirect' => 'http://localhost:8000/execute-payment',
+            'cancel'=>'http://localhost:8000/payment-test',
+        ],
+        'currency' => 'USD',
+        'settings' => [
+            'mode' => env('PAYPAL_MODE','sandbox'),
+            'http.ConnectionTimeOut' => 30,
+        ],
+    ],
 ];

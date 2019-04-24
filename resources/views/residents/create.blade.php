@@ -66,7 +66,7 @@
                                     <div class="col-sm-9">
                                         <select name="floor" class="form-control">
                                             <option selected value="">Chọn Tâng</option>
-                                            @for($i = 1; $i<16 ; $i++)
+                                            @for($i = 1; $i<11 ; $i++)
                                                 <option value={{$i}}>Tầng {{$i}}</option>
                                             @endfor
                                         </select>
@@ -142,7 +142,7 @@
                 building_id = $('#building_id').val()
                 if(building_id != 0 && floor != 0){
                     $.ajax({
-                        url: '/ajaxGetApartment',
+                        url: '/admin/ajaxGetApartment',
                         type: 'GET',
                         dataType: 'json',
                         data: {'building_id': building_id,'floor' : floor},

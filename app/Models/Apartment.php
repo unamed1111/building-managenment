@@ -15,11 +15,6 @@ class Apartment extends Model
     	return $this->belongsTo('App\Models\Building');
     }
 
-    // public function owner()
-    // {
-    // 	return $this->belongsTo('App\Models\ApartmentOwner','apartment_owner_id');
-    // }
-
     public function residents()
     {
     	return $this->hasMany('App\Models\Resident');
@@ -27,7 +22,7 @@ class Apartment extends Model
 
     public function services()
     {
-        return $this->belongsToMany('App\Models\Service','apartment_services')->withPivot('registration_time', 'comment','qty');
+        return $this->belongsToMany('App\Models\Service','apartment_services')->withPivot('registration_time', 'comment','qty','id');
     }
 
     public function apartment_services()

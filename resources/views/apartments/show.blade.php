@@ -71,12 +71,17 @@
                             </tr>
                         </thead>
                         <tbody>
+                                @php
+                                    
+                                @endphp
                             @foreach($apartment->services as $service)
+                                @if(\Carbon\Carbon::now()->format('Y-m-d') >=  $service->pivot->registration_time)
                                 <tr>
                                     <td><a href="{{ route('services.show',$service->id) }}">{{'A00'.$service->id}}</a></td>
                                     <td>{{$service->name}}</td>
                                     <td>{{$service->pivot->registration_time}}</td>
                                 </tr>
+                                @endif
                             @endforeach
                         </tbody>
                     </table>

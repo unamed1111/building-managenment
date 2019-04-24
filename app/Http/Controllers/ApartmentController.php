@@ -28,8 +28,13 @@ class ApartmentController extends Controller
      */
     public function index(Request $request)
     {
-        // if(isset($request->search)) $apartments = $this->service->search($request,['building']);
-        $apartments = $this->service->getAll(['building']);
+
+        if(isset($request->search)) 
+        {
+            $apartments = $this->service->search($request->search); 
+        } else {
+            $apartments = $this->service->getAll(['building']);
+        }
         return view('apartments.index',compact('apartments'));
     }
 
@@ -117,6 +122,10 @@ class ApartmentController extends Controller
     public function getCostService($id, $month)
     {
         $detail_cost = $this->service->getCostService($id, $month);
+        if($detail_cost == null)
+        {
+            return back()->with(['errors' => 'Chưa có hóa đơn tháng này']);
+        }
         return view('apartments.detail_service',compact('detail_cost'));
     }
 
@@ -150,6 +159,10 @@ class ApartmentController extends Controller
     public function costServiceShow($month)
     {
         $detail_cost = $this->service->costServiceShow($month);
+        if($detail_cost == null)
+        {
+            return back()->with(['errors' => 'Chưa có hóa đơn tháng này']);
+        }
         return view('resident_layout.cost_services.detail',compact('detail_cost'));
     }
 
@@ -157,4 +170,15 @@ class ApartmentController extends Controller
         $this->service->createAllCostService($month);
         return back();
     }
+
+    public function getCostMonth($id, Request $request)
+    {
+        return redirect()->route('show_cost_service',['id'=> $id,'month' => $request->month]);
+    }
+
+    public function getCostMonthResident(Request $request)
+    {
+        return redirect()->route('residents.cost-service-show',['month' => $request->month]);
+    }
+
 }

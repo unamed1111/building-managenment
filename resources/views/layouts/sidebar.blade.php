@@ -3,16 +3,12 @@
     <ul class="nav">
         <li class="nav-item nav-profile">
             <div class="nav-link">
-               {{--  <button class="btn btn-success btn-block">New Project
-                <i class="mdi mdi-plus"></i>
-                </button> --}}
             </div>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{{ route('home') }}">
             <i class="menu-icon mdi mdi-television"></i>
             <span class="menu-title">Trang chủ</span>
-            <i class="menu-arrow"></i>
             </a>
         </li>
         <li class="nav-item">
@@ -26,8 +22,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('buildings.index')}}">Danh Sách toà nhà</a>
                     </li>
-                </ul>
-                <ul class="nav flex-column sub-menu">
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('buildings.create')}}">Thêm mới</a>
                     </li>
@@ -45,8 +39,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('apartments.index')}}">Danh Sách căn hộ</a>
                     </li>
-                </ul>
-                <ul class="nav flex-column sub-menu">
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('apartments.create')}}">Thêm mới</a>
                     </li>
@@ -64,8 +56,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('residents.index')}}">Danh sách cư dân</a>
                     </li>
-                </ul>
-                <ul class="nav flex-column sub-menu">
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('residents.create')}}">Thêm mới</a>
                     </li>
@@ -83,8 +73,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('employees.index')}}">Danh sách nhân viên</a>
                     </li>
-                </ul>
-                <ul class="nav flex-column sub-menu">
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('employees.create')}}">Thêm mới</a>
                     </li>
@@ -102,8 +90,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('services.index')}}">Danh sách dịch vụ</a>
                     </li>
-                </ul>
-                <ul class="nav flex-column sub-menu">
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('services.create')}}">Thêm mới</a>
                     </li>
@@ -121,8 +107,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('devices.index')}}">Danh sách thiết bị</a>
                     </li>
-                </ul>
-                <ul class="nav flex-column sub-menu">
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('devices.create')}}">Thêm mới</a>
                     </li>
@@ -140,8 +124,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('maintenances.index')}}">Danh sách nghiệp vụ</a>
                     </li>
-                </ul>
-                <ul class="nav flex-column sub-menu">
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('maintenances.create')}}">Thêm mới</a>
                     </li>
@@ -159,8 +141,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('reports.index')}}">Danh sách báo cáo</a>
                     </li>
-                </ul>
-                <ul class="nav flex-column sub-menu">
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('reports.create')}}">Thêm mới</a>
                     </li>
@@ -170,7 +150,12 @@
         @hasanyrole('Admin|Manager')
         <li class="nav-item">
             <a class="nav-link"href="{{ route('users.index') }}">
-            <span class="menu-title">Quản lý Tài khoản</span>
+                <span class="menu-title">Quản lý Tài khoản</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link"href="{{ route('data-statistics.index') }}">
+                <span class="menu-title">Thống kê</span>
             </a>
         </li>
         @endhasanyrole
@@ -196,19 +181,19 @@
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{{ route('residents.report-index') }}">
-            <i class="menu-icon mdi mdi-television"></i>
+            <i class="menu-icon mdi-hospital-building"></i>
             <span class="menu-title">Báo cáo với ban quản lý</span>
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{{route('residents.service-index')}}">
-            <i class="menu-icon mdi mdi-television"></i>
+            <i class="menu-icon mdi mdi-briefcase-check"></i>
             <span class="menu-title">Các dịch vụ của tòa nhà</span>
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{{route('residents.cost-service-index')}}">
-            <i class="menu-icon mdi mdi-television"></i>
+            <i class="menu-icon mdi-calendar-text"></i>
             <span class="menu-title">Chi tiết hóa đơn theo tháng</span>
             </a>
         </li>

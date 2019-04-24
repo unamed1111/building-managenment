@@ -25,8 +25,12 @@ class MaintenanceController extends Controller
      */
     public function index(Request $request)
     {
-        if(isset($request->search)) $maintenances = $this->service->search($request);
-        else $maintenances = $this->service->getAll();
+        if(isset($request->search)) 
+        {
+            $maintenances = $this->service->search($request->search); 
+        } else {
+            $maintenances = $this->service->getAll();
+        }
         return view('maintenances.index',compact('maintenances'));
     }
 

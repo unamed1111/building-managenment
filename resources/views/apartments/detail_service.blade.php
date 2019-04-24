@@ -5,9 +5,34 @@
     <div class="col-lg-12">
         <div class="card px-2">
             <div class="card-body">
+                @include('partials.alert')
                 <div class="container-fluid">
-                    <h3 class="text-right my-5">Hóa đơn&nbsp;&nbsp;#{{ $detail_cost->month }}</h3>
-                    <hr>
+                    <div class="row">
+                        <div class="form-group form-inline col-md-6">
+                            <form action="{{ route('getCostMonth',$detail_cost->apartment_id) }}" method="POST" accept-charset="utf-8">
+                                @csrf
+                                <select class="form-control form-inline border-info" name="month"  id="exampleSelectInfo">
+                                    <option value="01-19">01-2019</option>
+                                    <option value="02-19">02-2019</option>
+                                    <option value="03-19">03-2019</option>
+                                    <option value="04-19">04-2019</option>
+                                    <option value="05-19">05-2019</option>
+                                    <option value="06-19">06-2019</option>
+                                    <option value="07-19">07-2019</option>
+                                    <option value="08-19">08-2019</option>
+                                    <option value="09-19">09-2019</option>
+                                    <option value="10-19">10-2019</option>
+                                    <option value="11-19">11-2019</option>
+                                    <option value="12-19">12-2019</option>
+                                </select>
+                                <button type="submit" class="btn btn-success">Tìm</button>
+                            </form>
+                        </div>
+                        <div class="form-group col-md-6">
+                                <h3 class="text-right my-5">Hóa đơn&nbsp;&nbsp;#{{ $detail_cost->month }}</h3>
+                        </div>
+                    </div>
+                    <<hr>      
                 </div>
                 <div class="container-fluid d-flex justify-content-between">
                     <div class="col-lg-3 pl-0">
@@ -37,7 +62,7 @@
                         <p class="mb-0 mt-5"><strong>Đã thu ngày</strong> : {{ $detail_cost->payment_date }}</p>
                         <p><strong>Người thu: </strong> {{ $detail_cost->employee->name }}</p>
                     </div>
-                    @else($detail_cost->status == 2)
+                    @elseif($detail_cost->status == 2)
                     <div class="col-lg-3 pl-0">
                         <p class="mb-0 mt-5"><strong>Đã thu ngày</strong> : {{ $detail_cost->payment_date }}</p>
                         <p><strong>Trả tiền bằng tài khoản ngân hàng </strong></p>
@@ -49,7 +74,6 @@
                         <table class="table">
                             <thead>
                                 <tr class="bg-dark text-white">
-                                    <th>#</th>
                                     <th>Dịch vụ sử dụng</th>
                                     <th class="text-right">Số lương</th>
                                     <th class="text-right">Tiền dịch vụ (vnd)</th>
@@ -58,13 +82,14 @@
                             </thead>
                             <tbody>
                                 @foreach($detail_cost->apartment->services as $key => $service)
-                                <tr class="text-right">
-                                    <td class="text-left">{{$key+1}}</td>
-                                    <td class="text-left">{{$service->name}}</td>
-                                    <td>{{$service->pivot->qty}}</td>
-                                    <td>{{number_format($service->cost)}}</td>
-                                    <td>{{number_format($service->pivot->qty * $service->cost)}}</td>
-                                </tr>
+                                    @if (in_array($service->pivot->id, json_decode($detail_cost->service_apartment_id)))
+                                        <tr class="text-right">
+                                            <td class="text-left">{{$service->name}}</td>
+                                            <td>{{$service->pivot->qty}}</td>
+                                            <td>{{number_format($service->cost)}}</td>
+                                            <td>{{number_format($service->pivot->qty * $service->cost)}}</td>
+                                        </tr>
+                                    @endif
                                 @endforeach
                             </tbody>
                         </table>
@@ -120,3 +145,7 @@
 </div>
 
 @endsection
+
+@push('js')
+    
+@endpush

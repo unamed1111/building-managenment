@@ -5,10 +5,16 @@
 		<div class="col-lg-12 grid-margin stretch-card">
 		    <div class="card">
 		        <div class="card-body">
-		            <h4 class="card-title"> Thiết bị
-		            	<a href="{{route('devices.create')}}" class="btn btn-primary btn-sm btn-rounded">Thêm</a>
-		            	@include('partials.search',['route' => route('devices.index')])
-		            </h4>
+		        	<div class="row">
+		        		<div class="col-sm-3">
+		        			<h4 class="card-title"> Thiết bị
+			            	<a href="{{route('devices.create')}}" class="btn btn-primary btn-sm btn-rounded">Thêm</a>
+			            </h4>
+		        		</div>
+		        		<div class="col-sm-9">
+		        			@include('partials.search',['route' => route('devices.index')])
+		        		</div>
+		        	</div>
 		            @include('partials.alert')
 		            <p class="card-description"> Tổng hợp các thiết bị của tòa nhà </p>
 		            

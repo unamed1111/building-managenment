@@ -5,10 +5,16 @@
 		<div class="col-lg-12 grid-margin stretch-card">
 		    <div class="card">
 		        <div class="card-body">
-		            <h4 class="card-title"> Dịch vụ
-		            	<a href="{{route('services.create')}}" class="btn btn-primary btn-sm btn-rounded">Thêm</a>
-		            	@include('partials.search',['route' => route('services.index')])
-		            </h4>
+		            <div class="row">
+		        		<div class="col-sm-3">
+		        			<h4 class="card-title"> Dịch vụ
+			            	<a href="{{route('services.create')}}" class="btn btn-primary btn-sm btn-rounded">Thêm</a>
+			            </h4>
+		        		</div>
+		        		<div class="col-sm-9">
+		        			@include('partials.search',['route' => route('services.index')])
+		        		</div>
+		        	</div>
 		            @include('partials.alert')
 		            <p class="card-description"> Tổng hợp các dịch vụ của tòa nhà </p>
 		            <a href="{{ route('createAllCostService',\Carbon\Carbon::createFromDate()->format('m-y')) }}" class="btn btn-outline-danger">Tạo hóa đơn tháng này</a>

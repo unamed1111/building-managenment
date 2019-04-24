@@ -14,4 +14,16 @@ class DeviceService extends BaseService
     {
         parent::__construct($device);
     }
+
+    public function search($search)
+    {
+        $search = '%'.$search.'%';
+        $result = $this->model->where('name', 'like', $search)
+                                ->orWhere('purchase_date', 'like', $search)
+                                ->orWhere('supplier', 'like', $search)
+                                ->orWhere('floor', 'like', $search)
+                                ->orWhere('status', 'like', $search);
+        return $result->paginate(10);
+    }
+
 }

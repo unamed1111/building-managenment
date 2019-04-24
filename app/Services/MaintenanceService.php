@@ -43,4 +43,14 @@ class MaintenanceService extends BaseService
         $model->device->save();
         return;
     }
+
+    public function search($search)
+    {
+        $search = '%'.$search.'%';
+        $result = $this->model->where('description', 'like', $search)
+                                ->orWhere('time_start', 'like', $search)
+                                ->orWhere('time_end', 'like', $search)
+                                ->orWhere('cost', 'like', $search);
+        return $result->paginate(10);
+    }
 }

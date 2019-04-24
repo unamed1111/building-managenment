@@ -26,8 +26,12 @@ class ResidentController extends Controller
      */
     public function index(Request $request)
     {
-        // if(isset($request->search)) $residents = $this->service->search($request,['user']);
-        $residents = $this->service->getAll(['user']);
+        if(isset($request->search)) 
+        {
+            $residents = $this->service->search($request->search); 
+        } else {
+            $residents = $this->service->getAll(['user']);
+        }
         return view('residents.index',compact('residents'));
     }
 

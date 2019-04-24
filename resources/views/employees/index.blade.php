@@ -5,12 +5,18 @@
 		<div class="col-lg-12 grid-margin stretch-card">
 		    <div class="card">
 		        <div class="card-body">
-		            <h4 class="card-title"> Quản lý nhân viên
-		            	@role('Admin|Manager')
-		            	<a href="{{route('employees.create')}}" class="btn btn-primary btn-sm btn-rounded">Thêm</a>
-		            	@endrole
-		            	@include('partials.search',['route' => route('employees.index')])
-		            </h4>
+		        	<div class="row">
+		        		<div class="col-sm-3">
+		        			<h4 class="card-title">  Quản lý nhân viên
+			            	@role('Admin|Manager')
+			            	<a href="{{route('employees.create')}}" class="btn btn-primary btn-sm btn-rounded">Thêm</a>
+			            	@endrole
+			            	</h4>
+		        		</div>
+		        		<div class="col-sm-9">
+		        			@include('partials.search',['route' => route('employees.index')])
+		        		</div>
+		        	</div>
 		            @include('partials.alert')
 		            <p class="card-description"> Danh sách nhân viên</p>
 		            
