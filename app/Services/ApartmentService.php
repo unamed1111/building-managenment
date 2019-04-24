@@ -120,7 +120,7 @@ class ApartmentService extends BaseService
 
     public function getCostServceOfResident()
     {
-        $cost_services = auth()->user()->userable->apartment->apartment_services_cost()->paginate(5);
+        $cost_services = auth()->user()->userable->apartment->apartment_services_cost()->orderBy('month','DESC')->paginate(5);
         return $cost_services;
     }
 

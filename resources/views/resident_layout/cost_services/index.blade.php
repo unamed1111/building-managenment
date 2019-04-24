@@ -21,6 +21,7 @@
                                         </thead>
                                         <tbody>
                                             @foreach($cost_services as $cost_service)
+                                                @if($cost_service->amount != 0)
                                                 <tr>
                                                     <td>{{$cost_service->month}}</td>
                                                     <td>{{number_format($cost_service->amount). " vnđ"}}</td>
@@ -30,6 +31,7 @@
                                                     <th>{{$cost_service->payment_date}}</th>
                                                     <th><a href="{{ route('residents.cost-service-show',['month' => $cost_service->month]) }}">Chi tiết</a></th>
                                                 </tr>
+                                                @endif
                                             @endforeach
                                         </tbody>
                                     </table>

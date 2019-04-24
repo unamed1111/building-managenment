@@ -40,6 +40,6 @@ class PaymentController extends Controller
         $url = session('url_prev','/');
         session()->forget('url_prev');
         session()->forget('cost_id');
-        return redirect($url)->with('success' ,'Đã đóng tiền');
+        return redirect($url)->with('success' ,'Đã thanh toán phí dịch vụ');
     }
 }

@@ -26,7 +26,7 @@
 		                        <th>Tầng</th>
 		                        <th>Diện tích(m2)</th>
 		                        <th>Chủ sở hữu</th>
-		                        <th>Tòa nhà<	/th>
+		                        <th>Tòa nhà</th>
 		                        <th>Trạng thái</th>
 		                        <th>Hành động</th>
 		                    </tr>

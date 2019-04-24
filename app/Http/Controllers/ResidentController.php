@@ -128,7 +128,11 @@ class ResidentController extends Controller
 
     public function getInformation() 
     {
-        return view('resident_layout.information');
+        $user = auth()->user()->userable;
+        $cost_service_history = $user->apartment->apartment_services_cost()->where('status', '<>' , 0)->orderBy('month','DESC')->get();
+        $cost_service_history_unpaid = $user->apartment->apartment_services_cost()->where('status',0)->orderBy('month','DESC')->get();
+        $buildings = $this->buildingService->getAll();
+        return view('resident_layout.information',compact('user','cost_service_history','cost_service_history_unpaid','buildings'));
     }
 
     private function syncPermissions($user)

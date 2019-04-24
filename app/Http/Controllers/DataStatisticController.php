@@ -62,7 +62,6 @@ class DataStatisticController extends Controller
         $cost_chuatra = collect($cost_month->where('status', 0)->all());
         $total_amount_chuatra = $cost_chuatra->sum('amount');
 
-        // dd($total_amount_datra , $total_amount_chuatra , $cost_month->sum('amount') );
         return view('data_statistics.statistics');
     }
 

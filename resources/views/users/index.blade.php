@@ -7,7 +7,7 @@
 		        <div class="card-body">
 		            <h4 class="card-title"> Quản lý tài khoản
 		            	<a href="{{route('users.create')}}" class="btn btn-primary btn-sm btn-rounded">Thêm</a>
-		            	@include('partials.search',['route' => route('users.index')])
+		            	{{-- @include('partials.search',['route' => route('users.index')]) --}}
 		            </h4>
 		            @include('partials.alert')
 		            <p class="card-description"> Thông tin Tài khoản </p>

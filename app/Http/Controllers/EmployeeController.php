@@ -7,6 +7,7 @@ use App\Services\EmployeeService;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Http\Request;
 use App\Http\Requests\EmployeeRequest;
+use App\Http\Requests\UpdateEmployeeRequest;
 use App\User;
 use App\Role;
 
@@ -100,7 +101,7 @@ class EmployeeController extends Controller
      * @param  \App\Models\Employee  $employee
      * @return \Illuminate\Http\Response
      */
-    public function update(EmployeeRequest $request,$id)
+    public function update(UpdateEmployeeRequest $request, $id)
     {
         $this->service->update($request->all(),$id);
         return back();
@@ -137,7 +138,11 @@ class EmployeeController extends Controller
     private function syncPermissions($user)
     {
         // Get the submitted roles
-        $roles = [ROLE_EMPLOYEE];
+        if($user->type == 4) {
+            $roles = [ROLE_MANAGER];
+        } else {
+            $roles = [ROLE_EMPLOYEE];
+        }
         $permissions = [];
 
         // Get the roles
@@ -154,5 +159,11 @@ class EmployeeController extends Controller
         $user->syncRoles($roles);
 
         return $user;
+    }
+
+    public function getInformation()
+    {
+        $user = auth()->user()->userable;
+        return view('employees.information',compact('user'));
     }
 }

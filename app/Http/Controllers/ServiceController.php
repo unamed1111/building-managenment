@@ -62,7 +62,8 @@ class ServiceController extends Controller
     public function show($id)
     {
         $service = $this->service->get($id,'apartments');
-        return view('services.show',compact('service'));
+        $apartments = $service->apartments()->paginate(10);
+        return view('services.show',compact('service','apartments')); 
     }
 
     /**

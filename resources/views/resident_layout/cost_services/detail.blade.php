@@ -143,8 +143,8 @@
             <div class="modal-footer">
                 <form action="{{ route('create-payment') }}" method="post">
                     @csrf
-                    <input type="text" class="hidden" name="id" value="{{$detail_cost->id}}">
-                    <input type="text" class="hidden" name="amount" value="{{number_format(tranferVndToUsd($detail_cost->amount),2)}}">
+                    <input type="text" name="id" value="{{$detail_cost->id}}" style="display: none">
+                    <input type="text" name="amount"  style="display: none" value="{{number_format(tranferVndToUsd($detail_cost->amount),2)}}">
                     <button type="submit" class="btn btn-success">Xác nhận thanh toán với paypal</button>
                 </form>
 

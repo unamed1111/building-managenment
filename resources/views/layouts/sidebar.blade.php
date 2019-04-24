@@ -11,6 +11,7 @@
             <span class="menu-title">Trang chủ</span>
             </a>
         </li>
+        @if(auth()->user()->type == 0 || auth()->user()->type == 1  )
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#buildings" aria-expanded="false" aria-controls="buildings">
             <i class="menu-icon mdi mdi-hospital-building"></i>
@@ -28,6 +29,7 @@
                 </ul>
             </div>
         </li>
+        @endif
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#apartments" aria-expanded="false" aria-controls="apartments">
             <i class="menu-icon mdi mdi-home-modern"></i>
@@ -73,9 +75,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('employees.index')}}">Danh sách nhân viên</a>
                     </li>
+                    @if(auth()->user()->type == 0 || auth()->user()->type == 1  )
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('employees.create')}}">Thêm mới</a>
                     </li>
+                    @endif
                 </ul>
             </div>
         </li>
@@ -90,9 +94,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('services.index')}}">Danh sách dịch vụ</a>
                     </li>
+                    @if(auth()->user()->type == 0 || auth()->user()->type == 1  )
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('services.create')}}">Thêm mới</a>
                     </li>
+                    @endif
                 </ul>
             </div>
         </li>
@@ -181,7 +187,7 @@
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{{ route('residents.report-index') }}">
-            <i class="menu-icon mdi-hospital-building"></i>
+            <i class="menu-icon  mdi mdi-hospital-building"></i>
             <span class="menu-title">Báo cáo với ban quản lý</span>
             </a>
         </li>
@@ -193,7 +199,7 @@
         </li>
         <li class="nav-item">
             <a class="nav-link" href="{{route('residents.cost-service-index')}}">
-            <i class="menu-icon mdi-calendar-text"></i>
+            <i class="menu-icon mdi mdi-calendar-text"></i>
             <span class="menu-title">Chi tiết hóa đơn theo tháng</span>
             </a>
         </li>

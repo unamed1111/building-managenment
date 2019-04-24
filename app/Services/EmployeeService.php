@@ -20,7 +20,6 @@ class EmployeeService extends BaseService
         $search = '%'.$search.'%';
         $result = $this->model->where('name', 'like', $search)
                                 ->orWhere('dob', 'like', $search)
-                                ->orWhere('status', 'like', $search)
                                 ->orWhere('position', 'like', $search)
                                 ->orWhere('phone', 'like', $search)
                                 ->orWhere('address', 'like', $search)

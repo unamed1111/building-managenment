@@ -25,7 +25,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($service->apartments as $apartment)
+                            @foreach($apartments as $apartment)
                                 <tr>
                                     <td><a href="{{ route('apartments.show',$apartment->id) }}">{{'A00'.$apartment->id}}</a></td>
                                     <td>{{$apartment->pivot->registration_time}}</td>
@@ -34,7 +34,7 @@
                         </tbody>
                     </table>
                     </div>
-                    
+                    {{$apartments->links()}}
             </div>
         </div>
     </div>

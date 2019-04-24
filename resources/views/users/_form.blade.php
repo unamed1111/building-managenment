@@ -14,14 +14,14 @@
 
 <!-- password Form Input -->
 <div class="form-group @if ($errors->has('password')) has-error @endif">
-    {!! Form::label('password', 'Password') !!}
+    {!! Form::label('password', 'Mật khẩu') !!}
     {!! Form::password('password', ['class' => 'form-control', 'placeholder' => 'Password']) !!}
     @if ($errors->has('password')) <p class="help-block">{{ $errors->first('password') }}</p> @endif
 </div>
 
 <!-- Roles Form Input -->
 <div class="form-group @if ($errors->has('roles')) has-error @endif">
-    {!! Form::label('roles[]', 'Roles') !!}
+    {!! Form::label('roles[]', 'Quyền') !!}
     {!! Form::select('roles[]', $roles, isset($user) ? $user->roles->pluck('id')->toArray() : null,  ['class' => 'form-control', 'multiple']) !!}
     @if ($errors->has('roles')) <p class="help-block">{{ $errors->first('roles') }}</p> @endif
 </div>

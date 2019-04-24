@@ -4,13 +4,22 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Arr;
 use App\User;
 use App\Role;
 use App\Authorizable;
+use App\Services\EmployeeService;
 
 class UserController extends Controller
 {
     // use Authorizable;
+
+    private $service;
+
+    public function __construct(EmployeeService $service)
+    {
+        $this->service = $service;
+    }
 
 	public function index(Request $request)
 	{
@@ -21,24 +30,27 @@ class UserController extends Controller
 
 	public function create()
 	{
-        $roles = Role::pluck('name', 'id');
+        $roles = Role::pluck('name', 'id')->except(ROLE_ADMIN,ROLE_RESIDENT);
 		return view('users.create',compact('roles'));
 	}
 
 	public function store(Request $request)
     {
+        $request->position = in_array(ROLE_MANAGER, $request->roles) ? '4' : $request->position;
         $this->validate($request, [
             'email' => 'required|email|unique:users',
             'password' => 'required|min:6',
             'roles' => 'required|min:1'
         ]);
-
+        $employee = $this->service->store($request->only('email','phone','name','dob','address','position','gender'));
         $user = User::create([
         	'email' => $request->input('email'),
 	        'password' => Hash::make($request->input('password')), // secret
-	        'software_user_id' => 1 ,
-	        'role' => 1 ,
-	        'type' => 1,
+	        'software_user_id' => $employee->id ,
+            'role' => 1 , // chưa chọn role
+            'type' => $request->input('position')== 4 ? 1 : 2,
+            'user_type' => 'App\Models\Employee'
+
         ]);
 
         if($user){

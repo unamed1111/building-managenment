@@ -6,6 +6,7 @@ use App\Models\Maintenance;
 use Illuminate\Http\Request;
 use App\Services\MaintenanceService;
 use App\Services\EmployeeService;
+use App\Models\Device;
 
 class MaintenanceController extends Controller
 {
@@ -41,7 +42,8 @@ class MaintenanceController extends Controller
      */
     public function create()
     {
-        return view('maintenances.create');
+        $devices = Device::pluck('name','id')->toArray();
+        return view('maintenances.create',compact('devices'));
     }
 
     /**

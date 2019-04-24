@@ -29,6 +29,7 @@
 		                        <th>Vị trí</th>
 		                        <th>Giới tính</th>
 		                        <th>Số điện thoại</th>
+		                        <th>Email</th>
 		                        @role('Admin|Manager')
 		                        <th>Hành động</th>
 		                        @endrole
@@ -47,6 +48,7 @@
 			                        <td>{{POSITION[$employee->position]}}</td>
 			                        <td>{{GENDER[$employee->gender]}}</td>
 			                        <td>{{$employee->phone ? $employee->phone : ''}}</td>
+			                        <td>{{$employee->email ? $employee->email : 'Chưa cập nhật email'}}</td>
 			                        @role('Admin|Manager')
 			                        <td>
 			                            <a href="{{ route('employees.edit',$employee->id)}}" class="btn btn-info btn-sm btn-rounded btn-fw">

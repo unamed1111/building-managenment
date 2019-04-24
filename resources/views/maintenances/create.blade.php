@@ -16,11 +16,12 @@
                         @endif
                     </div>
                     <div class="form-group {{ $errors->has('device_id') ? 'has-danger' : ''}}">
-                        <label for="device_id" class="col-form-label">Mã thiết bị:</label>
-                        <input type="number" class="form-control" placeholder="mã thiết bị" name="device_id" id="device_id" value="{{old('device_id')}}"> 
-                        @if ($errors->has('device_id'))
-                            <small class="text-danger">{{ $errors->first('device_id') }}</small>
-                        @endif
+                       <label for="device_id" class="col-form-label">Tòa nhà:</label>
+                        <select name="device_id" class="form-control border-primary">
+                            @foreach($devices as $key => $device)
+                                <option value="{{$key}}">{{$device}}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="form-group {{ $errors->has('time_start') ? 'has-danger' : ''}}">
                         <label for="time_start" class="col-form-label">Ngày bắt đầu:</label>

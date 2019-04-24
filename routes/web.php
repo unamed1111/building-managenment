@@ -16,19 +16,19 @@
 // });
 
 Route::prefix('admin')->group(function(){
-	Route::resource('buildings','BuildingController')->middleware('auth');
-	Route::resource('apartments','ApartmentController')->middleware('auth');
-	Route::resource('residents','ResidentController')->middleware('auth');
-	Route::get('residents-create-account/{id}','ResidentController@createAccount')->name('residents.createAccount')->middleware('auth');
-	Route::resource('employees','EmployeeController')->middleware('auth');
-	Route::get('employees-create-account/{id}','EmployeeController@createAccount')->name('employees.createAccount')->middleware('auth');
-	Route::resource('services','ServiceController')->middleware('auth');
-	Route::resource('apartment_owners','ApartmentOwnerController')->middleware('auth');
-	Route::resource('devices','DeviceController')->middleware('auth');
-	Route::resource('maintenances','MaintenanceController')->middleware('auth');
-	Route::resource('reports','ReportController')->middleware('auth');
+	Route::resource('buildings','BuildingController')->middleware(['auth', 'roleAmin']);
+	Route::resource('apartments','ApartmentController')->middleware(['auth', 'roleAmin']);
+	Route::resource('residents','ResidentController')->middleware(['auth', 'roleAmin']);
+	Route::get('residents-create-account/{id}','ResidentController@createAccount')->name('residents.createAccount')->middleware(['auth', 'roleAmin']);
+	Route::resource('employees','EmployeeController')->middleware(['auth', 'roleAmin']);
+	Route::get('employees-create-account/{id}','EmployeeController@createAccount')->name('employees.createAccount')->middleware(['auth', 'roleAmin']);
+	Route::resource('services','ServiceController')->middleware(['auth', 'roleAmin']);
+	Route::resource('apartment_owners','ApartmentOwnerController')->middleware(['auth', 'roleAmin']);
+	Route::resource('devices','DeviceController')->middleware(['auth', 'roleAmin']);
+	Route::resource('maintenances','MaintenanceController')->middleware(['auth', 'roleAmin']);
+	Route::resource('reports','ReportController')->middleware(['auth', 'roleAmin']);
 	Route::post('addServicesToApartment/{id}','ApartmentController@addServices')->name('add_services');
-	Route::resource('users', 'UserController')->middleware('auth');
+	Route::resource('users', 'UserController')->middleware(['auth', 'roleAmin']);
 	Route::resource('roles', 'RoleController');
 	Route::post('/role/{id}/restore', 'RoleController@restore')->name('role.restore');
 
@@ -40,12 +40,13 @@ Route::prefix('admin')->group(function(){
 	Route::get('apartments/{id}/create_cost_service/{month}','ApartmentController@createCostService')->name('create_cost_service');
 	Route::get('createAllCostService/{month}','ApartmentController@createAllCostService')->name('createAllCostService');
 	Route::get('apartments/{id}/show_cost_service/{month}','ApartmentController@getCostService')->name('show_cost_service');
-	Route::get('hoan_tat_thanh_toan/{id}','ApartmentController@hoan_tat_thanh_toan')->name('hoan_tat_thanh_toan');
+	Route::get('hoan_tat_thanh_toan/{id}','ApartmentController@hoan_tat_thanh_toan')->name('hoan_tat_thanh_toan')->middleware(['auth', 'roleAmin']);
 	Route::get('/', 'HomeController@index')->name('home');
 	Route::get('ajaxGetApartment','ApartmentController@ajaxGetApartment');
 	Route::post('getCostMonth/{id}','ApartmentController@getCostMonth')->name('getCostMonth');
 	Route::get('data-statistics','DataStatisticController@index')->name('data-statistics.index');
 	Route::get('data-statistics/details','DataStatisticController@details')->name('data-statistics.details');
+	Route::get('/getInformation','EmployeeController@getInformation')->name('employee.infomation')->middleware(['auth', 'roleAmin']);
 
 });
 
@@ -59,7 +60,6 @@ Route::prefix('/')->group(function(){
 	Route::get('cost-service','ApartmentController@costServiceIndex')->name('residents.cost-service-index')->middleware('auth');
 	Route::get('cost-service/{month}','ApartmentController@costServiceShow')->name('residents.cost-service-show')->middleware('auth');
 	Route::post('getCostMonthResident','ApartmentController@getCostMonthResident')->name('getCostMonthResident');
-	// Route::post('cost-service/{id}','ServiceController@serviceDelete')->name('residents.service-delete')->middleware('auth');
 
 	    
     Route::get('/execute-payment', 'PaymentController@execute');
