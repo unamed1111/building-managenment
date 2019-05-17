@@ -65,6 +65,14 @@ Route::prefix('/')->group(function(){
     Route::get('/execute-payment', 'PaymentController@execute');
     Route::post('/create-payment', 'PaymentController@create')->name('create-payment');
 
+    Route::get('/vnpay', function(){
+    	return view('vnpay');
+    })->name('vnpay');
+
+    Route::post('create-vnpay', 'VnpayController@create')->name('create-vnpay');
+    Route::get('excute-vnpay', 'VnpayController@excute')->name('excute-vnpay');
+    Route::get('return-vnpay', 'VnpayController@return')->name('return-vnpay');
+
 });	
 
 Auth::routes();

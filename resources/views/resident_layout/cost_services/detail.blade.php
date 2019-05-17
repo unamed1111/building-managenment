@@ -145,10 +145,14 @@
                     @csrf
                     <input type="text" name="id" value="{{$detail_cost->id}}" style="display: none">
                     <input type="text" name="amount"  style="display: none" value="{{number_format(tranferVndToUsd($detail_cost->amount),2)}}">
-                    <button type="submit" class="btn btn-success">Xác nhận thanh toán với paypal</button>
+                    <button type="submit" class="btn btn-success">Thanh toán với paypal</button>
                 </form>
-
-                <a type="button" class="btn btn-light" data-dismiss="modal">Close</a>
+                <form action="{{ route('create-vnpay') }}" method="post">
+                    @csrf
+                    <input type="text" name="id" value="{{$detail_cost->id}}" style="display: none">
+                    <input type="text" name="amount"  style="display: none" value="{{ $detail_cost->amount }}">
+                    <button type="submit" class="btn btn-info">Thanh toán với Vn Pay</button>
+                </form>
             </div>
         </div>
     </div>
