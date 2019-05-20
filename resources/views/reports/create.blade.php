@@ -22,7 +22,7 @@
                             <small class="text-danger">{{ $errors->first('content') }}</small>
                         @endif
                     </div>
-                    <button type="submit" class="btn btn-primary">Thêm</button>
+                    <button type="submit" class="btn btn-primary">Gửi</button>
                     <a href="{{route('reports.index')}}" class="btn btn-danger" >Quay lại</a>
                 </form> 
                 </div>

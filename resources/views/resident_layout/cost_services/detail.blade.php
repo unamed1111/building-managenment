@@ -111,7 +111,7 @@
                         <i class="mdi mdi-printer mr-1"></i>Đã thanh toán
                     </button>
                     @endif
-                    <a href="{{ url()->previous() }}" class="btn btn-outline-danger float-right mt-4 ml-2">
+                    <a href="{{ route('residents.cost-service-index') }}" class="btn btn-outline-danger float-right mt-4 ml-2">
                         <i class="mdi mdi-previous mr-1"></i>Quay lại
                     </a>
                 </div>

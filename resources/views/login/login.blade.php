@@ -56,7 +56,6 @@
                                     </div>
                                 </form>
                             </div>
-                            <p class="footer-text text-center">Building Care with <b>Admin</b></p>
                         </div>
                     </div>
                 </div>

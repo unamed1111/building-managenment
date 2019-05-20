@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'failed' => 'These credentials do not match our records.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'failed' => 'Thông tin tài khoản không đúng, Hãy thử lại!',
+    'throttle' => 'Quá nhiều yêu cầu, Hãy thử lại trong :seconds giây.',
 
 ];

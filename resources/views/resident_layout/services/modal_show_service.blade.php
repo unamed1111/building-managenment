@@ -34,7 +34,7 @@
                                     <div class="card-body"> 
                                         <form action="{{route('residents.service-store')}}" method="POST" >
                                             @csrf
-                                            <input type="number" class="form-control hidden" name="service_id" value="{{$service->id}}"> 
+                                            <input type="number" class="form-control" hidden="true" name="service_id" value="{{$service->id}}"> 
                                             <div class="form-group {{ $errors->has('qty') ? 'has-danger' : ''}}">
                                                 <label for="qty" class="col-form-label">Số lượng:</label>
                                                 <input type="number" class="form-control" placeholder="Số lượng" name="qty" id="qty" value="{{old('qty')}}"> 
@@ -49,7 +49,7 @@
                                                     <small class="text-danger">{{ $errors->first('comment') }}</small>
                                                 @endif
                                             </div>
-                                            <button type="submit" class="btn btn-secondary">Đăng kí</button>
+                                            <button type="submit" class="btn btn-danger">Đăng kí</button>
                                         </form> 
                                     </div>
                                 </div>

@@ -139,17 +139,19 @@
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#reports" aria-expanded="false" aria-controls="reports">
             <i class="menu-icon mdi mdi-calendar-text"></i>
-            <span class="menu-title">Báo cáo</span>
+            <span class="menu-title">Ý kiến đóng góp</span>
             <i class="menu-arrow"></i>
             </a>
             <div class="collapse" id="reports">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('reports.index')}}">Danh sách báo cáo</a>
+                        <a class="nav-link" href="{{route('reports.index')}}">Danh sách ý kiến, góp ý</a>
                     </li>
+                    @hasrole('Employee')
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('reports.create')}}">Thêm mới</a>
                     </li>
+                    @endhasrole
                 </ul>
             </div>
         </li>
@@ -188,7 +190,7 @@
         <li class="nav-item">
             <a class="nav-link" href="{{ route('residents.report-index') }}">
             <i class="menu-icon  mdi mdi-hospital-building"></i>
-            <span class="menu-title">Báo cáo với ban quản lý</span>
+            <span class="menu-title">Góp ý với ban quản lý</span>
             </a>
         </li>
         <li class="nav-item">

@@ -53,7 +53,7 @@
                         </select>
                     </div>
                     <div class="form-group {{ $errors->has('status') ? 'has-danger' : ''}}">
-                        <label for="status" class="col-form-label">Tòa nhà:</label>
+                        <label for="status" class="col-form-label">Trạng thái:</label>
                         <select name="status" class="form-control border-primary">
                                 <option  {{$apartment->status == 0 ? 'selected' :'' }}  value="0">Chưa được sử dụng</option>
                                 <option  {{$apartment->status == 1 ? 'selected' :'' }} value="1">Đang được sử dụng</option>

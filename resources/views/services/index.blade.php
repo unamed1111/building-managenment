@@ -29,9 +29,9 @@
 		                        <th>Tên dịch vụ</th>
 		                        <th>Giá (vnđ)</th>
 		                        <th>Đơn vị tính</th>
-		                        @can(auth()->user()->type == 1 || auth()->user()->type == 2  )
+		                        {{-- @can(auth()->user()->type == 1 || auth()->user()->type == 2  ) --}}
 		                        <th>Hành động</th>
-		                        @endcan
+		                        {{-- @endcan --}}
 		                    </tr>
 		                </thead>
 		                <tbody>
@@ -42,13 +42,13 @@
 			                        <td>{{number_format($service->cost)}}</td>
 			                        <td>Tháng</td>
 			                        <td>
-			                        	@can(auth()->user()->type == 1 || auth()->user()->type == 2  )
+			                        	{{-- @can(auth()->user()->type == 1 || auth()->user()->type == 2  ) --}}
 			                            <a href="{{ route('services.edit',$service->id)}}" class="btn btn-info btn-sm btn-rounded btn-fw">
 	                            			<i class="mdi mdi-cloud-download"></i>Sửa
 	                        			</a>
 	                        			&nbsp;<button type="button" class="btn btn-primary btn-sm btn-rounded" data-toggle="modal" data-target="{{"#add".$service->id}}" data-whatever="@mdo">Xóa</button>
 	                        			@include('partials.modal',['id'=> $service->id, 'route' => route('services.destroy', $service->id), 'action' => 'delete', 'method' => 'delete'])
-	                        			@endcan
+	                        			{{-- @endcan --}}
 			                        </td>
 			                    </tr>
 		                    @endforeach
