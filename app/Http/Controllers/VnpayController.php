@@ -154,7 +154,7 @@ class VnpayController extends Controller
     {
         $url = session('url_prev','/');
         if($request->vnp_ResponseCode == "00") {
-            $this->apSer->thanhtoanonline(session('cost_id'));
+            $this->apSer->thanhtoanonline(session('cost_id'), 3); // 3 là thanh toàn = vnpay
             return redirect($url)->with('success' ,'Đã thanh toán phí dịch vụ');
         }
         session()->forget('url_prev');

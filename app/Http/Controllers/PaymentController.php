@@ -36,7 +36,7 @@ class PaymentController extends Controller
         $payment = new ExecutePayment;
         $payment->execute();     
         // $execute = $this->payment_service->saveData($payment->execute());
-        $this->apSer->thanhtoanonline(session('cost_id'));
+        $this->apSer->thanhtoanonline(session('cost_id'), 2); // 2 là thanh toan bang paypal
         $url = session('url_prev','/');
         session()->forget('url_prev');
         session()->forget('cost_id');

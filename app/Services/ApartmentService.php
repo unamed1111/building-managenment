@@ -131,11 +131,11 @@ class ApartmentService extends BaseService
         return $cost;
     }
 
-    public function thanhtoanonline($id)
+    public function thanhtoanonline($id, $type)
     {
         CostServiceApartment::find($id)->update([
             'payment_date' => date('y-m-d'),
-            'status'=> 2 // 0 chua tra, 1 nhan vien thu, 2 tra bang paypal
+            'status'=> $type // 0 chua tra, 1 nhan vien thu, 2 tra bang paypal,3 tra bằng vn Pay
         ]);        
         // $cost = CostServiceApartment::find($id)->with('apartment','apartment.building','apartment.services');
         return;

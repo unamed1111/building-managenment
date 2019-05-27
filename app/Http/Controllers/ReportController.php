@@ -6,6 +6,7 @@ use App\Models\Report;
 use App\Http\Requests\ReportRequest;
 use Illuminate\Http\Request;
 use App\Services\ReportService;
+use Nexmo\Laravel\Facade\Nexmo;
 
 class ReportController extends Controller
 {
@@ -25,6 +26,11 @@ class ReportController extends Controller
      */
     public function index(Request $request)
     {   
+        // Nexmo::message()->send([
+        //     'to'   => '355270648',
+        //     'from' => '345344996',
+        //     'text' => 'Using the facade to send a message.'
+        // ]);
         if(isset($request->search)) 
         {
             $reports = $this->service->search($request->search); 

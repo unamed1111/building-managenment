@@ -33,7 +33,8 @@ define('REPORT_STATUS',[
 define('PAY_STATUS',[
 	0 => 'Chưa trả',
 	1 => 'Đã đóng tại quầy thu ngân',
-	2 => 'Đã thanh toán online',
+	2 => 'Đã thanh toán qua Paypal',
+	3 => 'Đã thanh toán qua VnPay',
 ]);
 
 define('ROLE_ADMIN',1);
