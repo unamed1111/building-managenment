@@ -59,7 +59,7 @@
 					                                        <div class="col-12 mt-5">
 					                                            <h5 class="mb-5">Thông báo</h5>
 					                                            <div class="stage-wrapper pl-4">
-					                                                <div class="stages border-left pl-5 pb-4">
+					                                                <div class="stages border-left pl-5 pb-4 text-info">
 					                                                    <div class="btn btn-icons btn-rounded stage-badge btn-inverse-success">
 					                                                        <i class="mdi mdi-texture"></i>
 					                                                    </div>
@@ -70,23 +70,47 @@
 					                                                    <p>Ngày 25 hàng tháng chúng tôi sẽ bắt đầu thu phí dịch vụ cho tháng trước đó, thời gian đóng là 5 ngày kể từ ngày bắt đầu. Có thế đóng tiền qua hệ thống Paypal hoặc trực tiếp với nhân viên tòa nhà tại khu vực lễ tân. </p>
 					                                                </div>
 					                                                @if($cost_service_history_unpaid->count() != 0 )
-					                                                <div class="stages pl-5 pb-4">
-					                                                    <div class="btn btn-icons btn-rounded stage-badge btn-inverse-primary">
-					                                                        <i class="mdi mdi-checkbox-marked-circle-outline"></i>
-					                                                    </div>
-					                                                    <div class="d-flex align-items-center mb-2 justify-content-between">
-					                                                        <h5 class="mb-0">Chưa trả phí dịch vụ tháng </h5>
-					                                                        <small class="text-muted">Ban quản lý</small>
-					                                                    </div>
-				                                                      	@foreach($cost_service_history_unpaid as $cost_unpaid)
-					                                                      	@php
-							                                            		$temp = explode('-',$cost_unpaid->month);
-							                                            		$month = '15-'.$temp[0].'-20'.$temp[1];
-							                                            	@endphp
-					                                                	<p class="text-danger">{{ 'Còn nợ: '. \Carbon\Carbon::parse($month)->format('m-Y'). ' số tiền cần thanh toán ' .number_format($cost_unpaid->amount).' vnd'}}</p>
-						                                                @endforeach
-			                                            			</div>
+						                                                <div class="stages pl-5 pb-4">
+						                                                    <div class="btn btn-icons btn-rounded stage-badge btn-inverse-primary">
+						                                                        <i class="mdi mdi-checkbox-marked-circle-outline"></i>
+						                                                    </div>
+						                                                    <div class="d-flex align-items-center mb-2 justify-content-between">
+						                                                        <h5 class="mb-0">Chưa trả phí dịch vụ tháng </h5>
+						                                                        <small class="text-muted">Ban quản lý</small>
+						                                                    </div>
+					                                                      	@foreach($cost_service_history_unpaid as $cost_unpaid)
+						                                                      	@php
+								                                            		$temp = explode('-',$cost_unpaid->month);
+								                                            		$month = '15-'.$temp[0].'-20'.$temp[1];
+								                                            	@endphp
+						                                                	<p class="text-danger">{{ 'Còn nợ: '. \Carbon\Carbon::parse($month)->format('m-Y'). ' số tiền cần thanh toán ' .number_format($cost_unpaid->amount).' vnd'}}</p>
+							                                                @endforeach
+				                                            			</div>
 					                                                @endif
+					                                                @foreach(auth()->user()->notifications()->paginate(10) as $notification)
+																		<div class="stages border-left pl-5 pb-4">
+						                                                    <div class="btn btn-icons btn-rounded stage-badge btn-inverse-success">
+						                                                        <i class="mdi mdi-texture"></i>
+						                                                    </div>
+						                                                    <div class="d-flex align-items-center mb-2 justify-content-between">
+						                                                        <h5 class="mb-0">{{isset($notification->data['noti_name']) ? $notification->data['noti_name'] : 'Thông báo ...' }}</h5>
+						                                                        <small class="text-muted">Ban quản lý /hệ thống</small>
+						                                                    </div>
+						                                                    @if($notification->type == 'App\Notifications\PaymentNotification')
+													                        <p>
+													                            {{ $notification->data['message'] }} <span class="badge badge-light">{{ PAY_STATUS[$notification->data['status']] }} </span>
+													                        </p> 
+													                        @elseif($notification->type == 'App\Notifications\RegisterServiceNotification')
+													                            <p>
+													                            	{{ 'Bạn đã đăng kí dịch vụ: '. $notification->data['name'] . ' - với giá: ' . number_format($notification->data['cost']) .' vnđ'}}
+													                            </p>
+													                        @elseif($notification->type == 'App\Notifications\DoneReportNotification')
+													                            <p>{{ $notification->data['title'] . ' - ' . REPORT_STATUS[$notification->data['status']]}}</h6>
+												                            	</p>
+													                        @endif
+						                                                </div>
+					                                                @endforeach
+					                                                {{auth()->user()->notifications()->paginate(10)->links()}}
 					                                        	</div>
 					                                    	</div>
 					                                	</div>

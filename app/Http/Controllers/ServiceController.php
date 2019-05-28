@@ -111,6 +111,7 @@ class ServiceController extends Controller
         return view('resident_layout.services.index',compact('services','user_services','user_services_id'));
     }
 
+    // cư dân đăng kí services
     public function serviceStore(Request $request)
     {
         $this->service->addService($request->all());

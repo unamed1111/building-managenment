@@ -70,6 +70,7 @@ class ReportNotification extends Notification
     public function toDatabase($notifiable)
     {
         return [
+            'noti_name' => 'Thông báo có ý kiến của cư dân',
             'user' => optional($this->report->user->userable)->name,
             'title' => $this->report->title,
             'report_id' => $this->report->id

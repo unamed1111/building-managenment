@@ -5,18 +5,38 @@
 		<div class="col-lg-12 grid-margin stretch-card">
 		    <div class="card">
 		        <div class="card-body">
-		            <h4 class="card-title"> Tất cả các dịch vụ của tòa nhà
-		            </h4>
+		            <h2 class="card-title"> Tất cả các dịch vụ của tòa nhà
+		            </h2>
 		            <div class="col-lg-12 grid-margin stretch-card">
 					    <div class="card">
 					        <div class="card-body">
-			                    <h4 class="card-title">Các dịch vụ đang sử dụng</h4>
-			                    <ul class="list-ticked">
+			                    <h3 class="card-title">Các dịch vụ đang sử dụng</h3>
+			                    <div class="row">
 						           @foreach($user_services as $user_service)
-				                      <li> {{$user_service->name}} => <button type="button" class="badge badge-info" data-toggle="modal" data-target="#services-user-{{$user_service->id}}">Chi tiết</button> </li>
+		  			                    <div class="col-lg-3 col-md-3 col-sm-3 grid-margin stretch-card">
+										    <div class="card card-statistics bg-blue-gradient">
+										        <div class="card-body">
+										            <div class="clearfix">
+										                <div class="float-left">
+										                    <i class="mdi mdi-cube icon-lg"></i>
+										                </div>
+										                <div class="float-right">
+										                    <p class="mb-0 text-right">{{$user_service->name }}</p>
+										                    <div class="fluid-container">
+										                        <h3 class="font-weight-medium text-right mb-0">{{'Giá: '.number_format($user_service->cost)." vnđ"}}</h3>
+										                        <span class="float-right"> {{"x". $user_service->pivot->qty}}</span>
+										                    </div>
+										                </div>
+										            </div>
+										            <p class="mt-3 mb-0">
+										                <i class="mdi mdi-alert-octagon mr-1" aria-hidden="true"></i> <button style="cursor:pointer;" type="button" class="badge badge-info" data-toggle="modal" data-target="#services-user-{{$user_service->id}}">Chi tiết</button> 
+										            </p>
+										        </div>
+										    </div>
+										</div>
 				                      @include('resident_layout.services.modal_show_service',['service' => $user_service,'user' =>'user'])
 						           @endforeach
-			                    </ul>
+			                    </div>
 					        </div>
 					    </div>
 					</div>

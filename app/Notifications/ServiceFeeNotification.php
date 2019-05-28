@@ -7,21 +7,18 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-use App\Models\Report;
-
-class DoneReportNotification extends Notification
+class ServiceFeeNotification extends Notification
 {
     use Queueable;
 
-    protected $report;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct(Report $report)
+    public function __construct()
     {
-        $this->report = $report;
+        //
     }
 
     /**
@@ -32,7 +29,7 @@ class DoneReportNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['mail'];
     }
 
     /**
@@ -58,23 +55,7 @@ class DoneReportNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
-        ];
-    }
-
-    /**
-     * Get the array representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
-    public function toDatabase($notifiable)
-    {
-        return [
-            'noti_name' => 'Phản hồi về ý kiến bạn đã đóng góp',
-            'title' => $this->report->title,
-            'report_id' => $this->report->id,
-            'status' => $this->report->status,
+            'noti_name' => 'Đóng phí dịch vụ hàng tháng',
         ];
     }
 }

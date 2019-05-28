@@ -69,6 +69,7 @@ class PaymentNotification extends Notification
     public function toDatabase($notifiable)
     {
         return [
+            'noti_name' => 'Thanh toán hóa đơn tháng '. $this->cost->month,
             'message' => 'Hóa đơn tháng '. $this->cost->month . ' đã được thanh toán',
             'status' => $this->cost->status,
             'amount' => $this->cost->amount,

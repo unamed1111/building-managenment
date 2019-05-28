@@ -6,22 +6,21 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use App\Models\Service;
 
-use App\Models\Report;
-
-class DoneReportNotification extends Notification
+class RegisterServiceNotification extends Notification
 {
     use Queueable;
 
-    protected $report;
+    protected $service;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct(Report $report)
+    public function __construct(Service $service)
     {
-        $this->report = $report;
+        $this->service = $service;
     }
 
     /**
@@ -55,10 +54,13 @@ class DoneReportNotification extends Notification
      * @param  mixed  $notifiable
      * @return array
      */
-    public function toArray($notifiable)
+    public function toDatabase($notifiable)
     {
         return [
-            //
+            'noti_name' => 'Đăng kí thêm dịch vụ',
+            'service_id' => $this->service->id,
+            'name' => $this->service->name,
+            'cost' => $this->service->cost,
         ];
     }
 
@@ -68,13 +70,10 @@ class DoneReportNotification extends Notification
      * @param  mixed  $notifiable
      * @return array
      */
-    public function toDatabase($notifiable)
+    public function toArray($notifiable)
     {
         return [
-            'noti_name' => 'Phản hồi về ý kiến bạn đã đóng góp',
-            'title' => $this->report->title,
-            'report_id' => $this->report->id,
-            'status' => $this->report->status,
+            //
         ];
     }
 }

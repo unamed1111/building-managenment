@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use App\Services\BaseService;
+use App\Notifications\RegisterServiceNotification;
 
 class SVService extends BaseService
 {
@@ -26,14 +27,18 @@ class SVService extends BaseService
         $user_service_id = auth()->user()->userable->apartment->services->pluck('id')->toArray();
         return $user_service_id;
     }
-
+    // cư dân đăng kí service
     public function addService($data)
     {
         $apartment = auth()->user()->userable->apartment;
         $date = \Carbon\Carbon::now()->toDateTimeString();
-        $apartment->services()->attach($data['service_id'],['qty'=> $data['qty'],'registration_time' => $date, 'comment' => $data['comment']]);
+        $qty = $data['qty'] ? : 1;
+        $result =$apartment->services()->attach($data['service_id'],['qty'=> $qty,'registration_time' => $date, 'comment' => $data['comment']]);
+        $service = $this->get($data['service_id']);
+        auth()->user()->notify(new RegisterServiceNotification($service));
         return;
     }
+    // cư dân hủy đăng kí service
     public function deleteService($id)
     {
         $apartment = auth()->user()->userable->apartment;

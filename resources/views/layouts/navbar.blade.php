@@ -39,7 +39,7 @@
                         @endif
                     </a>
                     @elseif(auth()->user()->type == 2 || auth()->user()->type == 3)
-                    <a  class="dropdown-item preview-item py-3 noti" data-url="{{ route('readNoti', $notification->id) }}" >
+                    <a style="cursor: pointer;" class="dropdown-item preview-item py-3 noti" data-url="{{ route('readNoti', $notification->id) }}" >
                         <div class="preview-thumbnail">
                             <i class="mdi mdi-alert m-auto text-primary"></i>
                         </div>
@@ -47,6 +47,11 @@
                             <div class="preview-item-content content-noti" data-next="{{ auth()->user()->type == 3 ? route('residents.cost-service-index') : route('home')  }}">
                                 <h6 class="preview-subject font-weight-normal text-dark mb-1">{{ $notification->data['message'] . ' - Ban quản lý' }}</h6>
                                 <p class="font-weight-light small-text mb-0"> {{ PAY_STATUS[$notification->data['status']] }} </p> 
+                            </div>
+                        @elseif($notification->type == 'App\Notifications\RegisterServiceNotification')
+                            <div class="preview-item-content content-noti" data-next="{{ url()->current() }}">
+                                <h6 class="preview-subject font-weight-normal text-dark mb-1">{{ 'Bạn vừa đăng kí dịch vụ: '. $notification->data['name'] . ' - với giá: ' . number_format($notification->data['cost']) .' vnđ'}}</h6>
+                                <p class="font-weight-light small-text mb-0"> {{ ' Từ Ban Quản lý' }} </p> 
                             </div>
                         @else
                             <div class="preview-item-content content-noti" data-next="{{ auth()->user()->type == 2 ? route('reports.show', $notification->data['report_id']) : route('residents.report-index')  }}">
