@@ -74,6 +74,7 @@ Route::prefix('/')->group(function(){
     Route::get('return-vnpay', 'VnpayController@return')->name('return-vnpay');
 
     Route::get('readnoti/{id}', 'NotificationController@readNoti')->name('readNoti');
+    Route::get('markAllNoti', 'NotificationController@markAllNoti')->name('markAllNoti');
 });	
 
 Auth::routes();

@@ -13,4 +13,10 @@ class NotificationController extends Controller
         $noti->update(['read_at' => now()]);
         return response()->json(['status' => 0]);
     }
+
+    public function markAllNoti()
+    {
+        auth()->user()->unreadNotifications->markAsRead();
+        return response()->json(['status'=>0]);
+    }
 }

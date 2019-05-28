@@ -6,9 +6,10 @@
             <div class="card">
                 <div class="card-body">
                     <p class="card-description">Các khoản phí phải trả hàng tháng</p>
-                        <div class="col-lg-12 grid-margin stretch-card">
-                            <div class="card">
-                                <div class="card-body">
+                    <div class="col-lg-12 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="table-responsive">
                                     <table class="table table-hover">
                                         <thead>
                                             <tr>
@@ -35,11 +36,11 @@
                                             @endforeach
                                         </tbody>
                                     </table>
-                                </div>
                                     {{$cost_services->links()}}
-
+                                </div>
                             </div>
                         </div>
+                    </div>
                 </div>
             </div>
         </div>

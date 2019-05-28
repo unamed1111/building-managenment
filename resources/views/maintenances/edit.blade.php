@@ -8,6 +8,7 @@
 		        <div class="card-body">
 		            <form action="{{route('maintenances.update',$maintenance->id)}}" method="POST" >
                         @csrf
+                        @method('PUT')
                     <div class="form-group {{ $errors->has('description') ? 'has-danger' : ''}}">
                         <label for="description" class="col-form-label">Mô tả nghiệp vụ:</label>
                         <input type="text" class="form-control" placeholder="Mô tả nghệp vụ" name="description" id="description" value="{{old('description',$maintenance->description)}}"> 
@@ -26,7 +27,7 @@
                     <div class="form-group {{ $errors->has('time_start') ? 'has-danger' : ''}}">
                         <label for="time_start" class="col-form-label">Ngày bắt đầu:</label>
                         <div class='input-group date datepicker' id='datepicker-popup'>
-                            <input type="text" class="form-control" name="time_start" id="time_start" value="{{old('time_start',$maintenance->time_start)}}"> 
+                            <input type="text" class="form-control" name="time_start" id="time_start" value="{{old('time_start', date('Y-m-d', strtotime($maintenance->time_start)))}}"> 
                             <span class="input-group-addon input-group-append border-left">
                                 <span class="mdi mdi-calendar input-group-text"></span>
                             </span>

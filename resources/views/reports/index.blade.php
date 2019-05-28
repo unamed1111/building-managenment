@@ -19,8 +19,7 @@
 		        	</div>
 		            @include('partials.alert')
 		            <p class="card-description"> Tổng hợp các ý kiến của cư dân </p>
-		            <div class="row">
-		            	<div class="col-sm-12">
+		            <div class="table-responsive">
 				            <table class="table table-striped">
 				                <thead>
 				                    <tr>
@@ -54,9 +53,7 @@
 				                </tbody>
 				            </table>
 				            {{ $reports->links()}}
-		            	</div>
 		            </div>
-
 		        </div>
 		    </div>
 		</div>

@@ -18,7 +18,7 @@
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0" aria-labelledby="notificationDropdown">
                     <a class="dropdown-item py-3 border-bottom">
                         <p class="mb-0 font-weight-medium float-left">Bạn có  {{auth()->user()->unreadNotifications->count()}} Thông báo mới</p>
-                        {{-- <span class="badge badge-pill badge-primary float-right">View all</span> --}}
+                        <span style="cursor: pointer;" class="badge badge-pill badge-primary float-right markreadAll" data-url="{{ route('markAllNoti') }}">Đánh dấu đã đọc hết</span>
                     </a>
                     @foreach(auth()->user()->unreadNotifications as $notification)
                     @if(auth()->user()->type == 1)
@@ -122,5 +122,27 @@
                 console.log("error");
             })
         });
+
+        $(document).on('click', '.markreadAll', function(event) {
+            event.preventDefault();
+            url = $(this).data('url');
+            $.ajax({
+                url: url,
+                type: 'GET',
+                dataType: 'json',
+            })
+            .done(function() {
+                window.location.reload(true);
+            })
+            .fail(function() {
+                console.log("error");
+            })
+            .always(function() {
+                console.log("complete");
+            });
+            
+        });
     </script>
+
+
 @endpush

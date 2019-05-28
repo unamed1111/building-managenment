@@ -22,39 +22,41 @@
 		            @hasanyrole('Admin|Manager')
 		            <a href="{{ route('createAllCostService',\Carbon\Carbon::createFromDate()->format('m-y')) }}" class="btn btn-outline-danger">Tạo hóa đơn tháng này</a>
 		            @endhasanyrole
-		            <table class="table table-hover">
-		                <thead>
-		                    <tr>
-		                        <th>Mã Dịch Vụ</th>
-		                        <th>Tên dịch vụ</th>
-		                        <th>Giá (vnđ)</th>
-		                        <th>Đơn vị tính</th>
-		                        {{-- @can(auth()->user()->type == 1 || auth()->user()->type == 2  ) --}}
-		                        <th>Hành động</th>
-		                        {{-- @endcan --}}
-		                    </tr>
-		                </thead>
-		                <tbody>
-		                	@foreach($services as $service)
+		            <div class="table-responsive">
+			            <table class="table table-hover">
+			                <thead>
 			                    <tr>
-			                        <td><a href="{{ route('services.show',$service->id) }}">{{'S00'.$service->id}}</a></td>
-			                        <td>{{$service->name}}</td>
-			                        <td>{{number_format($service->cost)}}</td>
-			                        <td>Tháng</td>
-			                        <td>
-			                        	{{-- @can(auth()->user()->type == 1 || auth()->user()->type == 2  ) --}}
-			                            <a href="{{ route('services.edit',$service->id)}}" class="btn btn-info btn-sm btn-rounded btn-fw">
-	                            			<i class="mdi mdi-cloud-download"></i>Sửa
-	                        			</a>
-	                        			&nbsp;<button type="button" class="btn btn-primary btn-sm btn-rounded" data-toggle="modal" data-target="{{"#add".$service->id}}" data-whatever="@mdo">Xóa</button>
-	                        			@include('partials.modal',['id'=> $service->id, 'route' => route('services.destroy', $service->id), 'action' => 'delete', 'method' => 'delete'])
-	                        			{{-- @endcan --}}
-			                        </td>
+			                        <th>Mã Dịch Vụ</th>
+			                        <th>Tên dịch vụ</th>
+			                        <th>Giá (vnđ)</th>
+			                        <th>Đơn vị tính</th>
+			                        {{-- @can(auth()->user()->type == 1 || auth()->user()->type == 2  ) --}}
+			                        <th>Hành động</th>
+			                        {{-- @endcan --}}
 			                    </tr>
-		                    @endforeach
-		                </tbody>
-		            </table>
-		            {{$services->links()}}
+			                </thead>
+			                <tbody>
+			                	@foreach($services as $service)
+				                    <tr>
+				                        <td><a href="{{ route('services.show',$service->id) }}">{{'S00'.$service->id}}</a></td>
+				                        <td>{{$service->name}}</td>
+				                        <td>{{number_format($service->cost)}}</td>
+				                        <td>Tháng</td>
+				                        <td>
+				                        	{{-- @can(auth()->user()->type == 1 || auth()->user()->type == 2  ) --}}
+				                            <a href="{{ route('services.edit',$service->id)}}" class="btn btn-info btn-sm btn-rounded btn-fw">
+		                            			<i class="mdi mdi-cloud-download"></i>Sửa
+		                        			</a>
+		                        			&nbsp;<button type="button" class="btn btn-primary btn-sm btn-rounded" data-toggle="modal" data-target="{{"#add".$service->id}}" data-whatever="@mdo">Xóa</button>
+		                        			@include('partials.modal',['id'=> $service->id, 'route' => route('services.destroy', $service->id), 'action' => 'delete', 'method' => 'delete'])
+		                        			{{-- @endcan --}}
+				                        </td>
+				                    </tr>
+			                    @endforeach
+			                </tbody>
+			            </table>
+			            {{$services->links()}}
+		            </div>
 		        </div>
 		    </div>
 		</div>

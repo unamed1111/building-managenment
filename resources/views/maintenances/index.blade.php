@@ -17,7 +17,7 @@
 		        	</div>
 		            @include('partials.alert')
 		            <p class="card-description"> Tổng hợp các nghiệp vụ của tòa nhà </p>
-		            
+		            <div class="table-responsive">
 		            <table class="table table-hover">
 		                <thead>
 		                    <tr>
@@ -34,16 +34,16 @@
 			                    <tr>
 			                        <td><a href="{{ route('maintenances.show',$maintenance->id) }}">{{'M00'.$maintenance->id}}</a></td>
 			                        <td>{{$maintenance->description}}</td>
-			                        <td>{{$maintenance->device_id}}</td>
+			                        <td>{{$maintenance->device->name}}</td>
 			                        <td>{{\Carbon\Carbon::parse($maintenance->time_start)->format('d-m-Y')}}</td>
-			                        <td>{{\Carbon\Carbon::parse($maintenance->time_end)->format('d-m-Y')}}</td>
+			                        <td>{{$maintenance->time_end == null ? 'Vẫn đang bảo trì' : date('Y-m-d', strtotime($maintenance->time_end))}}</td>
 			                        <td>{{number_format($maintenance->cost)}}</td>
 			                        <td>			         
 	                        			@if(!isset($maintenance->time_end))
 		                        			<a href="{{ route('maintenances.edit',$maintenance->id)}}" class="btn btn-info btn-sm btn-rounded btn-fw">
 		                            			<i class="mdi mdi-cloud-download"></i>Sửa
 		                        			</a>
-	                        				&nbsp;<button type="button" class="btn btn-primary btn-sm btn-rounded" data-toggle="modal" data-target="{{"#endMaintenance".$maintenance->id}}" data-whatever="@mdo">Hoàn thành sửa chữa</button>
+	                        				&nbsp;<button type="button" class="btn btn-primary btn-sm btn-rounded" data-toggle="modal" data-target="{{"#endMaintenance".$maintenance->id}}" data-whatever="@mdo">Hoàn thành bảo trì</button>
 	                        			@include('partials.modal',['id'=> $maintenance->id, 'route' => route('maintenances.endMaintenance', $maintenance->id), 'action' => 'endMaintenance', 'method' => 'post'])
 	                        			@endif
 	                        			&nbsp;<button type="button" class="btn btn-primary btn-sm btn-rounded" data-toggle="modal" data-target="{{"#delete".$maintenance->id}}" data-whatever="@mdo">Xóa</button>
@@ -53,6 +53,8 @@
 		                    @endforeach
 		                </tbody>
 		            </table>
+		            {{$maintenances->links}}
+		            </div>
 		        </div>
 		    </div>
 		</div>

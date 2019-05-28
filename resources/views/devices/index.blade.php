@@ -17,7 +17,7 @@
 		        	</div>
 		            @include('partials.alert')
 		            <p class="card-description"> Tổng hợp các thiết bị của tòa nhà </p>
-		            
+		            <div class="table-responsive">
 		            <table class="table table-hover">
 		                <thead>
 		                    <tr>
@@ -52,6 +52,7 @@
 		                </tbody>
 		            </table>
 		            {{$devices->links()}}
+		            </div>
 		        </div>
 		    </div>
 		</div>

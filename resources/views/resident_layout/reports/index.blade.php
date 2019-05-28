@@ -43,6 +43,7 @@
 			            <div class="col-lg-12 grid-margin stretch-card">
 						    <div class="card">
 						        <div class="card-body">
+						        	<div class="table-responsive">
 						            <table class="table table-hover">
 						                <thead>
 						                    <tr>
@@ -68,9 +69,9 @@
 						                    @endforeach
 						                </tbody>
 						            </table>
-						        </div>
 						            {{$reports->links()}}
-
+						            </div>
+						        </div>
 						    </div>
 						</div>
 		        </div>

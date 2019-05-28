@@ -19,7 +19,7 @@
 		        	</div>
 		            @include('partials.alert')
 		            <p class="card-description"> Danh sách nhân viên</p>
-		            <div class="row">
+		            <div class="table-responsive">
 			            <table class="table table-hover">
 			                <thead>
 			                    <tr>

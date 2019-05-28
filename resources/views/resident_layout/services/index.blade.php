@@ -24,12 +24,13 @@
 					    <div class="card">
 					        <div class="card-body">
 					        	<h4 class="card-title">Danh sách các dịch vụ</h4>
+					        	<div class="table-responsive">
 					            <table class="table table-hover">
 					                <thead>
 					                    <tr>
 					                        <th>Mã Dịch Vụ</th>
 					                        <th>Tên dịch vụ</th>
-					                        <th>Giá</th>
+					                        <th>Giá (vnđ)</th>
 					                        <th>Chi tiết</th>
 										 </tr>
 					                </thead>
@@ -38,7 +39,7 @@
 						                    <tr>
 						           			<td>{{'S00'.$service->id}}</td>
 					                        <td>{{$service->name}}</td>
-					                        <td>{{$service->cost}}</td>
+					                        <td>{{number_format($service->cost)}}</td>
 						                        <td>  <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#services-none-{{$service->id}}">Xem</button> 
 				                      		</td>
 					                      		@include('resident_layout.services.modal_show_service',['service' => $service,'user' =>'none'])
@@ -46,8 +47,9 @@
 					                    @endforeach
 					                </tbody>
 					            </table>
-					        </div>
 					            {{$services->links()}}
+					            </div>
+					        </div>
 					    </div>
 					</div>
 		        </div>
