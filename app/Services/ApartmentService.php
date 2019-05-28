@@ -100,7 +100,6 @@ class ApartmentService extends BaseService
     {
         $apartment = $this->get($id);
         $cost = $apartment->apartment_services_cost()->with('apartment','apartment.building','apartment.services')->where('month',$month)->first();
-        // dd($cost);
         return $cost;
     }
 
@@ -152,7 +151,9 @@ class ApartmentService extends BaseService
         $cost->load('apartment','apartment.building','apartment.services');
         $residents = Apartment::find($cost->apartment_id)->residents;
         foreach ($residents as $resident) {
-            optional($resident->user) == null ? : $resident->user->notify(new PaymentNotification($cost)); 
+            if($resident->user != null){
+                $resident->user->notify(new PaymentNotification($cost)); 
+            } 
         }
         $bqls = User::where('type', 1)->get();
         foreach ($bqls as $key => $bql) {

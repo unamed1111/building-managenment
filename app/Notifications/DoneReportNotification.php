@@ -32,7 +32,7 @@ class DoneReportNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database','mail'];
     }
 
     /**
@@ -43,10 +43,9 @@ class DoneReportNotification extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+        return (new MailMessage)->subject('Hệ thống quản lý chung cư Building Care thông báo')->view(
+            'emails.done_report_notification', ['report' => $this->report]
+        );
     }
 
     /**

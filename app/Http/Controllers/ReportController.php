@@ -29,11 +29,6 @@ class ReportController extends Controller
      */
     public function index(Request $request)
     {   
-        // Nexmo::message()->send([
-        //     'to'   => '355270648',
-        //     'from' => '345344996',
-        //     'text' => 'Using the facade to send a message.'
-        // ]);
         if(isset($request->search)) 
         {
             $reports = $this->service->search($request->search); 
@@ -124,7 +119,7 @@ class ReportController extends Controller
         return back()->with('success','Đã Xử lý xong ý kiến của cư dân');
     }
 
-
+    // lấy report của người dùng( cư dân )
     public function reportIndex()
     {
         $reports = $this->service->getAllReportOfResident();
@@ -133,8 +128,7 @@ class ReportController extends Controller
 
     public function reportStore(ReportRequest $request)
     {
-        // cư dân
-
+        // cư dân gửi report
         $report = $this->service->store($request->all()); // use admin
         $bqls = User::where('type', 1)->get();
         foreach ($bqls as $key => $bql) {

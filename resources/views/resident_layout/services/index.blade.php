@@ -23,7 +23,7 @@
 										                <div class="float-right">
 										                    <p class="mb-0 text-right">{{$user_service->name }}</p>
 										                    <div class="fluid-container">
-										                        <h3 class="font-weight-medium text-right mb-0">{{'Giá: '.number_format($user_service->cost)." vnđ"}}</h3>
+										                        <h5 class="font-weight-medium text-right mb-0">{{'Giá: '.number_format($user_service->cost)." vnđ"}}</h5>
 										                        <span class="float-right"> {{"x". $user_service->pivot->qty}}</span>
 										                    </div>
 										                </div>
