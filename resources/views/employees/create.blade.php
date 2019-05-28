@@ -17,7 +17,12 @@
                         </div>
                         <div class="form-group {{ $errors->has('dob') ? 'has-danger' : ''}}">
                             <label for="dob" class="col-form-label">Ngày sinh:</label>
-                            <input type="date" class="form-control" placeholder="Ngày sinh" name="dob" id="dob" value="{{old('dob')}}"> 
+                            <div class='input-group date datepicker' id='datepicker-popup'>
+                                <input type="text" class="form-control" placeholder="Ngày sinh" name="dob" id="dob" value="{{old('dob')}}"> 
+                                <span class="input-group-addon input-group-append border-left">
+                                    <span class="mdi mdi-calendar input-group-text"></span>
+                                </span>
+                            </div>
                             @if ($errors->has('dob'))
                                 <small class="text-danger">{{ $errors->first('dob') }}</small>
                             @endif
@@ -83,3 +88,6 @@
     </script>
 @endpush --}}
 
+@push('js')
+    <script src="{{asset('assets/js/shared/formpickers.js')}}"></script>
+@endpush

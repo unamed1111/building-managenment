@@ -35,11 +35,16 @@ class HomeController extends Controller
         $report_count = Report::where('status',0)->count();
         $reports = Report::with('user')->orderBy('id','DESC')->take(4)->get();
         $user_count = User::all()->count();
-
-        $month = $request->input('month','04-19');
-        $a = explode('-', $month);
-        $fullmonth = '20'.$a[1].'-'.$a[0].'-28';
-
+        // $now = now()->format('d-m-Y');
+        // dd($now);
+        if($request->input('month')) {
+        $month = $request->input('month','05-19');
+            $a = explode('-', $month);
+            $fullmonth = '20'.$a[1].'-'.$a[0].'-28';
+        } else {
+            $fullmonth = now()->format('Y-m-d');
+            $month =  now()->format('m-y');
+        }
         $startofMonth = \Carbon\Carbon::parse($fullmonth)->startofMonth();
         $endOfMonth = \Carbon\Carbon::parse($fullmonth)->endOfMonth();
         $ma = Maintenance::where('time_start', '>', $startofMonth)->where('time_start' ,'<', $endOfMonth)->get();

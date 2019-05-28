@@ -41,7 +41,7 @@ Route::prefix('admin')->group(function(){
 	Route::get('createAllCostService/{month}','ApartmentController@createAllCostService')->name('createAllCostService');
 	Route::get('apartments/{id}/show_cost_service/{month}','ApartmentController@getCostService')->name('show_cost_service');
 	Route::get('hoan_tat_thanh_toan/{id}','ApartmentController@hoan_tat_thanh_toan')->name('hoan_tat_thanh_toan')->middleware(['auth', 'roleAmin']);
-	Route::get('/', 'HomeController@index')->name('home');
+	Route::get('/', 'HomeController@index')->name('home')->middleware(['auth', 'roleAmin']);
 	Route::get('ajaxGetApartment','ApartmentController@ajaxGetApartment');
 	Route::post('getCostMonth/{id}','ApartmentController@getCostMonth')->name('getCostMonth');
 	Route::get('data-statistics','DataStatisticController@index')->name('data-statistics.index');
@@ -73,6 +73,7 @@ Route::prefix('/')->group(function(){
     Route::get('excute-vnpay', 'VnpayController@excute')->name('excute-vnpay');
     Route::get('return-vnpay', 'VnpayController@return')->name('return-vnpay');
 
+    Route::get('readnoti/{id}', 'NotificationController@readNoti')->name('readNoti');
 });	
 
 Auth::routes();

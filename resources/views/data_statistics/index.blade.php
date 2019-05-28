@@ -66,14 +66,14 @@
             <div class="card aligner-wrapper">
                 <div class="card-body">
                     <div class="absolute left top bottom h-100 v-strock-2 bg-success"></div>
-                    <p class="text-muted mb-2">Số hộ thanh toán hóa đơn</p>
+                    <p class="text-muted mb-2">Số hộ chưa đóng phí dịch vụ:</p>
                     <div class="d-flex align-items-center">
-                        <h1 class="font-weight-medium mb-2">{{$count_datra}}</h1>
+                        <h1 class="font-weight-medium mb-2">{{$count_chuatra .' hộ'}}</h1>
                         {{-- <h5 class="font-weight-medium text-success ml-2">−14.2%</h5> --}}
                     </div>
                     <div class="d-flex align-items-center">
                         <div class="bg-success dot-indicator"></div>
-                        <p class="text-muted mb-0 ml-2">Số hộ đã thanh toán {{$count_chuatra}}</p>
+                        <p class="text-muted mb-0 ml-2">Số hộ đã đóng phí: {{$count_datra .' hộ'}}</p>
                     </div>
                 </div>
             </div>

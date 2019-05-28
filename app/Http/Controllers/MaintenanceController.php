@@ -80,8 +80,9 @@ class MaintenanceController extends Controller
      */
     public function edit($id)
     {
+        $devices = Device::pluck('name','id')->toArray();
         $maintenance = $this->service->get($id);
-        return view('maintenances.edit',compact('maintenance'));
+        return view('maintenances.edit',compact('maintenance','devices'));
     }
 
     /**

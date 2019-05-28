@@ -39,7 +39,8 @@ class ReportService extends BaseService
         $model = $this->get($id);
         $model->status = $status;
         $model->result = $result;
-        return $model->save();
+        $model->save();
+        return $model;
     }
 
     public function getAllReportOfResident()
@@ -57,5 +58,10 @@ class ReportService extends BaseService
                                 ->orWhere('status', 'like', $search)
                                 ->orWhere('result', 'like', $search);
         return $result->paginate(10);
+    }
+
+    public function getAll($relations = [])
+    {
+        return $this->model->with($relations)->orderBy('status', 'asc')->orderBy('created_at', 'desc')->paginate(10);
     }
 }

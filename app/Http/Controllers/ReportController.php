@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Report;
+use App\User;
 use App\Http\Requests\ReportRequest;
 use Illuminate\Http\Request;
 use App\Services\ReportService;
 use Nexmo\Laravel\Facade\Nexmo;
+use App\Notifications\ReportNotification;
+use App\Notifications\DoneReportNotification;
 
 class ReportController extends Controller
 {
@@ -115,8 +118,10 @@ class ReportController extends Controller
 
     public function doneReport(Request $request,$id)
     {
-        $this->service->doneReport($id,$this->doneStatus,$request->result);
-        return back()->with('success','Thành công');
+        $report = $this->service->doneReport($id,$this->doneStatus,$request->result);
+        $user_noti = $report->user;
+        $user_noti->notify(new DoneReportNotification($report));
+        return back()->with('success','Đã Xử lý xong ý kiến của cư dân');
     }
 
 
@@ -128,7 +133,13 @@ class ReportController extends Controller
 
     public function reportStore(ReportRequest $request)
     {
-        $this->service->store($request->all()); // use admin
+        // cư dân
+
+        $report = $this->service->store($request->all()); // use admin
+        $bqls = User::where('type', 1)->get();
+        foreach ($bqls as $key => $bql) {
+            $bql->notify(new ReportNotification($report));
+        }
         return back()->with(['success' => 'Lưu thành công']);
     }
 }

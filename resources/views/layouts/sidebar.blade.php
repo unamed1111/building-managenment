@@ -102,6 +102,7 @@
                 </ul>
             </div>
         </li>
+        @if(auth()->user()->type == 0 || auth()->user()->type == 1  )
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#devices" aria-expanded="false" aria-controls="devices">
             <i class="menu-icon mdi mdi-webcam"></i>
@@ -136,6 +137,7 @@
                 </ul>
             </div>
         </li>
+        @endif
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#reports" aria-expanded="false" aria-controls="reports">
             <i class="menu-icon mdi mdi-calendar-text"></i>

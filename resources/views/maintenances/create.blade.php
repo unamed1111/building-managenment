@@ -16,7 +16,7 @@
                         @endif
                     </div>
                     <div class="form-group {{ $errors->has('device_id') ? 'has-danger' : ''}}">
-                       <label for="device_id" class="col-form-label">Tòa nhà:</label>
+                       <label for="device_id" class="col-form-label">Thiết bị:</label>
                         <select name="device_id" class="form-control border-primary">
                             @foreach($devices as $key => $device)
                                 <option value="{{$key}}">{{$device}}</option>
@@ -25,14 +25,19 @@
                     </div>
                     <div class="form-group {{ $errors->has('time_start') ? 'has-danger' : ''}}">
                         <label for="time_start" class="col-form-label">Ngày bắt đầu:</label>
-                        <input type="date" class="form-control" name="time_start" id="time_start" value="{{old('time_start')}}"> 
+                        <div class='input-group date datepicker' id='datepicker-popup'>
+                            <input type="text" class="form-control" name="time_start" id="time_start" value="{{old('time_start',now()->format('Y-m-d'))}}"> 
+                            <span class="input-group-addon input-group-append border-left">
+                                <span class="mdi mdi-calendar input-group-text"></span>
+                            </span>
+                        </div>
                         @if ($errors->has('time_start'))
                             <small class="text-danger">{{ $errors->first('time_start') }}</small>
                         @endif
                     </div>
                     <div class="form-group {{ $errors->has('cost') ? 'has-danger' : ''}}">
                         <label for="cost" class="col-form-label">Chi Phí(VND):</label>
-                        <input type="number" class="form-control" name="cost" placeholder="Tầng" id="cost" value="{{old('cost')}}"> 
+                        <input type="number" class="form-control" name="cost" placeholder="Chi Phí(VND)" id="cost" value="{{old('cost')}}"> 
                         @if ($errors->has('cost'))
                             <small class="text-danger">{{ $errors->first('cost') }}</small>
                         @endif
@@ -45,3 +50,7 @@
         </div>
     </div>
 @endsection
+
+@push('js')
+    <script src="{{asset('assets/js/shared/formpickers.js')}}"></script>
+@endpush

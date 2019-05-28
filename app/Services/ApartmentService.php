@@ -3,10 +3,12 @@
 namespace App\Services;
 
 use App\Models\Apartment;
+use App\User;
 use App\Models\CostServiceApartment;
 use Illuminate\Http\Request;
 use App\Services\BaseService;
 use Carbon\Carbon;
+use App\Notifications\PaymentNotification;
 
 class ApartmentService extends BaseService
 {
@@ -106,10 +108,19 @@ class ApartmentService extends BaseService
     {
         CostServiceApartment::find($id)->update([
             'payment_date' => date('y-m-d'),
-            'status'=> 1, // 0 chua tra, 1 nhan vien thu, 2 tra bang paypal
+            'status'=> 1, // 0 chua tra, 1 nhan vien thu, 2 tra bang paypal,  3 thanh toan bang vnpay
             'employee_id' => auth()->user()->id
-        ]);        
+        ]);
         $cost = CostServiceApartment::find($id)->with('apartment','apartment.building','apartment.services');
+        //noti
+        $residents = Apartment::find($cost->apartment_id)->residents;
+        foreach ($residents as $resident) {
+            optional($resident->user) == null ? : $resident->user->notify(new PaymentNotification($cost)); 
+        }
+        $bqls = User::where('type', 1)->get();
+        foreach ($bqls as $key => $bql) {
+            $bql->notify(new PaymentNotification($cost));
+        }
         return $cost;
     }
 
@@ -137,7 +148,16 @@ class ApartmentService extends BaseService
             'payment_date' => date('y-m-d'),
             'status'=> $type // 0 chua tra, 1 nhan vien thu, 2 tra bang paypal,3 tra bằng vn Pay
         ]);        
-        // $cost = CostServiceApartment::find($id)->with('apartment','apartment.building','apartment.services');
+        $cost = CostServiceApartment::find($id);
+        $cost->load('apartment','apartment.building','apartment.services');
+        $residents = Apartment::find($cost->apartment_id)->residents;
+        foreach ($residents as $resident) {
+            optional($resident->user) == null ? : $resident->user->notify(new PaymentNotification($cost)); 
+        }
+        $bqls = User::where('type', 1)->get();
+        foreach ($bqls as $key => $bql) {
+            $bql->notify(new PaymentNotification($cost));
+        }
         return;
     }
 }

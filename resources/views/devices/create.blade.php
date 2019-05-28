@@ -24,7 +24,12 @@
                     </div>
                     <div class="form-group {{ $errors->has('purchase_date') ? 'has-danger' : ''}}">
                         <label for="purchase_date" class="col-form-label">Ngày mua:</label>
-                        <input type="date" class="form-control" name="purchase_date" id="purchase_date" value="{{old('purchase_date')}}"> 
+                        <div class='input-group date datepicker' id='datepicker-popup'>
+                            <input type="text" class="form-control" name="purchase_date" id="purchase_date" value="{{ old('purchase_date', now()->format('Y-m-d'))}}"> 
+                            <span class="input-group-addon input-group-append border-left">
+                                <span class="mdi mdi-calendar input-group-text"></span>
+                            </span>
+                        </div>
                         @if ($errors->has('purchase_date'))
                             <small class="text-danger">{{ $errors->first('purchase_date') }}</small>
                         @endif
@@ -44,3 +49,7 @@
 		</div>
 	</div>
 @endsection
+
+@push('js')
+    <script src="{{asset('assets/js/shared/formpickers.js')}}"></script>
+@endpush

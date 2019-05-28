@@ -16,22 +16,28 @@
                         @endif
                     </div>
                     <div class="form-group {{ $errors->has('device_id') ? 'has-danger' : ''}}">
-                        <label for="device_id" class="col-form-label">Mã thiết bị:</label>
-                        <input type="number" class="form-control" placeholder="mã thiết bị" name="device_id" id="device_id" value="{{old('device_id',$maintenance->device_id)}}"> 
-                        @if ($errors->has('device_id'))
-                            <small class="text-danger">{{ $errors->first('device_id') }}</small>
-                        @endif
+                       <label for="device_id" class="col-form-label">Thiết bị:</label>
+                        <select name="device_id" class="form-control border-primary">
+                            @foreach($devices as $key => $device)
+                                <option value="{{$key}}" {{ $maintenance->device_id == $key ? 'selected' : '' }}>{{$device}}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="form-group {{ $errors->has('time_start') ? 'has-danger' : ''}}">
                         <label for="time_start" class="col-form-label">Ngày bắt đầu:</label>
-                        <input type="date" class="form-control" name="time_start" id="time_start" value="{{old('time_start',$maintenance->time_start)}}"> 
+                        <div class='input-group date datepicker' id='datepicker-popup'>
+                            <input type="text" class="form-control" name="time_start" id="time_start" value="{{old('time_start',$maintenance->time_start)}}"> 
+                            <span class="input-group-addon input-group-append border-left">
+                                <span class="mdi mdi-calendar input-group-text"></span>
+                            </span>
+                        </div>
                         @if ($errors->has('time_start'))
                             <small class="text-danger">{{ $errors->first('time_start') }}</small>
                         @endif
                     </div>
                     <div class="form-group {{ $errors->has('cost') ? 'has-danger' : ''}}">
                         <label for="cost" class="col-form-label">Chi Phí(VND):</label>
-                        <input type="number" class="form-control" name="cost" placeholder="Tầng" id="cost" value="{{old('cost',$maintenance->cost)}}"> 
+                        <input type="number" class="form-control" name="cost" placeholder="Chi Phí(VND)" id="cost" value="{{old('cost',$maintenance->cost)}}"> 
                         @if ($errors->has('cost'))
                             <small class="text-danger">{{ $errors->first('cost') }}</small>
                         @endif
@@ -44,3 +50,7 @@
 		</div>
 	</div>
 @endsection
+
+@push('js')
+    <script src="{{asset('assets/js/shared/formpickers.js')}}"></script>
+@endpush

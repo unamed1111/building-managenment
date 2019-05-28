@@ -20,4 +20,7 @@
             </div>
         </div>
     </div>
+    <div>
+        <a href="{{ url()->previous() }}" class="btn btn-primary float-right">Back</a>
+    </div>
 @endsection

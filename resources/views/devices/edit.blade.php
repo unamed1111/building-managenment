@@ -8,6 +8,7 @@
 		        <div class="card-body">
 		            <form action="{{route('devices.update',$device->id)}}" method="POST" >
                         @csrf
+                        @method('PUT')
                     <div class="form-group {{ $errors->has('name') ? 'has-danger' : ''}}">
                         <label for="name" class="col-form-label">Tên thiết bị:</label>
                         <input type="text" class="form-control" placeholder="Tên thiết bi" name="name" id="name" value="{{old('name',$device->name)}}"> 
@@ -24,7 +25,12 @@
                     </div>
                     <div class="form-group {{ $errors->has('purchase_date') ? 'has-danger' : ''}}">
                         <label for="purchase_date" class="col-form-label">Ngày mua:</label>
-                        <input type="date" class="form-control" name="purchase_date" id="purchase_date" value="{{old('purchase_date',$device->purchase_date)}}"> 
+                        <div class='input-group date datepicker' id='datepicker-popup'>
+                            <input type="text" class="form-control" name="purchase_date" id="purchase_date" value="{{old('purchase_date',$device->purchase_date)}}"> 
+                            <span class="input-group-addon input-group-append border-left">
+                                <span class="mdi mdi-calendar input-group-text"></span>
+                            </span>
+                        </div>
                         @if ($errors->has('purchase_date'))
                             <small class="text-danger">{{ $errors->first('purchase_date') }}</small>
                         @endif
@@ -44,3 +50,7 @@
 		</div>
 	</div>
 @endsection
+
+@push('js')
+    <script src="{{asset('assets/js/shared/formpickers.js')}}"></script>
+@endpush
