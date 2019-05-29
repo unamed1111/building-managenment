@@ -53,6 +53,11 @@
                                 <h6 class="preview-subject font-weight-normal text-dark mb-1">{{ 'Bạn vừa đăng kí dịch vụ: '. $notification->data['name'] . ' - với giá: ' . number_format($notification->data['cost']) .' vnđ'}}</h6>
                                 <p class="font-weight-light small-text mb-0"> {{ ' Từ Ban Quản lý' }} </p> 
                             </div>
+                        @elseif($notification->type == 'App\Notifications\ServiceFeeNotification')
+                            <div class="preview-item-content content-noti" data-next="{{ route('residents.cost-service-show',$notification->data['month']) }}">
+                                <h6 class="preview-subject font-weight-normal text-dark mb-1">{{ $notification->data['noti_name'] }}</h6>
+                                <p class="font-weight-light small-text mb-0"> {{ ' Từ Ban Quản lý' }} </p> 
+                            </div>
                         @else
                             <div class="preview-item-content content-noti" data-next="{{ auth()->user()->type == 2 ? route('reports.show', $notification->data['report_id']) : route('residents.report-index')  }}">
                                 <h6 class="preview-subject font-weight-normal text-dark mb-1">{{ $notification->data['title'] . ' - ' . REPORT_STATUS[$notification->data['status']]}}</h6>

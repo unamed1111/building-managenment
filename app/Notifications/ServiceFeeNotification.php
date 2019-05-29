@@ -6,19 +6,20 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use App\Models\CostServiceApartment;
 
 class ServiceFeeNotification extends Notification
 {
     use Queueable;
-
+    protected $cost;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(CostServiceApartment $cost)
     {
-        //
+        $this->cost = $cost;
     }
 
     /**
@@ -29,7 +30,7 @@ class ServiceFeeNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['database'];
     }
 
     /**
@@ -40,10 +41,8 @@ class ServiceFeeNotification extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+        return (new MailMessage)->subject('Hệ thống quản lý chung cư Building Care thông báo')->view(
+            'emails.fee_service_notification', ['cost' => $this->cost]);
     }
 
     /**
@@ -55,7 +54,22 @@ class ServiceFeeNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            'noti_name' => 'Đóng phí dịch vụ hàng tháng',
+            //
+        ];
+    }
+
+    /**
+     * Get the array representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return array
+     */
+    public function toDatabase($notifiable)
+    {
+        return [
+            'noti_name' => 'Thông tin chi phí dịch vụ tháng '. $this->cost->month,
+            'message' => 'Cư dân cần thanh toán dịch vụ từ trong khoảng 25-30 hàng tháng!',
+            'month' => $this->cost->month,
         ];
     }
 }

@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Services\BaseService;
 use Carbon\Carbon;
 use App\Notifications\PaymentNotification;
+use App\Notifications\ServiceFeeNotification;
 
 class ApartmentService extends BaseService
 {
@@ -68,30 +69,39 @@ class ApartmentService extends BaseService
         return true;
     }
 
+    // tạo hóa đơn tháng 
     public function createAllCostService($month)
     {
-        // if($month > '04-20')
         $a = explode('-',$month);
         $month_format = '20'.$a[1].'-'.$a[0].'-28';
         $apartments = Apartment::all();
         foreach ($apartments as $key => $apartment) {
             $service_cost = $apartment->apartment_services_cost()->where('month',$month)->first();
             if($service_cost != null){
+                // nếu đã có hóa đơn thì tiếp tục.
                 continue;
             }
+            // tính tổng giá dịch vụ
             $amount = 0;
             foreach ($apartment->services as $key => $service) {
+                // nếu thời gian đăng kí dịch vụ là ở trong tháng. =>>> tính tiền dịch vụ vào tổng giá trị
                 if($service->pivot->registration_time < $month_format){
                     $amount += $service->cost * $service->pivot->qty;
                 }
             }
+            // lấy các id dịch vụ đang sử dụng trong tháng, thời gian đăng kí phải nhỏ hơn tháng hiện tại.
             $service_apartment_id = $apartment->apartment_services()->where('registration_time' ,'<', $month_format)->pluck('id')->toArray();
-            $apartment->apartment_services_cost()->create([
+            $cost = $apartment->apartment_services_cost()->create([
                 'service_apartment_id' => json_encode($service_apartment_id),
                 'month' => $month,
                 'status'=> 0,
                 'amount' => round($amount)
-            ]);        
+            ]);     
+            foreach ($apartment->residents as $resident) {
+                if($resident->user != null){
+                    $resident->user->notify(new ServiceFeeNotification($cost)); 
+                } 
+            }
         }
         return ;
     }
