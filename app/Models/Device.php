@@ -14,4 +14,9 @@ class Device extends Model
     {
     	return $this->hasMany('App\Models\Maintenance');
     }
+
+    public function building()
+    {
+        return $this->belongsTo('App\Models\Building');
+    }
 }

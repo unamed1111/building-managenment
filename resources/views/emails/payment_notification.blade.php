@@ -4,7 +4,7 @@
     <p>Hình thức thanh toán: {{PAY_STATUS[$cost->status]}} </p>
     <p>Số tiền đã thanh toán: {{ number_format($cost->amount) . ' vnđ'}}</p>
     @if($cost->status == 1)
-    <p>Người thu: {{$cost->employee}}</p>
+    <p>Người thu: {{$cost->employee->name}}</p>
     @endif
 </div>
 <hr>

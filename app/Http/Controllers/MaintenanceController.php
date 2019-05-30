@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Services\MaintenanceService;
 use App\Services\EmployeeService;
 use App\Models\Device;
+use App\Models\Building;
+use App\Http\Requests\MaintenanceRequest;
 
 class MaintenanceController extends Controller
 {
@@ -42,8 +44,9 @@ class MaintenanceController extends Controller
      */
     public function create()
     {
+        $buildings = Building::all();
         $devices = Device::pluck('name','id')->toArray();
-        return view('maintenances.create',compact('devices'));
+        return view('maintenances.create',compact('devices', 'buildings'));
     }
 
     /**
@@ -52,7 +55,7 @@ class MaintenanceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MaintenanceRequest $request)
     {
         $maintenance = $this->service->store($request->all());
         $this->service->changeDeviceStatus($maintenance->id,1);
@@ -80,9 +83,10 @@ class MaintenanceController extends Controller
      */
     public function edit($id)
     {
+        $buildings = Building::all();
         $devices = Device::pluck('name','id')->toArray();
         $maintenance = $this->service->get($id);
-        return view('maintenances.edit',compact('maintenance','devices'));
+        return view('maintenances.edit',compact('maintenance','devices', 'buildings'));
     }
 
     /**
@@ -92,7 +96,7 @@ class MaintenanceController extends Controller
      * @param  \App\Models\Maintenance  $maintenance
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id)
+    public function update(MaintenanceRequest $request,$id)
     {
         $this->service->update($request->all(),$id);
         return back()->with(['success' => 'Sửa thành công']);

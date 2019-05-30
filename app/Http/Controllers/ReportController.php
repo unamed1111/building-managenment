@@ -113,7 +113,7 @@ class ReportController extends Controller
 
     public function doneReport(Request $request,$id)
     {
-        $report = $this->service->doneReport($id,$this->doneStatus,$request->result);
+        $report = $this->service->doneReport($id,2,$request->result);
         $user_noti = $report->user;
         $user_noti->notify(new DoneReportNotification($report));
         return back()->with('success','Đã Xử lý xong ý kiến của cư dân');

@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UserFacetory::class);
+        // $this->call(FakeSeeder::class);
          // DB::table('users')->insert([
          // 	'email' => 'admin@admin.com',
 	        // 'password' => Hash::make('123456'), // secret
@@ -77,6 +77,8 @@ class DatabaseSeeder extends Seeder
             Role::firstOrCreate(['name' => 'User']);
             $this->command->info('Added only default user role.');
         }
+
+        $this->call(FakeSeeder::class);
     }
 
 

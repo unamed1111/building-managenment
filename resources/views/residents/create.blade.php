@@ -84,11 +84,15 @@
                                     <label class="col-sm-3 col-form-label">Căn hộ</label>
                                     <div class="col-sm-9">
                                         <select name="apartment_id" class="form-control">
-                                            <option selected value='0'>Chọn Căn hộ</option>
+                                            <option selected value=''>Chọn Căn hộ</option>
                                         </select>
                                     </div>
                                 </div>
+                            @if ($errors->has('apartment_id'))
+                                <small class="text-danger">{{ $errors->first('apartment_id') }}</small>
+                            @endif
                             </div>
+
                         
                         </div>
                         <div class="form-group {{ $errors->has('gender') ? 'has-danger' : ''}}">

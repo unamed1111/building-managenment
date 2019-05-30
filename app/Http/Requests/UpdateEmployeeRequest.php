@@ -25,10 +25,23 @@ class UpdateEmployeeRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'email' => 'email',
-            'phone' => 'required',
+            'email' => 'email|unique:employees,email,' . $this->employee,
+            'phone' => 'required|numeric',
             'dob' => 'required',
             'address' => 'required'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'Bạn chưa điền tên nhân viên',
+            'email.required' => 'Bạn chưa điền email',
+            'email.unique' => 'Đã có người sử dụng email này',
+            'dob.required' => 'Bạn chưa điền ngày sinh',
+            'phone.required' => 'Bạn chưa điền số điện thoại',
+            'address.required' => 'Bạn chưa điền địa chỉ',
+            'phone.numeric' => 'số điện thoại phải là số',
         ];
     }
 }

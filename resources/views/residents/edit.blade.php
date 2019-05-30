@@ -57,7 +57,7 @@
                                         <select id="building_id" name="building_id"class="form-control">
                                                 <option selected value="0">Chọn tòa nhà</option>
                                             @foreach($buildings as $building)
-                                                <option {{$resident->aparment->building_id == $building->id ? 'selected' : '' }} value="{{$building->id}}">Tòa {{$building->name}}</option>
+                                                <option {{$resident->apartment->building_id == $building->id ? 'selected' : '' }} value="{{$building->id}}">Tòa {{$building->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -70,7 +70,7 @@
                                         <select name="floor" class="form-control">
                                             <option selected value="0">Chọn Tâng</option>
                                             @for($i = 1; $i<11 ; $i++)
-                                                <option {{$resident->aparment->floor == $i ? 'selected' : '' }} value={{$i}}>Tầng {{$i}}</option>
+                                                <option {{$resident->apartment->floor == $i ? 'selected' : '' }} value={{$i}}>Tầng {{$i}}</option>
                                             @endfor
                                         </select>
                                     </div>

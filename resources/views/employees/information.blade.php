@@ -43,7 +43,7 @@
 					                                        </tr>
 					                                        <tr>
 					                                            <td>
-					                                                <strong>Chức vụ: </strong>{{$user->postion}}
+					                                                <strong>Chức vụ: </strong>{{POSITION[$user->position]}}
 					                                            </td>
 					                                            <td>
 					                                                <strong>Phone :</strong> {{$user->phone}}

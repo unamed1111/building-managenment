@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Device;
+use App\Models\Building;
 use Illuminate\Http\Request;
 use App\Services\DeviceService;
+use App\Http\Requests\DeviceRequest;
 
 class DeviceController extends Controller
 {
@@ -37,7 +39,8 @@ class DeviceController extends Controller
      */
     public function create()
     {
-        return view('devices.create');
+        $buildings = Building::all();
+        return view('devices.create', compact('buildings'));
     }
 
     /**
@@ -46,7 +49,7 @@ class DeviceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DeviceRequest $request)
     {
         $this->service->store($request->all());
         return back()->with(['success' => 'Lưu thành công']);
@@ -73,7 +76,8 @@ class DeviceController extends Controller
     public function edit($id)
     {
         $device = $this->service->get($id);
-        return view('devices.edit',compact('device'));
+        $buildings = Building::all();
+        return view('devices.edit',compact('device', 'buildings'));
     }
 
     /**
@@ -83,7 +87,7 @@ class DeviceController extends Controller
      * @param  \App\Models\Service  $service
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(DeviceRequest $request, $id)
     {
         $this->service->update($request->all(),$id);
         return back()->with(['success' => 'Sửa thành công']);

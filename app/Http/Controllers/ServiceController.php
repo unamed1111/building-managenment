@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use App\Services\SVService;
+use App\Http\Requests\ServiceRequest;
 
 class ServiceController extends Controller
 {
@@ -47,7 +48,7 @@ class ServiceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ServiceRequest $request)
     {
         $this->service->store($request->all());
         return back()->with(['success' => 'Lưu thành công']);
@@ -85,7 +86,7 @@ class ServiceController extends Controller
      * @param  \App\Models\Service  $service
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ServiceRequest $request, $id)
     {
         $this->service->update($request->all(),$id);
         return back()->with(['success' => 'Sửa thành công']);

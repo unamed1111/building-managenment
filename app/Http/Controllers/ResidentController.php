@@ -9,6 +9,7 @@ use App\User;
 use Illuminate\Http\Request;
 use App\Services\BuildingService;
 use App\Role;
+use App\Http\Requests\ResidentRequest;
 
 class ResidentController extends Controller
 {
@@ -52,7 +53,7 @@ class ResidentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ResidentRequest $request)
     {
         $this->service->store($request->except('_token','building_id','floor'));
         return back()->with(['success' => 'Lưu thành công']);
@@ -89,7 +90,7 @@ class ResidentController extends Controller
      * @param  \App\Models\Resident  $resident
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ResidentRequest $request, $id)
     {
         $this->service->update($request->except('_token','_method','building_id','floor'),$id);
         return back()->with('success','Sửa thông tin thành công');

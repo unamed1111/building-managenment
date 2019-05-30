@@ -14,6 +14,10 @@
                             <p>Thời gian : {{$report->time}}</p>
                             <p>Người gửi : {{$report->user->userable->name}}</p>
                             <p>Kết quả : {{$report->result}}</p>
+                            @if($report->status !== 2)
+                                @include('reports.modal_done_report')
+                            &nbsp;<button type="button" class="btn btn-info btn-sm btn-rounded" data-toggle="modal" data-target="#services-{{$report->id}}" data-whatever="@mdo">Đã xử lý</button>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -21,6 +25,6 @@
         </div>
     </div>
     <div>
-        <a href="{{ url()->previous() }}" class="btn btn-primary float-right">Back</a>
+        <a href="{{ route('reports.index') }}" class="btn btn-primary float-right">Back</a>
     </div>
 @endsection

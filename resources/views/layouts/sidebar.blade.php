@@ -41,9 +41,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('apartments.index')}}">Danh Sách căn hộ</a>
                     </li>
+                    @if(auth()->user()->type == 0 || auth()->user()->type == 1  )
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('apartments.create')}}">Thêm mới</a>
                     </li>
+                    @endif
                 </ul>
             </div>
         </li>

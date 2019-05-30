@@ -21,12 +21,10 @@ class CreateCostServiceApartmentsTable extends Migration
                     ->references('id')->on('apartments')
                     ->onDelete('cascade');
             $table->string('month');
-            $table->date('payment_date');
-            $table->float('amount');
-            $table->float('paid_amount')->nullable();
-            // $table->float('debt_amount');
+            $table->date('payment_date')->nullable();
+            $table->double('amount');
             $table->smallInteger('status');
-            $table->integer('employee_id');
+            $table->integer('employee_id')->nullable();
             $table->timestamps();
         });
     }

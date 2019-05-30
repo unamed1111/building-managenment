@@ -9,7 +9,7 @@
                     <div class="row">
                         <div class="col-md-8">
                             <h4>Thống tin dịch vụ <strong>{{$service->name}}</strong></h4>
-                            <p>Giá : {{ $service->cost}}</p>
+                            <p>Giá : {{number_format( $service->cost) . ' vnđ'}}</p>
                             <p>Đơn vị :{{SERVICE_UNIT[$service->unit]}}</p>
                             <p>Mô tả : {{$service->description ? $service->description : ''}}</p>
                         </div>

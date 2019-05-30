@@ -8,7 +8,9 @@
 		        	<div class="row">
 		        		<div class="col-sm-3">
 		        			<h4 class="card-title"> Căn hộ 
+		        			@if(auth()->user()->type == 0 || auth()->user()->type == 1  )
 			            	<a href="{{route('apartments.create')}}" class="btn btn-primary btn-sm btn-rounded">Thêm</a>
+			            	@endif
 			            </h4>
 		        		</div>
 		        		<div class="col-sm-9">
@@ -28,7 +30,9 @@
 			                        <th>Chủ sở hữu</th>
 			                        <th>Tòa nhà</th>
 			                        <th>Trạng thái</th>
+			                        @role('Admin|Manager')
 			                        <th>Hành động</th>
+			                        @endrole
 			                    </tr>
 			                </thead>
 			                <tbody>
@@ -42,10 +46,10 @@
 				                        <td>{{$apartment->building->name}}</td>
 				                        <td>{{APARTMENT_STATUS[$apartment->status]}}</td>
 				                        <td>
+		                        			@role('Admin|Manager')
 				                            <a href="{{ route('apartments.edit',$apartment->id)}}" class="btn btn-info btn-sm btn-rounded btn-fw">
 		                            			<i class="mdi mdi-cloud-download"></i>Sửa
 		                        			</a>
-		                        			@role('Admin|Manager')
 		                        			&nbsp;<button type="button" class="btn btn-primary btn-sm btn-rounded" data-toggle="modal" data-target="{{"#delete".$apartment->id}}" data-whatever="@mdo">Xóa</button>
 		                        			@include('partials.modal',['id'=> $apartment->id, 'route' => route('apartments.destroy', $apartment->id), 'action' => 'delete', 'method' => 'delete'])
 		                        			@endrole

@@ -40,6 +40,7 @@ class MaintenanceService extends BaseService
     {
         $model = $this->get($id,['device']);
         $model->device->status += $value;
+        $model->device->time_maintenance_period = $model->time_end;
         $model->device->save();
         return;
     }

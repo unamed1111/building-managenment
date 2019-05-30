@@ -104,7 +104,7 @@ class EmployeeController extends Controller
     public function update(UpdateEmployeeRequest $request, $id)
     {
         $this->service->update($request->all(),$id);
-        return back();
+        return back()->with(['success' => 'Sửa thông tin thành công']);
     }
 
     /**
@@ -127,7 +127,7 @@ class EmployeeController extends Controller
                 'password' => Hash::make('123456'), // default when create
                 'software_user_id' => $employee->id ,
                 'role' => 1 , // chưa chọn role
-                'type' => 2, // account type của nhân viên
+                'type' => $employee->position == 4 ? 1 : 2, // account type của nhân viên
                 'user_type' => 'App\Models\Employee'
             ]);
         $this->syncPermissions($user);
@@ -138,7 +138,7 @@ class EmployeeController extends Controller
     private function syncPermissions($user)
     {
         // Get the submitted roles
-        if($user->type == 4) {
+        if($user->type == 1) {
             $roles = [ROLE_MANAGER];
         } else {
             $roles = [ROLE_EMPLOYEE];

@@ -24,8 +24,7 @@
 		                        <th>Mã thiết bị</th>
 		                        <th>Tên thiết bị</th>
 		                        <th>Nhà cung cấp</th>
-		                        <th>Ngày mua</th>
-		                        <th>Tầng</th>
+		                        <th>Vị trí</th>
 		                        <th>Trạng thái</th>
 		                        <th>Thời gian bảo trì gần nhất</th>
 		                    </tr>
@@ -33,12 +32,11 @@
 		                <tbody>
 		                	@foreach($devices as $device)
 			                    <tr>
-			                        <td><a href="{{ route('devices.show',$device->id) }}">{{'D00'.$device->id}}</a></td>
+			                        <td>{{'D00'.$device->id}}</td>
 			                        <td>{{$device->name}}</td>
 			                        <td>{{$device->supplier}}</td>
-			                        <td>{{$device->purchase_date}}</td>
-			                        <td>{{$device->floor}}</td>
-			                        <td>{{deviceStatus($device->status)}}</td>
+			                        <td>{{'Tòa nhà: ' . optional($device->building)->name . ' - Tầng: '. $device->floor}}</td>
+			                        <td><span class="badge-{{ $device->status == 0 ? 'primary':'danger'}} badge">{{deviceStatus($device->status)}}</span></td>
 			                        <td>{{$device->time_maintenance_period}}</td>
 			                        <td>
 			                            <a href="{{ route('devices.edit',$device->id)}}" class="btn btn-info btn-sm btn-rounded btn-fw">

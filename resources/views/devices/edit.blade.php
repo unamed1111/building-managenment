@@ -35,14 +35,36 @@
                             <small class="text-danger">{{ $errors->first('purchase_date') }}</small>
                         @endif
                     </div>
-                    <div class="form-group {{ $errors->has('floor') ? 'has-danger' : ''}}">
-                        <label for="floor" class="col-form-label">Tầng:</label>
-                        <input type="number" class="form-control" name="floor" placeholder="Tầng" id="floor" value="{{old('floor',$device->floor)}}"> 
-                        @if ($errors->has('floor'))
-                            <small class="text-danger">{{ $errors->first('floor') }}</small>
-                        @endif
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group row {{ $errors->has('floor') ? 'has-danger' : ''}}">
+                                <label class="col-sm-3 col-form-label">Tòa nhà</label>
+                                <div class="col-sm-9">
+                                    <select id="building_id" name="building_id"class="form-control " >
+                                            <option selected value="">Chọn tòa nhà</option>
+                                        @foreach($buildings as $building)
+                                            <option value="{{$building->id}}" {{$device->building_id == $building->id ? 'selected' : ''}} >Tòa{{$building->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    @if ($errors->has('building_id'))
+                                        <small class="text-danger">{{ $errors->first('building_id') }}</small>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group row {{ $errors->has('floor') ? 'has-danger' : ''}}">
+                                <label for="floor" class=" col-sm-3 col-form-label">Tầng:</label>
+                                <div class="col-sm-9">
+                                    <input type="number" class="form-control" name="floor" placeholder="Tầng" id="floor" value="{{old('floor',$device->floor)}}"> 
+                                    @if ($errors->has('floor'))
+                                        <small class="text-danger">{{ $errors->first('floor') }}</small>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Thêm</button>
+                    <button type="submit" class="btn btn-primary">Sửa</button>
                     <a href="{{route('devices.index')}}" class="btn btn-danger" >Quay lại</a>
                 </form> 
 		        </div>

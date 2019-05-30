@@ -31,14 +31,18 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
+        // số cư dân tòa nhà
         $resident_count = Resident::all()->count();
+        // số report chưa được trả lời
         $report_count = Report::where('status',0)->count();
+        // 4 reports gần nhất
         $reports = Report::with('user')->orderBy('id','DESC')->take(4)->get();
+        // số tài khoản đang sử dụng hệ thống
         $user_count = User::all()->count();
-        // $now = now()->format('d-m-Y');
         // dd($now);
+        // nếu có tháng thì 
         if($request->input('month')) {
-        $month = $request->input('month','05-19');
+            $month = $request->input('month','05-19');
             $a = explode('-', $month);
             $fullmonth = '20'.$a[1].'-'.$a[0].'-28';
         } else {
@@ -47,12 +51,15 @@ class HomeController extends Controller
         }
         $startofMonth = \Carbon\Carbon::parse($fullmonth)->startofMonth();
         $endOfMonth = \Carbon\Carbon::parse($fullmonth)->endOfMonth();
-        $ma = Maintenance::where('time_start', '>', $startofMonth)->where('time_start' ,'<', $endOfMonth)->get();
+        // lấy tất cả các nghiệp vụ sửa chữa thiết bị có thời gian kết thúc nghiệp vụ trong tháng, tức khi hoàn thành nghiệp vụ mới trả tiền
+        $ma = Maintenance::where('time_end', '>', $startofMonth)->where('time_end' ,'<', $endOfMonth)->get();
         $maintenance_cost = $ma->sum('cost');
+        //tất cả hóa đơn trong tháng
         $cost_month = CostServiceApartment::with('apartment','apartment.services')->where('month',$month)->get();
+        // tắt cả hóa đơn đã trả, chưa trả trong tháng
         $cost_datra = collect($cost_month->where('status', '<>', 0)->all());
         $cost_chuatra = collect($cost_month->where('status', 0)->all());
-
+        // đếm số đã trả, chưa trả, tổng tiền dịch vụ trong tháng
         $count_datra = $cost_datra->count();
         $total_amount_datra = $cost_datra->sum('amount');
         $count_chuatra = $cost_chuatra->count();

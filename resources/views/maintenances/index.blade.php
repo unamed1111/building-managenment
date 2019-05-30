@@ -8,7 +8,9 @@
 		        	<div class="row">
 		        		<div class="col-sm-3">
 		        			<h4 class="card-title">  Nghiệp vụ
+		        			@if(auth()->user()->type == 0 || auth()->user()->type == 1  )
 			            	<a href="{{route('maintenances.create')}}" class="btn btn-primary btn-sm btn-rounded">Tạo</a>
+			            	@endif
 			            </h4>
 		        		</div>
 		        		<div class="col-sm-9">
@@ -38,22 +40,24 @@
 			                        <td>{{\Carbon\Carbon::parse($maintenance->time_start)->format('d-m-Y')}}</td>
 			                        <td>{{$maintenance->time_end == null ? 'Vẫn đang bảo trì' : date('Y-m-d', strtotime($maintenance->time_end))}}</td>
 			                        <td>{{number_format($maintenance->cost)}}</td>
-			                        <td>			         
+			                        <td>	
+			                        @if(auth()->user()->type == 0 || auth()->user()->type == 1  )		         
 	                        			@if(!isset($maintenance->time_end))
 		                        			<a href="{{ route('maintenances.edit',$maintenance->id)}}" class="btn btn-info btn-sm btn-rounded btn-fw">
 		                            			<i class="mdi mdi-cloud-download"></i>Sửa
 		                        			</a>
-	                        				&nbsp;<button type="button" class="btn btn-primary btn-sm btn-rounded" data-toggle="modal" data-target="{{"#endMaintenance".$maintenance->id}}" data-whatever="@mdo">Hoàn thành bảo trì</button>
+	                        				&nbsp;<button type="button" class="btn btn-primary btn-sm btn-rounded" data-toggle="modal" data-target="{{"#endMaintenance".$maintenance->id}}" data-whatever="@mdo">Kết thúc bảo trì</button>
 	                        			@include('partials.modal',['id'=> $maintenance->id, 'route' => route('maintenances.endMaintenance', $maintenance->id), 'action' => 'endMaintenance', 'method' => 'post'])
-	                        			@endif
 	                        			&nbsp;<button type="button" class="btn btn-primary btn-sm btn-rounded" data-toggle="modal" data-target="{{"#delete".$maintenance->id}}" data-whatever="@mdo">Xóa</button>
 	                        			@include('partials.modal',['id'=> $maintenance->id, 'route' => route('maintenances.destroy', $maintenance->id), 'action' => 'delete', 'method' => 'delete' ])
+	                        			@endif
+	                        		@endif
 			                        </td>
 			                    </tr>
 		                    @endforeach
 		                </tbody>
 		            </table>
-		            {{$maintenances->links}}
+		            {{$maintenances->links()}}
 		            </div>
 		        </div>
 		    </div>

@@ -54,8 +54,8 @@
                     <div class="form-group {{ $errors->has('status') ? 'has-danger' : ''}}">
                         <label for="status" class="col-form-label">Trạng thái:</label>
                         <select name="status" class="form-control border-primary">
-                                <option value="0">Chưa được sử dụng</option>
                                 <option value="1">Đang được sử dụng</option>
+                                <option value="0">Chưa được sử dụng</option>
                         </select>
                     </div>
                     <button type="submit" class="btn btn-primary">Thêm</button>

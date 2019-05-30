@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Http\Request;
 
 class ResetPasswordController extends Controller
 {
@@ -42,6 +43,12 @@ class ResetPasswordController extends Controller
         return view('login.reset_password')->with(
             ['token' => $token, 'email' => $request->email]
         );
+    }
+
+    protected function sendResetResponse(Request $request, $response)
+    {
+        return redirect(auth()->user()->type == 3 ? '/' : '/admin')
+                            ->with('status', trans($response));
     }
 
 }

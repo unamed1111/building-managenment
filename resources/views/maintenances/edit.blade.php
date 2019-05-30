@@ -43,7 +43,7 @@
                             <small class="text-danger">{{ $errors->first('cost') }}</small>
                         @endif
                     </div>
-                    <button type="submit" class="btn btn-primary">Thêm</button>
+                    <button type="submit" class="btn btn-primary">Sửa</button>
                     <a href="{{route('maintenances.index')}}" class="btn btn-danger" >Quay lại</a>
                 </form> 
 		        </div>

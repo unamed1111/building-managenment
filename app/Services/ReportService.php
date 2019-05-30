@@ -30,8 +30,11 @@ class ReportService extends BaseService
     public function changeStatus($id,$status)
     {
         $model = $this->get($id);
-        $model->status = $status;
-        return $model->save();
+        if ($model->status == 0){
+            $model->status = $status;
+            $model->save();
+        }
+        return;
     }
 
     public function doneReport($id,$status,$result)

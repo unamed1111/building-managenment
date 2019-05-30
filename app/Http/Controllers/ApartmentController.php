@@ -55,7 +55,7 @@ class ApartmentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ApartmentRequest $request)
     {
         $this->service->store($request->except('_token'));
         return back()->with(['success' => 'Lưu thành công']);
@@ -94,7 +94,7 @@ class ApartmentController extends Controller
      * @param  \App\Models\Apartment  $apartment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ApartmentRequest $request, $id)
     {
         $this->service->update($request->except('_token'),$id);
         return redirect()->route('apartments.index');
@@ -124,7 +124,7 @@ class ApartmentController extends Controller
         $detail_cost = $this->service->getCostService($id, $month);
         if($detail_cost == null)
         {
-            return back()->with(['errors' => 'Chưa có hóa đơn tháng này']);
+            return back()->with(['error' => 'Chưa có hóa đơn tháng này']);
         }
         return view('apartments.detail_service',compact('detail_cost'));
     }
@@ -161,7 +161,7 @@ class ApartmentController extends Controller
         $detail_cost = $this->service->costServiceShow($month);
         if($detail_cost == null)
         {
-            return back()->with(['errors' => 'Chưa có hóa đơn tháng này']);
+            return back()->with(['error' => 'Chưa có hóa đơn tháng này']);
         }
         return view('resident_layout.cost_services.detail',compact('detail_cost'));
     }

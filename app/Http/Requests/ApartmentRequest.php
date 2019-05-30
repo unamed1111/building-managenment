@@ -26,8 +26,11 @@ class ApartmentRequest extends FormRequest
     public function rules()
     {
         return [
+            'name' => 'required',
             'floor' => 'numeric|required',
-
+            'building_id' => 'required',
+            'acreage' => 'numeric|required',
+            'phone' => 'numeric',
         ];
     }
 
@@ -35,6 +38,12 @@ class ApartmentRequest extends FormRequest
     {
         return [
             'floor.numeric' => 'Tầng phải là số',
+            'name.required' => 'Bạn chưa tên căn hộ',
+            'floor.required' => 'Bạn chưa điền tầng',
+            'building_id.required' => 'Bạn chưa chọn tòa nhà',
+            'acreage.required' => 'Bạn chưa điền diện tích',
+            'acreage.numeric' => 'Diện tích phải là số',
+            'phone.numeric' => 'số điện thoại phải là số',
         ];
     }
 }

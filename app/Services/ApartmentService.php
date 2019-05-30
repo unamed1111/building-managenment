@@ -120,7 +120,8 @@ class ApartmentService extends BaseService
             'status'=> 1, // 0 chua tra, 1 nhan vien thu, 2 tra bang paypal,  3 thanh toan bang vnpay
             'employee_id' => auth()->user()->id
         ]);
-        $cost = CostServiceApartment::find($id)->with('apartment','apartment.building','apartment.services');
+
+        $cost = CostServiceApartment::find($id)->load('apartment','apartment.building','apartment.services');
         //noti
         $residents = Apartment::find($cost->apartment_id)->residents;
         foreach ($residents as $resident) {

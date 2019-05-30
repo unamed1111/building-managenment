@@ -159,6 +159,6 @@ class VnpayController extends Controller
         }
         session()->forget('url_prev');
         session()->forget('cost_id');
-        return redirect($url)->with('errors' ,'Lỗi trong quá trình thanh toán phí dịch vụ');
+        return redirect($url)->with('error' ,'Lỗi trong quá trình thanh toán phí dịch vụ');
     }
 }

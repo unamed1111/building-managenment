@@ -29,9 +29,11 @@
 			                        <th>Mã Dịch Vụ</th>
 			                        <th>Tên dịch vụ</th>
 			                        <th>Giá (vnđ)</th>
-			                        <th>Đơn vị tính</th>
+			                        {{-- <th>Đơn vị tính</th> --}}
 			                        {{-- @can(auth()->user()->type == 1 || auth()->user()->type == 2  ) --}}
+			                        @hasanyrole('Admin|Manager')
 			                        <th>Hành động</th>
+			                        @endhasanyrole
 			                        {{-- @endcan --}}
 			                    </tr>
 			                </thead>
@@ -41,7 +43,8 @@
 				                        <td><a href="{{ route('services.show',$service->id) }}">{{'S00'.$service->id}}</a></td>
 				                        <td>{{$service->name}}</td>
 				                        <td>{{number_format($service->cost)}}</td>
-				                        <td>Tháng</td>
+				                        {{-- <td>Tháng</td> --}}
+				                        @hasanyrole('Admin|Manager')
 				                        <td>
 				                        	{{-- @can(auth()->user()->type == 1 || auth()->user()->type == 2  ) --}}
 				                            <a href="{{ route('services.edit',$service->id)}}" class="btn btn-info btn-sm btn-rounded btn-fw">
@@ -51,6 +54,7 @@
 		                        			@include('partials.modal',['id'=> $service->id, 'route' => route('services.destroy', $service->id), 'action' => 'delete', 'method' => 'delete'])
 		                        			{{-- @endcan --}}
 				                        </td>
+				                        @endhasanyrole
 				                    </tr>
 			                    @endforeach
 			                </tbody>
