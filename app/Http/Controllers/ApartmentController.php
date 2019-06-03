@@ -28,7 +28,6 @@ class ApartmentController extends Controller
      */
     public function index(Request $request)
     {
-
         if(isset($request->search)) 
         {
             $apartments = $this->service->search($request->search); 

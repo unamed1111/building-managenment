@@ -31,6 +31,7 @@ class ApartmentService extends BaseService
                                 ->orWhere('acreage', 'like', $search);
         return $result->paginate(10);
     }
+
     public function addServices($data,$id)
     {
         $apartment = $this->get($id);

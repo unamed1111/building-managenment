@@ -46,7 +46,7 @@
                                     <div class="form-group d-flex justify-content-between">
                                         <div class="form-check form-check-flat mt-0">
                                             <label class="form-check-label">
-                                            <input type="checkbox" class="form-check-input" checked> Giữ đăng nhập </label>
+                                            <input type="checkbox" class="form-check-input" checked> Duy trì đăng nhập </label>
                                         </div>
                                         <a href="{{route('password.request')}}" class="text-small forgot-password text-black">Quên mật khẩu?</a>
                                     </div>
