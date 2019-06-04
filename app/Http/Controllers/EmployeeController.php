@@ -11,6 +11,9 @@ use App\Http\Requests\UpdateEmployeeRequest;
 use App\User;
 use App\Role;
 
+use App\Exports\EmployeesExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 class EmployeeController extends Controller
 {
 
@@ -165,5 +168,10 @@ class EmployeeController extends Controller
     {
         $user = auth()->user()->userable;
         return view('employees.information',compact('user'));
+    }
+
+    public function export() 
+    {
+        return Excel::download(new EmployeesExport(), 'employees.xlsx');
     }
 }

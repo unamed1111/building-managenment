@@ -61,7 +61,7 @@
                         <p class="mb-0 mt-5"><strong>Đã thu ngày</strong> : {{ $detail_cost->payment_date }}</p>
                         <p><strong>Người thu: </strong> {{ $detail_cost->employee->name }}</p>
                     </div>
-                    @elseif($detail_cost->status == 2)
+                    @elseif($detail_cost->status == 2 || $detail_cost->status == 3)
                     <div class="col-lg-3 pl-0">
                         <p class="mb-0 mt-5"><strong>Đã thu ngày</strong> : {{ $detail_cost->payment_date }}</p>
                         <p><strong>Đã thanh toán online </strong></p>

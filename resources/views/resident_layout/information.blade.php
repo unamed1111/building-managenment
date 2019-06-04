@@ -140,7 +140,7 @@
 					                                </div>
 					                                <div class="tab-pane fade" id="user-profile-edit" role="tabpanel" aria-labelledby="user-profile-edit-tab">
 					                                    <div class="horizontal-timeline">
-					                                    	<form action="{{route('residents.update',$user->id)}}" method="POST" >
+					                                    	<form action="{{route('residents.resident-update',$user->id)}}" method="POST" >
 												            	@csrf
 										                        @method('PUT')
 										                         <div class="form-group {{ $errors->has('name') ? 'has-danger' : ''}}">

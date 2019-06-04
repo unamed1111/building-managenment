@@ -107,6 +107,11 @@
                     <button href="#" class="btn btn-primary float-right mt-4 ml-2" onclick="return:false;">
                         <i class="mdi mdi-printer mr-1"></i>Hóa Đơn đã thanh Toán
                     </button>
+                    @if($detail_cost->status == 1)
+                    <a href="{{ route('services.pdf-thanhtoan', $detail_cost->id) }}" class="btn btn-outline-success float-right mt-4 ml-2">
+                        <i class="mdi mdi-download mr-1"></i>Xuất PDF In Ký xác nhận
+                    </a>
+                    @endif
                     @endif
                     <a href="{{ route('apartments.show',$detail_cost->apartment_id) }}" class="btn btn-outline-danger float-right mt-4 ml-2">
                         <i class="mdi mdi-previous mr-1"></i>Quay lại

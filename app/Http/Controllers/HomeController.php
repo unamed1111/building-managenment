@@ -41,7 +41,7 @@ class HomeController extends Controller
         $user_count = User::all()->count();
         // dd($now);
         // nếu có tháng thì 
-        if($request->input('month')) {
+        if($request->has('month')) {
             $month = $request->input('month','05-19');
             $a = explode('-', $month);
             $fullmonth = '20'.$a[1].'-'.$a[0].'-28';
@@ -51,6 +51,10 @@ class HomeController extends Controller
         }
         $startofMonth = \Carbon\Carbon::parse($fullmonth)->startofMonth();
         $endOfMonth = \Carbon\Carbon::parse($fullmonth)->endOfMonth();
+        // số report chưa được trả lời
+        $report_count = Report::where('status',0)->where('created_at', '>', $startofMonth)->where('created_at' ,'<', $endOfMonth)->count();
+        // 4 reports gần nhất
+        $reports = Report::with('user')->where('created_at', '>', $startofMonth)->where('created_at' ,'<', $endOfMonth)->orderBy('id','DESC')->take(4)->get();
         // lấy tất cả các nghiệp vụ sửa chữa thiết bị có thời gian kết thúc nghiệp vụ trong tháng, tức khi hoàn thành nghiệp vụ mới trả tiền
         $ma = Maintenance::where('time_end', '>', $startofMonth)->where('time_end' ,'<', $endOfMonth)->get();
         $maintenance_cost = $ma->sum('cost');

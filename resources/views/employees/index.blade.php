@@ -19,6 +19,7 @@
 		        	</div>
 		            @include('partials.alert')
 		            <p class="card-description"> Danh sách nhân viên</p>
+		            <a class="btn btn-outline-primary btn-fw" href="{{ route('employee.export') }}"><i class="mdi mdi-cloud-download"></i>Xuất file excel danh sách nhân viên </a>
 		            <div class="table-responsive">
 			            <table class="table table-hover">
 			                <thead>
@@ -69,6 +70,7 @@
 			            </table>
 			            {{$employees->links()}}
 		            </div>
+		            
 		        </div>
 		    </div>
 		</div>

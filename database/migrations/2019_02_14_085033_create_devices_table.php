@@ -20,7 +20,7 @@ class CreateDevicesTable extends Migration
             $table->date('purchase_date');
             $table->smallInteger('floor');
             $table->smallInteger('status')->default(0);
-            $table->unsignedInteger('time_maintenance_period')->nullable();
+            $table->datetime('time_maintenance_period')->nullable();
             $table->timestamps();
         });
     }

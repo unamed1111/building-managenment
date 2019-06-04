@@ -26,8 +26,8 @@ class ResidentRequest extends FormRequest
         return [
             'name' => 'required',
             'email' => 'required|email|unique:residents,email,' . $this->resident,
-            'phone' => 'required|numeric',
-            'passport' => 'required|numeric',
+            'phone' => 'numeric',
+            'passport' => 'numeric',
             'dob' => 'required',
             'apartment_id' => 'required'
         ];

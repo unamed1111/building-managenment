@@ -17,6 +17,7 @@
 		        	</div>
 		            @include('partials.alert')
 		            <p class="card-description"> Danh sách cư dân tòa nhà</p>
+		            <a class="btn btn-outline-primary btn-fw" href="{{ route('resident.export') }}"><i class="mdi mdi-cloud-download"></i>Xuất file excel danh sách cư dân</a>
 		            <div class="table-responsive">
 			            <table class="table table-hover">
 			                <thead>

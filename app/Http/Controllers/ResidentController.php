@@ -11,6 +11,9 @@ use App\Services\BuildingService;
 use App\Role;
 use App\Http\Requests\ResidentRequest;
 
+use App\Exports\ResidentsExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 class ResidentController extends Controller
 {
     private $buildingService;
@@ -156,6 +159,19 @@ class ResidentController extends Controller
         $user->syncRoles($roles);
 
         return $user;
+    }
+
+
+    public function export() 
+    {
+        $residents = Resident::with('apartment')->get();
+        return Excel::download(new ResidentsExport($residents), 'residents.xlsx');
+    }
+    
+    public function residentUpdate(ResidentRequest $request, $id)
+    {
+        $this->service->update($request->except('_token','_method','building_id','floor'),$id);
+        return back()->with('success','Sửa thông tin thành công');
     }
 
 }

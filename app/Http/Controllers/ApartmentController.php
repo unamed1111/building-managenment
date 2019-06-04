@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Models\Apartment;
+use App\Models\CostServiceApartment;
 use Illuminate\Http\Request;
 use App\Services\ApartmentService;
 use App\Services\BuildingService;
 use App\Services\SVService;
+use PDF;
 use App\Http\Requests\ApartmentRequest;
 
 class ApartmentController extends Controller
@@ -114,8 +116,13 @@ class ApartmentController extends Controller
     // add services to apartment
     public function addServices(Request $request, $id)
     {
-        $this->service->addServices($request->only('services', 'qty'),$id);
-        return back();
+        $this->service->addServices($request->only('service_id', 'qty'),$id);
+        return back()->with('success','Đã thêm dịch vụ');
+    } 
+    public function deleteServices(Request $request, $id)
+    {
+        $this->service->deleteServices($request->only('service_id'),$id);
+        return back()->with('success','Hủy dịch vụ thành công');
     } 
 
     public function getCostService($id, $month)
@@ -135,7 +142,7 @@ class ApartmentController extends Controller
     }
     public function hoan_tat_thanh_toan($id)
     {
-        $this->service->hoan_tat_thanh_toan($id);
+        $detail_cost = $this->service->hoan_tat_thanh_toan($id);
         return back();
     }
 
@@ -178,6 +185,14 @@ class ApartmentController extends Controller
     public function getCostMonthResident(Request $request)
     {
         return redirect()->route('residents.cost-service-show',['month' => $request->month]);
+    }
+
+    public function pdfThanhToan($id)
+    {
+        $detail_cost = CostServiceApartment::find($id);
+        $detail_cost->load('apartment');
+        $pdf = PDF::loadView('pdf.detail_cost', compact('detail_cost'));
+        return $pdf->download('hoa don thang '.$detail_cost->month.' can ho '. $detail_cost->apartment->name .'.pdf');
     }
 
 }

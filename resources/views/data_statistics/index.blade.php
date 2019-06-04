@@ -3,6 +3,23 @@
 @section('content')
     <div class="row">
         <div class="col-12 grid-margin">
+            <div class="row">
+                <div class="form-group form-inline col-md-12 justify-content-end">
+                    @php
+                        $month = ['01-19' => '01-2019', '02-19' => '02-2019', '03-19' => '03-2019','04-19' => '04-2019','05-19' => '05-2019','06-19' => '06-2019','07-19' => '07-2019','08-19' => '08-2019','09-19' => '09-2019','10-19' => '10-2019','11-19' => '11-2019','12-19' => '12-2019'];
+                        $this_month = now()->format('m-y');
+                    @endphp
+                    <select id="select_month" class="form-control form-group border-info" data-url="{!! http_build_query(Request::except('month')) !!}">
+                        @foreach($month as $key => $value)
+                            <option value="{{ $key }}" {{ request()->has('month') ?  (request()->month == $key ? 'selected' : '') : ($this_month == $key ? 'selected' : '') }} >{{ $value }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 grid-margin">
             <div class="card card-statistics">
                 <div class="row">
                     <div class="card-col col-xl-3 col-lg-3 col-md-3 col-6">
@@ -82,14 +99,14 @@
             <div class="card aligner-wrapper">
                 <div class="card-body">
                     <div class="absolute left top bottom h-100 v-strock-2 bg-primary"></div>
-                    <p class="text-muted mb-2">Tổng thu:</p>
+                    <p class="text-muted mb-2">Tổng phải thu:</p>
                     <div class="d-flex align-items-center">
                         <h1 class="font-weight-medium mb-2">{{number_format($cost_all).' vnd'}}</h1>
                         {{-- <h5 class="font-weight-medium text-success ml-2">+20.7%</h5> --}}
                     </div>
                     <div class="d-flex align-items-center">
                         <div class="bg-primary dot-indicator"></div>
-                        <p class="text-muted mb-0 ml-2">Đã thu: {{number_format($total_amount_datra).' vnd'}}</p>
+                        <p class="text-muted mb-0 ml-2">Đã thu được: {{number_format($total_amount_datra).' vnd'}}</p>
                     </div>
                 </div>
             </div>
@@ -155,6 +172,18 @@
     </div>
 @endsection
 
-@push('layouts.script')
-	<script src=""{{asset('assets/js/demo_1/dashboard_2.js')}}"></script>
+@push('js')
+    <script>
+        $(document).ready(function() {
+            $("#select_month").on('change', function(){
+                var url = $(this).data('url');
+                if (url.length > 0) {
+                    location.href = window.location.pathname + "?" + url + "&month=" + $(this).val();
+                } else {
+                    location.href = window.location.pathname + "?month=" + $(this).val();
+                }
+            });
+        });
+
+    </script>
 @endpush

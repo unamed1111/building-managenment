@@ -27,7 +27,8 @@ Route::prefix('admin')->group(function(){
 	Route::resource('devices','DeviceController')->middleware(['auth', 'roleAmin']);
 	Route::resource('maintenances','MaintenanceController')->middleware(['auth', 'roleAmin']);
 	Route::resource('reports','ReportController')->middleware(['auth', 'roleAmin']);
-	Route::post('addServicesToApartment/{id}','ApartmentController@addServices')->name('add_services');
+	Route::post('addServicesToApartment/{id}','ApartmentController@addServices')->name('add_services')->middleware(['auth', 'roleAmin']);
+	Route::post('deleteServicesToApartment/{id}','ApartmentController@deleteServices')->name('delete_services')->middleware(['auth', 'roleAmin']);
 	Route::resource('users', 'UserController')->middleware(['auth', 'roleAmin']);
 	Route::resource('roles', 'RoleController');
 	Route::post('/role/{id}/restore', 'RoleController@restore')->name('role.restore');
@@ -47,31 +48,35 @@ Route::prefix('admin')->group(function(){
 	Route::get('data-statistics','DataStatisticController@index')->name('data-statistics.index');
 	Route::get('data-statistics/details','DataStatisticController@details')->name('data-statistics.details');
 	Route::get('/getInformation','EmployeeController@getInformation')->name('employee.infomation')->middleware(['auth', 'roleAmin']);
+	Route::get('/export-employee','EmployeeController@export')->name('employee.export')->middleware(['auth', 'roleAmin']);
+	Route::get('/export-resident','ResidentController@export')->name('resident.export')->middleware(['auth', 'roleAmin']);
+	Route::get('/pdf-apartment-service-cost/{id}','ApartmentController@pdfThanhToan')->name('services.pdf-thanhtoan')->middleware(['auth', 'roleAmin']);
 
 });
 
 Route::prefix('/')->group(function(){
-	Route::get('/','ResidentController@getInformation')->name('residents.infomation')->middleware('auth');
-	Route::get('report','ReportController@reportIndex')->name('residents.report-index')->middleware('auth');
-	Route::post('report','ReportController@reportStore')->name('residents.report-store')->middleware('auth');
-	Route::get('service','ServiceController@serviceIndex')->name('residents.service-index')->middleware('auth');
-	Route::post('service','ServiceController@serviceStore')->name('residents.service-store')->middleware('auth');
-	Route::post('delete-service/{id}','ServiceController@serviceDelete')->name('residents.service-delete')->middleware('auth');
-	Route::get('cost-service','ApartmentController@costServiceIndex')->name('residents.cost-service-index')->middleware('auth');
-	Route::get('cost-service/{month}','ApartmentController@costServiceShow')->name('residents.cost-service-show')->middleware('auth');
-	Route::post('getCostMonthResident','ApartmentController@getCostMonthResident')->name('getCostMonthResident');
+	Route::get('/','ResidentController@getInformation')->name('residents.infomation')->middleware('auth','roleResident');
+	Route::put('/resident-update/{id}','ResidentController@residentUpdate')->name('residents.resident-update')->middleware('auth','roleResident');
+	Route::get('report','ReportController@reportIndex')->name('residents.report-index')->middleware('auth','roleResident');
+	Route::post('report','ReportController@reportStore')->name('residents.report-store')->middleware('auth','roleResident');
+	Route::get('service','ServiceController@serviceIndex')->name('residents.service-index')->middleware('auth','roleResident');
+	Route::post('service','ServiceController@serviceStore')->name('residents.service-store')->middleware('auth','roleResident');
+	Route::post('delete-service/{id}','ServiceController@serviceDelete')->name('residents.service-delete')->middleware('auth','roleResident');
+	Route::get('cost-service','ApartmentController@costServiceIndex')->name('residents.cost-service-index')->middleware('auth','roleResident');
+	Route::get('cost-service/{month}','ApartmentController@costServiceShow')->name('residents.cost-service-show')->middleware('auth','roleResident');
+	Route::post('getCostMonthResident','ApartmentController@getCostMonthResident')->name('getCostMonthResident')->middleware('auth','roleResident');
 
 	    
-    Route::get('/execute-payment', 'PaymentController@execute');
-    Route::post('/create-payment', 'PaymentController@create')->name('create-payment');
+    Route::get('/execute-payment', 'PaymentController@execute')->middleware('auth','roleResident');
+    Route::post('/create-payment', 'PaymentController@create')->name('create-payment')->middleware('auth','roleResident');
 
     Route::get('/vnpay', function(){
     	return view('vnpay');
-    })->name('vnpay');
+    })->name('vnpay')->middleware('auth');
 
-    Route::post('create-vnpay', 'VnpayController@create')->name('create-vnpay');
-    Route::get('excute-vnpay', 'VnpayController@excute')->name('excute-vnpay');
-    Route::get('return-vnpay', 'VnpayController@return')->name('return-vnpay');
+    Route::post('create-vnpay', 'VnpayController@create')->name('create-vnpay')->middleware('auth');
+    Route::get('excute-vnpay', 'VnpayController@excute')->name('excute-vnpay')->middleware('auth');
+    Route::get('return-vnpay', 'VnpayController@return')->name('return-vnpay')->middleware('auth');
 
     Route::get('readnoti/{id}', 'NotificationController@readNoti')->name('readNoti');
     Route::get('markAllNoti', 'NotificationController@markAllNoti')->name('markAllNoti');

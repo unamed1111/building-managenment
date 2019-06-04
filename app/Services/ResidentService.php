@@ -25,4 +25,14 @@ class ResidentService extends BaseService
                                 ->orWhere('phone', 'like', $search);
         return $result->paginate(10);
     }
+
+    public function update($data,$id)
+    {
+        $model = $this->get($id);
+        $model->update($data);
+        if($model->user) {
+            $model->user->update(['email' => $data['email']]);
+        }
+        return;
+    }
 }

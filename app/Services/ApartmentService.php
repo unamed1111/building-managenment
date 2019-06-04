@@ -36,10 +36,18 @@ class ApartmentService extends BaseService
     {
         $apartment = $this->get($id);
         $date = Carbon::now()->toDateTimeString();
-        foreach($data['services'] as $key => $service)
-        {
-           $apartment->services()->attach($service,['qty'=> $data['qty'][$key],'registration_time' => $date, 'comment' => '1']);
-        }
+        // foreach($data['services'] as $key => $service)
+        // {
+        //    $apartment->services()->attach($service,['qty'=> $data['qty'][$key],'registration_time' => $date, 'comment' => '1']);
+        // }
+        $apartment->services()->attach($data['service_id'],['qty'=> $data['qty'],'registration_time' => $date, 'comment' => 'Đăng ký tại quầy']);
+        return;
+    }
+
+    public function deleteServices($service_id, $id)
+    {
+        $apartment = $this->get($id);
+        $apartment->services()->detach($service_id);
         return;
     }
 
