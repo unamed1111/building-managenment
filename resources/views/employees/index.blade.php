@@ -50,13 +50,18 @@
 				                        {{-- <td>{{GENDER[$employee->gender]}}</td> --}}
 				                        <td>{{$employee->phone ? $employee->phone : ''}}</td>
 				                        <td>{{$employee->email ? $employee->email : 'Chưa cập nhật email'}}</td>
-				                        @role('Admin|Manager')
 				                        <td>
+				                        	@can('edit_employees')
 				                            <a href="{{ route('employees.edit',$employee->id)}}" class="btn btn-info btn-sm btn-rounded btn-fw">
 		                            			<i class="mdi mdi-cloud-download"></i>Sửa
 		                        			</a>
+		                        			@endcan
+
+		                        			@can('delete_employees')
 		                        			&nbsp;<button type="button" class="btn btn-primary btn-sm btn-rounded" data-toggle="modal" data-target="{{"#delete".$employee->id}}" data-whatever="@mdo">Xóa</button>
 		                        			@include('partials.modal',['id'=> $employee->id, 'route' => route('employees.destroy', $employee->id), 'action' => 'delete', 'method' => 'delete' ])
+		                        			@endcan
+				                        @role('Admin|Manager')
 		                        			@if(!$employee->user)
 				                        		<a href="{{ route('employees.createAccount',$employee->id)}}" class="btn btn-secondary btn-sm btn-rounded btn-fw">
 		                            			Cấp ngay

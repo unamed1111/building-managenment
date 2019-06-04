@@ -11,7 +11,8 @@
             <span class="menu-title">Trang chủ</span>
             </a>
         </li>
-        @if(auth()->user()->type == 0 || auth()->user()->type == 1  )
+        {{-- @if(auth()->user()->type == 0 || auth()->user()->type == 1  ) --}}
+        @can('view_buildings')
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#buildings" aria-expanded="false" aria-controls="buildings">
             <i class="menu-icon mdi mdi-hospital-building"></i>
@@ -23,13 +24,17 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('buildings.index')}}">Danh Sách toà nhà</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('buildings.create')}}">Thêm mới</a>
-                    </li>
+                    @can('add_buildings')
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('buildings.create')}}">Thêm mới</a>
+                        </li>
+                    @endcan
                 </ul>
             </div>
         </li>
-        @endif
+        @endcan
+        {{-- @endif --}}
+        @can('view_apartments')
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#apartments" aria-expanded="false" aria-controls="apartments">
             <i class="menu-icon mdi mdi-home-modern"></i>
@@ -41,14 +46,18 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('apartments.index')}}">Danh Sách căn hộ</a>
                     </li>
-                    @if(auth()->user()->type == 0 || auth()->user()->type == 1  )
+                    @can('add_apartments')
+                    {{-- @if(auth()->user()->type == 0 || auth()->user()->type == 1  ) --}}
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('apartments.create')}}">Thêm mới</a>
                     </li>
-                    @endif
+                    @endcan
+                    {{-- @endif --}}
                 </ul>
             </div>
         </li>
+        @endcan
+        @can('view_residents')
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#residents" aria-expanded="false" aria-controls="residents">
             <i class="menu-icon mdi mdi-account-multiple-outline"></i>
@@ -60,12 +69,16 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('residents.index')}}">Danh sách cư dân</a>
                     </li>
+                    @can('add_residents')
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('residents.create')}}">Thêm mới</a>
                     </li>
+                    @endcan
                 </ul>
             </div>
         </li>
+        @endcan
+        @can('view_employees')
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#employees" aria-expanded="false" aria-controls="employees">
             <i class="menu-icon mdi mdi-account-network"></i>
@@ -77,14 +90,18 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('employees.index')}}">Danh sách nhân viên</a>
                     </li>
-                    @if(auth()->user()->type == 0 || auth()->user()->type == 1  )
+                    {{-- @if(auth()->user()->type == 0 || auth()->user()->type == 1  ) --}}
+                    @can('add_employees')
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('employees.create')}}">Thêm mới</a>
                     </li>
-                    @endif
+                    @endcan
+                    {{-- @endif --}}
                 </ul>
             </div>
         </li>
+        @endcan
+        @can('view_services')
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#services" aria-expanded="false" aria-controls="services">
             <i class="menu-icon mdi mdi-briefcase-check"></i>
@@ -96,15 +113,19 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('services.index')}}">Danh sách dịch vụ</a>
                     </li>
-                    @if(auth()->user()->type == 0 || auth()->user()->type == 1  )
+                    {{-- @if(auth()->user()->type == 0 || auth()->user()->type == 1  ) --}}
+                    @can('add_services')
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('services.create')}}">Thêm mới</a>
                     </li>
-                    @endif
+                    @endcan
+                    {{-- @endif --}}
                 </ul>
             </div>
         </li>
-        @if(auth()->user()->type == 0 || auth()->user()->type == 1  )
+        @endcan
+        @can('view_devices')
+        {{-- @if(auth()->user()->type == 0 || auth()->user()->type == 1  ) --}}
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#devices" aria-expanded="false" aria-controls="devices">
             <i class="menu-icon mdi mdi-webcam"></i>
@@ -116,12 +137,16 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('devices.index')}}">Danh sách thiết bị</a>
                     </li>
+                    @can('add_devices')
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('devices.create')}}">Thêm mới</a>
                     </li>
+                    @endcan
                 </ul>
             </div>
         </li>
+        @endcan
+        @can('view_maintance')
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#maintenances" aria-expanded="false" aria-controls="maintenances">
             <i class="menu-icon mdi mdi-run"></i>
@@ -133,13 +158,17 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('maintenances.index')}}">Danh sách nghiệp vụ</a>
                     </li>
+                    @can('add_maintance')
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('maintenances.create')}}">Thêm mới</a>
                     </li>
+                    @endcan
                 </ul>
             </div>
         </li>
-        @endif
+        {{-- @endif --}}
+        @endcan
+        @can('view_report')
         <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#reports" aria-expanded="false" aria-controls="reports">
             <i class="menu-icon mdi mdi-calendar-text"></i>
@@ -151,14 +180,17 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('reports.index')}}">Danh sách ý kiến, góp ý</a>
                     </li>
-                    @hasrole('Employee')
+                    {{-- @hasrole('Employee') --}}
+                    @can('add_report')
                     <li class="nav-item">
                         <a class="nav-link" href="{{route('reports.create')}}">Thêm mới</a>
                     </li>
-                    @endhasrole
+                    @endcan
+                    {{-- @endhasrole --}}
                 </ul>
             </div>
         </li>
+        @endcan
         @hasanyrole('Admin|Manager')
         <li class="nav-item">
             <a class="nav-link"href="{{ route('users.index') }}">

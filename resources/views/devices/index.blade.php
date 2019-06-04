@@ -8,7 +8,9 @@
 		        	<div class="row">
 		        		<div class="col-sm-3">
 		        			<h4 class="card-title"> Thiết bị
+		        			@can('add_devices')
 			            	<a href="{{route('devices.create')}}" class="btn btn-primary btn-sm btn-rounded">Thêm</a>
+			            	@endcan
 			            </h4>
 		        		</div>
 		        		<div class="col-sm-9">
@@ -27,6 +29,9 @@
 		                        <th>Vị trí</th>
 		                        <th>Trạng thái</th>
 		                        <th>Thời gian bảo trì gần nhất</th>
+		                        @role('Admin|Manager')
+		                        <th>Hành động</th>
+		                        @endrole
 		                    </tr>
 		                </thead>
 		                <tbody>
@@ -39,11 +44,15 @@
 			                        <td><span class="badge-{{ $device->status == 0 ? 'primary':'danger'}} badge">{{deviceStatus($device->status)}}</span></td>
 			                        <td>{{$device->time_maintenance_period}}</td>
 			                        <td>
+			                        	@can('edit_devices')
 			                            <a href="{{ route('devices.edit',$device->id)}}" class="btn btn-info btn-sm btn-rounded btn-fw">
 	                            			<i class="mdi mdi-cloud-download"></i>Sửa
 	                        			</a>
+	                        			@endcan
+	                        			@can('delete_devices')
 	                        			&nbsp;<button type="button" class="btn btn-primary btn-sm btn-rounded" data-toggle="modal" data-target="{{"#add".$device->id}}" data-whatever="@mdo">Xóa</button>
 	                        			@include('partials.modal',['id'=> $device->id, 'route' => route('devices.destroy', $device->id), 'action' => 'delete', 'method' => 'delete'])
+	                        			@endcan
 			                        </td>
 			                    </tr>
 		                    @endforeach

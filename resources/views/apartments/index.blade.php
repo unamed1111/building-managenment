@@ -8,9 +8,11 @@
 		        	<div class="row">
 		        		<div class="col-sm-3">
 		        			<h4 class="card-title"> Căn hộ 
-		        			@if(auth()->user()->type == 0 || auth()->user()->type == 1  )
+		        			{{-- @if(auth()->user()->type == 0 || auth()->user()->type == 1  ) --}}
+		        			@can('add_apartments')
 			            	<a href="{{route('apartments.create')}}" class="btn btn-primary btn-sm btn-rounded">Thêm</a>
-			            	@endif
+			            	@endcan
+			            	{{-- @endif --}}
 			            </h4>
 		        		</div>
 		        		<div class="col-sm-9">
@@ -46,13 +48,17 @@
 				                        <td>{{$apartment->building->name}}</td>
 				                        <td>{{APARTMENT_STATUS[$apartment->status]}}</td>
 				                        <td>
-		                        			@role('Admin|Manager')
+		                        			{{-- @role('Admin|Manager') --}}
+		                        			@can('edit_apartments')
 				                            <a href="{{ route('apartments.edit',$apartment->id)}}" class="btn btn-info btn-sm btn-rounded btn-fw">
 		                            			<i class="mdi mdi-cloud-download"></i>Sửa
 		                        			</a>
+		                        			@endcan
+		                        			@can('delete_apartments')
 		                        			&nbsp;<button type="button" class="btn btn-primary btn-sm btn-rounded" data-toggle="modal" data-target="{{"#delete".$apartment->id}}" data-whatever="@mdo">Xóa</button>
 		                        			@include('partials.modal',['id'=> $apartment->id, 'route' => route('apartments.destroy', $apartment->id), 'action' => 'delete', 'method' => 'delete'])
-		                        			@endrole
+		                        			@endcan
+		                        			{{-- @endrole --}}
 				                        </td>
 				                    </tr>
 			                    @endforeach

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Authorizable;
 use App\Permission;
 use App\Role;
+use App\User;
 use Illuminate\Http\Request;
 
 class RoleController extends Controller
@@ -18,6 +19,7 @@ class RoleController extends Controller
      */
     public function index()
     {
+        
         $roles = Role::all();
         $permissions = Permission::all();
 
@@ -35,7 +37,7 @@ class RoleController extends Controller
         $this->validate($request, ['name' => 'required|unique:roles']);
 
         if( Role::create($request->only('name')) ) {
-            flash('Role Added');
+            flash('Vai trò được tạo');
         }
 
         return redirect()->back();
@@ -58,12 +60,12 @@ class RoleController extends Controller
             }
 
             $permissions = $request->get('permissions', []);
-
+            // gắn quyền cho role
             $role->syncPermissions($permissions);
 
-            flash( $role->name . ' permissions has been updated.');
+            flash( $role->name . ' Quyền hạn được cập nhật.');
         } else {
-            flash()->error( 'Role with id '. $id .' note found.');
+            flash()->error( 'Vai trò này chưa được tạo');
         }
 
         return redirect()->route('roles.index');

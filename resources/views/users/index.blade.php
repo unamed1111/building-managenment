@@ -6,7 +6,9 @@
 		    <div class="card">
 		        <div class="card-body">
 		            <h4 class="card-title"> Quản lý tài khoản
+		            	@role('Admin|Manager')
 		            	<a href="{{route('users.create')}}" class="btn btn-primary btn-sm btn-rounded">Thêm</a>
+		            	@endrole
 		            	{{-- @include('partials.search',['route' => route('users.index')]) --}}
 		            </h4>
 		            @include('partials.alert')
@@ -31,8 +33,11 @@
 			                           {{--  <a href="{{ route('users.edit',$user->id)}}" class="btn btn-info btn-sm btn-rounded btn-fw">
 	                            			<i class="mdi mdi-cloud-download"></i>Sửa
 	                        			</a> --}}
+
+	                        			@can('delete_users')
 	                        			&nbsp;<button type="button" class="btn btn-primary btn-sm btn-rounded" data-toggle="modal" data-target="{{"#delete".$user->id}}" data-whatever="@mdo">Xóa</button>
 	                        			@include('partials.modal',['id'=> $user->id, 'route' => route('users.destroy', $user->id), 'action' => 'delete', 'method' => 'delete' ])
+	                        			@endcan
 			                        </td>
 			                    </tr>
 		                    @endforeach
