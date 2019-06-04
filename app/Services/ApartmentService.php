@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Apartment;
+use App\Models\Building;
 use App\User;
 use App\Models\CostServiceApartment;
 use Illuminate\Http\Request;
@@ -23,11 +24,14 @@ class ApartmentService extends BaseService
     public function search($search)
     {
         $search = '%'.$search.'%';
+        $building = Building::where('name', 'like', $search)->get()->pluck('id');
+
         $result = $this->model->where('name', 'like', $search)
                                 ->orWhere('floor', 'like', $search)
                                 ->orWhere('status', 'like', $search)
                                 ->orWhere('owner_name', 'like', $search)
                                 ->orWhere('phone', 'like', $search)
+                                ->orWhereIn('building_id', $building)
                                 ->orWhere('acreage', 'like', $search);
         return $result->paginate(10);
     }
