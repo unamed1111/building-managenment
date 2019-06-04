@@ -31,12 +31,20 @@ class SVService extends BaseService
     public function addService($data)
     {
         $apartment = auth()->user()->userable->apartment;
-        $date = \Carbon\Carbon::now()->toDateTimeString();
+        $now = \Carbon\Carbon::now()->format('d');
+            if((int)($now) < 25) {
+                $date = \Carbon\Carbon::now()->toDateTimeString();
+                $message = 'Đã đăng kí dịch vụ';
+            } else {
+                $nextmonth = new \Carbon\Carbon('first day of next month');
+                $date = $nextmonth->toDateTimeString();
+                $message = 'Đăng kí dịch vụ. Phí dịch vụ sẽ chỉ được tính vào tháng tiếp theo';
+            }
         $qty = $data['qty'] ? : 1;
         $result =$apartment->services()->attach($data['service_id'],['qty'=> $qty,'registration_time' => $date, 'comment' => $data['comment']]);
         $service = $this->get($data['service_id']);
         auth()->user()->notify(new RegisterServiceNotification($service));
-        return;
+        return $message;
     }
     // cư dân hủy đăng kí service
     public function deleteService($id)

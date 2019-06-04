@@ -15,7 +15,7 @@
                 <i class="mdi mdi-bell-outline"></i>
                 <span class="count bg-success">{{auth()->user()->unreadNotifications->count()}}</span>
                 </a>
-                <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0" aria-labelledby="notificationDropdown">
+                <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0" aria-labelledby="notificationDropdown" style="overflow-y: auto; max-height: 400px;">
                     <a class="dropdown-item py-3 border-bottom">
                         <p class="mb-0 font-weight-medium float-left">Bạn có  {{auth()->user()->unreadNotifications->count()}} Thông báo mới</p>
                         <span style="cursor: pointer;" class="badge badge-pill badge-primary float-right markreadAll" data-url="{{ route('markAllNoti') }}">Đánh dấu đã đọc hết</span>

@@ -67,7 +67,7 @@
 					                                                        <h5 class="mb-0">Hạn đóng tiền hàng tháng</h5>
 					                                                        <small class="text-muted">Ban quản lý</small>
 					                                                    </div>
-					                                                    <p>Ngày 25 hàng tháng chúng tôi sẽ bắt đầu thu phí dịch vụ cho tháng trước đó, thời gian đóng là 5 ngày kể từ ngày bắt đầu. Có thế đóng tiền qua hệ thống Paypal hoặc trực tiếp với nhân viên tòa nhà tại khu vực lễ tân. </p>
+					                                                    <p>Ngày 28 hàng tháng chúng tôi sẽ bắt đầu thu phí dịch vụ cho tháng trước đó, thời gian đóng là 5 ngày kể từ ngày bắt đầu. Có thế đóng tiền qua hệ thống Paypal, VnPay hoặc  liên hệ trực tiếp với nhân viên tòa nhà tại khu vực lễ tân. </p>
 					                                                </div>
 					                                                @if($cost_service_history_unpaid->count() != 0 )
 						                                                <div class="stages pl-5 pb-4">

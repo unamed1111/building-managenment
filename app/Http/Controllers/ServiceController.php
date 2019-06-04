@@ -115,12 +115,17 @@ class ServiceController extends Controller
     // cư dân đăng kí services
     public function serviceStore(Request $request)
     {
-        $this->service->addService($request->all());
-        return redirect()->back();
+        $message = $this->service->addService($request->all());
+        return redirect()->back()->with('success' => $message);
     }
     public function serviceDelete($id)
     {
-        $this->service->deleteService($id);
-        return redirect()->back();
+        $now = \Carbon\Carbon::now()->format('d');
+        if((int)($now) < 10) {
+            $this->service->deleteService($id);
+            return redirect()->back()->with('success', 'Hủy dịch vụ thành công');
+        }
+
+        return redirect()->back()->with('error', 'Bạn chỉ được hủy dịch vụ trong 10 ngày đầu của tháng');
     }
 }

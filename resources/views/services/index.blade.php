@@ -21,9 +21,11 @@
 		        	</div>
 		            @include('partials.alert')
 		            <p class="card-description"> Tổng hợp các dịch vụ của tòa nhà </p>
+		            @if((int)(\Carbon\Carbon::now()->format('d')) > 27)
 		            @hasanyrole('Admin|Manager')
 		            <a href="{{ route('createAllCostService',\Carbon\Carbon::createFromDate()->format('m-y')) }}" class="btn btn-outline-danger">Tạo hóa đơn tháng này: {{' ' . \Carbon\Carbon::createFromDate()->format('m-Y')}}</a>
 		            @endhasanyrole
+		            @endif
 		            <div class="table-responsive">
 			            <table class="table table-hover">
 			                <thead>

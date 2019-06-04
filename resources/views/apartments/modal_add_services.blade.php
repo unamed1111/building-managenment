@@ -10,6 +10,7 @@
             <div class="modal-body">
                 <div class="row">
                 @foreach($services as $service)
+                @continue(in_array($service->id, $service_use))
                     <div style="cursor: pointer;" data-servicePrice="{{number_format($service->cost). ' vnđ'}}" data-serviceID="{{$service->id}}" data-serviceName="{{$service->name}}" class="col-sm-6 grid-margin stretch-card service-chose">
                         <div class="card card-statistics bg-orange-gradient">
                             <div class="card-body">

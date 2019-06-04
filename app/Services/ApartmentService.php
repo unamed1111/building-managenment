@@ -39,9 +39,17 @@ class ApartmentService extends BaseService
     public function addServices($data,$id)
     {
         $apartment = $this->get($id);
-        $date = Carbon::now()->toDateTimeString();
+        $now = \Carbon\Carbon::now()->format('d');
+        if((int)($now) < 25) {
+            $date = \Carbon\Carbon::now()->toDateTimeString();
+            $message = 'Đã đăng kí dịch vụ';
+        } else {
+            $nextmonth = new \Carbon\Carbon('first day of next month');
+            $date = $nextmonth->toDateTimeString();
+            $message = 'Đăng kí dịch vụ. Phí dịch vụ sẽ chỉ được tính vào tháng tiếp theo';
+        }
         $apartment->services()->attach($data['service_id'],['qty'=> $data['qty'],'registration_time' => $date, 'comment' => 'Đăng ký tại quầy']);
-        return;
+        return $message;
     }
 
     public function deleteServices($service_id, $id)
@@ -134,7 +142,9 @@ class ApartmentService extends BaseService
         //noti
         $residents = Apartment::find($cost->apartment_id)->residents;
         foreach ($residents as $resident) {
-            optional($resident->user) == null ? : $resident->user->notify(new PaymentNotification($cost)); 
+            if (isset($resident->user)){
+                $resident->user->notify(new PaymentNotification($cost)); 
+            } 
         }
         $bqls = User::where('type', 1)->get();
         foreach ($bqls as $key => $bql) {

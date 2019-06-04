@@ -72,7 +72,8 @@ class ApartmentController extends Controller
     {
         $services = $this->sVService->getAll();
         $apartment = $this->service->get($id,['residents','services','apartment_services_cost']);
-        return view('apartments.show',compact('apartment','services'));
+        $service_use = $apartment->services->pluck(['id'])->toArray();
+        return view('apartments.show',compact('apartment','services','service_use'));
     }
 
     /**
@@ -116,13 +117,18 @@ class ApartmentController extends Controller
     // add services to apartment
     public function addServices(Request $request, $id)
     {
-        $this->service->addServices($request->only('service_id', 'qty'),$id);
-        return back()->with('success','Đã thêm dịch vụ');
+        $message = $this->service->addServices($request->only('service_id', 'qty'),$id);
+        return back()->with('success',$message);
     } 
     public function deleteServices(Request $request, $id)
     {
-        $this->service->deleteServices($request->only('service_id'),$id);
-        return back()->with('success','Hủy dịch vụ thành công');
+        $now = \Carbon\Carbon::now()->format('d');
+        if((int)($now) < 10) {
+            $this->service->deleteServices($request->only('service_id'),$id);
+            return back()->with('success','Hủy dịch vụ thành công');
+         }
+
+        return redirect()->back()->with('error', 'Chỉ được hủy dịch vụ trong 10 ngày đầu của tháng');
     } 
 
     public function getCostService($id, $month)
