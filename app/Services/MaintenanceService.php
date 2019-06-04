@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Models\Building;
+use App\Models\Device;
 use App\Models\Maintenance;
 use Illuminate\Http\Request;
 use App\Services\BaseService;
@@ -48,9 +50,12 @@ class MaintenanceService extends BaseService
     public function search($search)
     {
         $search = '%'.$search.'%';
+        $devices = Device::where('name', 'like', $search)->get()->pluck('id');
+
         $result = $this->model->where('description', 'like', $search)
                                 ->orWhere('time_start', 'like', $search)
                                 ->orWhere('time_end', 'like', $search)
+                                ->WhereIn('device_', $devices)
                                 ->orWhere('cost', 'like', $search);
         return $result->paginate(10);
     }
